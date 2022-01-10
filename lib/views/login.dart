@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/share/radius_button.dart';
 
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
@@ -37,7 +38,7 @@ class _LoginState extends State<Login> {
               ),
             )),
             const SizedBox(height: 50),
-            _buildRadiusButton("Se connecter", 
+            RadiusButton("Se connecter", 
                                () { Navigator.pushNamed(context, "/main"); }),
             const SizedBox(height:5),
             Container(
@@ -46,40 +47,10 @@ class _LoginState extends State<Login> {
               child : const Text("Vous n'avez pas de compte ?",
                                   style: TextStyle(fontSize: 14))),
             const SizedBox(height: 10),
-            _buildRadiusButton("S'inscrire", 
+            RadiusButton("S'inscrire", 
                                 () { Navigator.pushNamed(context, "/main"); })
         ],
       )
-    );
-  }
-
-  Widget _buildRadiusButton(text, action) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:30),
-      child: ElevatedButton(onPressed: action,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))
-          ),
-        ),
-        child: Container(
-          height: 45,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40)
-          ),
-          child: Center(
-            child: Text(text,
-                style: const TextStyle(color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'nunito',
-                    fontWeight: FontWeight.bold
-                )
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
