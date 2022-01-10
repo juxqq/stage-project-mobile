@@ -12,6 +12,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -37,7 +38,7 @@ class _LoginState extends State<Login> {
                 labelText: "Mot de passe"
               ),
             )),
-            const SizedBox(height: 50),
+            const SizedBox(height: 100),
             RadiusButton("Se connecter", 
                                () { Navigator.pushNamed(context, "/main"); }),
             const SizedBox(height:5),
@@ -48,7 +49,7 @@ class _LoginState extends State<Login> {
                                   style: TextStyle(fontSize: 14))),
             const SizedBox(height: 10),
             RadiusButton("S'inscrire", 
-                                () { Navigator.pushNamed(context, "/main"); })
+                                () { Navigator.pushNamed(context, "/signup"); })
         ],
       )
     );
