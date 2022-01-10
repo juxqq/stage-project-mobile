@@ -19,9 +19,9 @@ class BddController {
 }
 
 class BddConstants {
-  static const String host = '';
-  static const String user = 'root';
-  static const String password = '';
-  static const String db = 'pizzeria';
-  static const int port = 35955;
+  static const String host = '109.234.160.80';
+  static const String user = 'jqtp0357_stage_2022_01x02_epsi';
+  static const String password = 'stage_2022_01x02_epsi';
+  static const String db = 'jqtp0357_stage_2022_01x02_epsi';
+  static const int port = 25;
 }
