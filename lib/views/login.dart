@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
             )),
             const SizedBox(height: 100),
             RadiusButton("Se connecter", 
-                               () { Navigator.pushNamed(context, "/main"); }),
+                               () { Navigator.pushNamed(context, "/profile"); }),
             const SizedBox(height:5),
             Container(
               padding: const EdgeInsets.only(left: 40),
