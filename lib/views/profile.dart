@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> {
             margin: const EdgeInsets.symmetric(horizontal: 40),
             child: const TextField(
               decoration: InputDecoration(
-                  labelText: "prenom"
+                  labelText: "Prenom"
               ),
             ),
           ),
@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
             margin: const EdgeInsets.symmetric(horizontal: 40),
             child: const TextField(
               decoration: InputDecoration(
-                  labelText: "mail"
+                  labelText: "Email"
               ),
             ),
           ),
@@ -58,7 +58,7 @@ class _ProfileState extends State<Profile> {
             margin: const EdgeInsets.symmetric(horizontal: 40),
             child: const TextField(
               decoration: InputDecoration(
-                  labelText: "télephone"
+                  labelText: "Télephone"
               ),
             ),
           ),
