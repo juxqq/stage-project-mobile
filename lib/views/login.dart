@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/controller/user_controller.dart';
+import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/share/radius_button.dart';
 
 class Login extends StatefulWidget {
@@ -9,11 +11,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final UserController userController = UserController();
+
+  @override 
+  void initState() {
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
+      body: Form(key: _formKey,
+        child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Bienvenue !", style: TextStyle(
@@ -23,24 +37,38 @@ class _LoginState extends State<Login> {
           Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: const TextField(
-                decoration: InputDecoration(
-                  labelText: "Nom d'utilisateur / email"
+              child: TextFormField(
+                controller: mailController,
+                decoration: const InputDecoration(
+                  labelText: "Nom d'utilisateur / email",
+                  icon: Icon(Icons.mail)
                 ),
+                validator: (value) {
+                  return value!.validateEmail();
+                },
               ),
             ),
             const SizedBox(height: 50),
             Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: const TextField(
-              decoration: InputDecoration(
-                labelText: "Mot de passe"
+              child: TextFormField(
+                controller: passwordController,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.password),
+                labelText: "Mot de passe",
               ),
+              obscureText: true,
+              validator: (value) {
+                return value!.validatePassword();
+              }
             )),
-            const SizedBox(height: 100),
+            const SizedBox(height: 50),
             RadiusButton("Se connecter", 
-                               () { Navigator.pushNamed(context, "/profile"); }),
+
+                               () { if(_formKey.currentState!.validate()) { 
+                                 userController.connect(mailController.value.text, passwordController.value.text);
+                               }}),
             const SizedBox(height:5),
             Container(
               padding: const EdgeInsets.only(left: 40),
@@ -52,6 +80,6 @@ class _LoginState extends State<Login> {
                                 () { Navigator.pushNamed(context, "/signup"); })
         ],
       )
-    );
+    ));
   }
 }
