@@ -98,13 +98,9 @@ class _SignUpState extends State<SignUp> {
                   const SizedBox(height: 20),
                   Container(alignment: Alignment.centerLeft,
                       margin: const EdgeInsets.only(left: 40, right: 60,),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                        icon: Icon(Icons.assignment_ind),
-                        ),
-                      ),
-                      Row(
+                      child: Row(
                         children: [
+                          Icon(Icons.assignment_ind, color: Colors.grey),
                         const SizedBox(width: 20),
                         _buildDropButton()
                         ],
