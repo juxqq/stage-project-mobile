@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/controllers/bdd_controller.dart';
+import 'package:mobile_app/controller/user_controller.dart';
+import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/share/radius_button.dart';
 
 class Login extends StatefulWidget {
@@ -12,12 +13,13 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final UserController userController = UserController();
 
   @override 
   void initState() {
     super.initState();
-    BddController controller = new BddController();
-    controller.openConnection();
   }
   
   @override
@@ -36,16 +38,13 @@ class _LoginState extends State<Login> {
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
+                controller: mailController,
                 decoration: const InputDecoration(
                   labelText: "Nom d'utilisateur / email",
                   icon: Icon(Icons.mail)
                 ),
                 validator: (value) {
-                  if(value.toString().contains('@') == false) {
-                    return "Veuillez rentrer une adresse au format valide.";
-                  }
-                  
-                  return null;
+                  return value!.validateEmail();
                 },
               ),
             ),
@@ -54,22 +53,21 @@ class _LoginState extends State<Login> {
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
+                controller: passwordController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.password),
                 labelText: "Mot de passe",
               ),
               obscureText: true,
               validator: (value) {
-                if(value == null || value.isEmpty) {
-                  return "Veuillez remplir le champ";
-                }
-
-                return null;
+                return value!.validatePassword();
               }
             )),
             const SizedBox(height: 50),
             RadiusButton("Se connecter", 
-                               () { if(_formKey.currentState!.validate()) { Navigator.pushNamed(context, "/main"); } }),
+                               () { if(_formKey.currentState!.validate()) { 
+                                 userController.connect(mailController.value.text, passwordController.value.text);
+                               }}),
             const SizedBox(height:5),
             Container(
               padding: const EdgeInsets.only(left: 40),
