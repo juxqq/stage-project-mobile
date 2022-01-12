@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/share/bottom_navigation_bar.dart';
+import 'package:mobile_app/share/bottom_nav_bar.dart';
 import 'package:mobile_app/share/radius_button.dart';
 
 
@@ -66,7 +66,7 @@ class _ProfileState extends State<Profile> {
           RadiusButton("Confirmer les modifications", () {Navigator.pushNamed(context, "/main");}),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(0),
+      bottomNavigationBar: const AppBarWidget()
     );
   }
 }
