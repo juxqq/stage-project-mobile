@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/views/profile.dart';
 import 'views/login.dart';
 import 'views/signup.dart';
 
@@ -21,8 +22,10 @@ class MyApp extends StatelessWidget {
         routes: {
           '/main': (context) => const Login(),
           '/signup' : (context) => const SignUp(),
+          '/profile': (context) => const Profile(),
         },
         home: const Login()
+
     );
   }
 }

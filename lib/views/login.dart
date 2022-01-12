@@ -65,6 +65,7 @@ class _LoginState extends State<Login> {
             )),
             const SizedBox(height: 50),
             RadiusButton("Se connecter", 
+
                                () { if(_formKey.currentState!.validate()) { 
                                  userController.connect(mailController.value.text, passwordController.value.text);
                                }}),
