@@ -9,21 +9,11 @@ class AppBarWidget extends StatefulWidget {
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
-  int _selectedIndex = 0;
   PageController _pageController = PageController();
-
+  int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox.expand(
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _selectedIndex = index);
-          },
-        ),
-      ),
-        bottomNavigationBar: BottomNavyBar(
+    return BottomNavyBar(
           iconSize: 25,
           selectedIndex: _selectedIndex,
           onItemSelected: (index) {
@@ -52,7 +42,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 activeColor: Colors.cyan
             ),
           ],
-        )
+        
     );
   }
 }

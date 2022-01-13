@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/views/profile.dart';
 import 'views/login.dart';
 import 'views/signup.dart';
+import 'services/user_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,18 @@ class MyApp extends StatelessWidget {
           '/signup' : (context) => const SignUp(),
           '/profile': (context) => const Profile(),
         },
-        home: const Login()
+        home: FutureBuilder(
+          future: UserService.getToken(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasData) {
+              return const Profile();
+            } else {
+              return const Login();
+            }
+          },
+        ),
 
     );
   }

@@ -49,7 +49,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
   crypto: ^3.0.1
-  mysql1: ^0.19.2
+  flutter_session: ^0.1.1
   galileo_mysql: ^3.0.0
   http: ^0.13.3
 

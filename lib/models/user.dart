@@ -9,7 +9,7 @@ class User {
   User(this.id, this.name, this.firstName, this.phone, this.mail, this.password);
 
   User.fromJson(Map<String, dynamic> json):
-        id = int.parse(json['id']),
+        id = json['id'],
         name = json['name'],
         firstName = json['firstName'],
         phone = json['phoneNumber'],

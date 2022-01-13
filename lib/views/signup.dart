@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/user_service.dart';
@@ -25,15 +24,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final UserService userService = UserService();
-
-  String? validatePassword(String? value) {
-    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regex = RegExp(pattern);
-    if (value == null || value.isEmpty || !regex.hasMatch(value))
-      return 'Au moins 1 majuscule, 1 chiffre, 1 caractère spécial';
-    else
-      return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +88,8 @@ class _SignUpState extends State<SignUp> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(left: 40, right: 60,),
                     child: TextFormField(
-                      validator: (value) => value!.validatePhone(),
                       controller: passwordController,
+                      validator: (value) => value!.validatePassword(),
                       decoration:
                       InputDecoration(
                           labelText: "Mot de passe", icon: Icon(Icons.lock)),
@@ -118,12 +108,19 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   const SizedBox(height: 50),
-                  RadiusButton("S'inscrire", () {
-                    if (_formKey.currentState!.validate())
+                  RadiusButton("S'inscrire", () async {
+
+                    if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Inscription en cours...')),
                       );
+                      await userService.postUser(sha512.convert(utf8.encode(passwordController.text)).toString(), nameController.text, firstNameController.text, phoneController.text, mailController.text).then((value) {
+                        if(value == true) {
+                          Navigator.pushNamed(context, '/profile');
+                        }
+                    });
+                    }  
                   }),
                 ],
               ),

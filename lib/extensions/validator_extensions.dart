@@ -1,12 +1,15 @@
 extension ValidatorExtensions on String {
 
   String? validatePassword() {
-    if(isEmpty) {
-      return 'Veuillez remplir ce champ';
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regex = RegExp(pattern);
+    if (isEmpty || !regex.hasMatch(this)) {
+      return 'Au moins 1 majuscule, 1 chiffre, 1 caractère spécial';
+    } else {
+      return null;
     }
-
-    return null;
   }
+
 
   String? validateEmail() {
     String pattern =
