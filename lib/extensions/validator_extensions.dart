@@ -1,7 +1,10 @@
-extension ValidatorExtensions on String {
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
+extension ValidatorExtensions on String {
   String? validatePassword() {
-    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp regex = RegExp(pattern);
     if (isEmpty || !regex.hasMatch(this)) {
       return 'Au moins 1 majuscule, 1 chiffre, 1 caractère spécial';
@@ -10,6 +13,17 @@ extension ValidatorExtensions on String {
     }
   }
 
+  String hashPass() {
+    return sha512.convert(utf8.encode(this)).toString();
+  }
+
+  String? validateCode() {
+    if (isEmpty || length != 6) {
+      return 'Le code doit faire 6 chiffre.';
+    }
+
+    return null;
+  }
 
   String? validateEmail() {
     String pattern =
@@ -20,7 +34,7 @@ extension ValidatorExtensions on String {
 
     if (isEmpty || !regex.hasMatch(this)) {
       return 'Veuillez entrer un email valide';
-    } 
+    }
 
     return null;
   }
@@ -31,7 +45,7 @@ extension ValidatorExtensions on String {
 
     if (isEmpty || !regex.hasMatch(this)) {
       return 'Veuillez entrer un numéro valide';
-    } 
+    }
 
     return null;
   }
@@ -40,7 +54,7 @@ extension ValidatorExtensions on String {
     String pattern = '[a-zA-Z]';
     RegExp regex = RegExp(pattern);
 
-    if(!regex.hasMatch(this)) {
+    if (!regex.hasMatch(this)) {
       return 'Veuillez entrer un prénom valide';
     }
 
@@ -52,8 +66,8 @@ extension ValidatorExtensions on String {
     RegExp regex = RegExp(pattern);
     if (isEmpty || !regex.hasMatch(this)) {
       return 'Veuillez entrer un nom valide';
-    } 
-      
+    }
+
     return null;
   }
 }
