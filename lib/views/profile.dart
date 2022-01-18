@@ -101,9 +101,9 @@ class _ProfileState extends State<Profile> {
                   height: 20,
                 ),
                 RadiusButton("Se déconnecter", () {
-                  Navigator.pushNamed(context, "/reset");
-                  /*UserService.removeToken();
-                                               Navigator.pushNamed(context, "/main");*/
+                 // Navigator.pushNamed(context, "/reset");
+                  UserService.removeToken();
+                                               Navigator.pushNamed(context, "/main");
                 }, Colors.red),
                 const SizedBox(height: 10),
                 RadiusButton("Confirmer les modifications", () {

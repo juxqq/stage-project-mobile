@@ -102,6 +102,7 @@ class _SignUpState extends State<SignUp> {
                     margin: const EdgeInsets.only(left: 40, right: 60,),
                     child: TextFormField(
                       controller: phoneController,
+                      keyboardType: TextInputType.phone,
                       validator: (value) { return value!.validatePhone();},
                       decoration: const InputDecoration(
                           labelText: "Téléphone", icon: Icon(Icons.phone)),
@@ -115,9 +116,20 @@ class _SignUpState extends State<SignUp> {
                         const SnackBar(
                             content: Text('Inscription en cours...')),
                       );
-                      await userService.postUser(sha512.convert(utf8.encode(passwordController.text)).toString(), nameController.text, firstNameController.text, phoneController.text, mailController.text).then((value) {
+                      await userService.createUser(sha512.convert(utf8.encode(passwordController.text)).toString(), nameController.text, firstNameController.text, phoneController.text, mailController.text).then((value) {
                         if(value == true) {
-                          Navigator.pushNamed(context, '/profile');
+                          Navigator.pushNamed(context, '/main');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Inscription réussie ! Confirmer votre adresse mail.'),
+                              backgroundColor: Colors.green
+                            )
+                          );
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Inscription impossible ! Un compte utilise déjà cet adresse mail."), backgroundColor: Colors.red)
+                          );
                         }
                     });
                     }  

@@ -71,6 +71,14 @@ class _LoginState extends State<Login> {
                                   if(value == true) {
                                     Navigator.pushNamed(context, "/profile");
                                   }
+                                  else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Idenfiants incorrect ou compte non confirmer'),
+                                        backgroundColor: Colors.red,
+                                      )
+                                    );
+                                  }
                                 });
                                }}, Colors.lightBlue),
             const SizedBox(height:5),

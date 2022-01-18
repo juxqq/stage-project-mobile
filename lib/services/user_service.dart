@@ -46,8 +46,19 @@ class UserService {
     } finally {}
   }
 
-  Future<dynamic> postUser(password, name, firstName, phone, mail) async {
+  Future<dynamic> createUser(password, name, firstName, phone, mail) async {
     User? user;
+    // Vérification si utilisateur déjà existant
+    try {
+      await getUser("mail", mail).then((value) {
+        if (value != null && value.length != 0) {
+          return false;
+        }
+      });
+    }
+    catch(e) {
+      rethrow;
+    }
 
     try {
       final response = await http.post(Uri.parse('$uri/post.php'), body: {
@@ -57,6 +68,8 @@ class UserService {
         "mail": "$mail",
         "password": "$password"
       });
+
+      await http.post(Uri.parse('$uri/checkMail.php?mail=$mail')); // requete d'envoie mail confirmation
 
       if (response.statusCode == 200) {
         return true;

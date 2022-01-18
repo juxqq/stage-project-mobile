@@ -17,6 +17,10 @@ class UserController {
       return false;
     }
 
+    if(json[0]['confirmed'] == '0') {
+      return false;
+    }
+
     UserService.setToken(json[0]['token'], json[0]['refreshToken'], user);
     return true;
   }
