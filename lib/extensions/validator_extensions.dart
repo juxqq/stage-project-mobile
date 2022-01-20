@@ -70,4 +70,13 @@ extension ValidatorExtensions on String {
 
     return null;
   }
+
+  String? validateSiret() {
+    String pattern = '[0-9]';
+    RegExp regex = RegExp(pattern);
+    if (isEmpty || !regex.hasMatch(this) || length > 14) {
+      return 'Veuillez entrer un N° Siret valide';
+    }
+    return null;
+  }
 }

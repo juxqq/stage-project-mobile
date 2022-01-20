@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/views/profile.dart';
-import 'package:mobile_app/views/reset.dart';
-import 'views/login.dart';
-import 'views/signup.dart';
+import 'views/auth/profile.dart';
+import 'views/auth/reset.dart';
+import 'views/auth/login.dart';
+import 'views/auth/signup.dart';
 import 'services/user_service.dart';
 
 void main() {
