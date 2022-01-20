@@ -18,7 +18,6 @@ class _SignUpAssocState extends State<SignUpAssoc> {
   final TextEditingController presidentController = TextEditingController();
   final TextEditingController tresorierController = TextEditingController();
   final TextEditingController secretaireController = TextEditingController();
-  final TextEditingController nbMembreController = TextEditingController();
   final TextEditingController localisationController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController mailController = TextEditingController();
@@ -207,7 +206,7 @@ class _SignUpAssocState extends State<SignUpAssoc> {
                         presidentController.text,
                         tresorierController.text,
                         secretaireController.text,
-                        nbMembreController.text,
+                        dropdownValue,
                         localisationController.text,
                         descriptionController.text,
                         mailController.text,
