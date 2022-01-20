@@ -71,8 +71,16 @@ class _LoginState extends State<Login> {
                                   if(value == true) {
                                     Navigator.pushNamed(context, "/profile");
                                   }
+                                  else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Idenfiants incorrect ou compte non confirmer'),
+                                        backgroundColor: Colors.red,
+                                      )
+                                    );
+                                  }
                                 });
-                               }}),
+                               }}, Colors.lightBlue),
             const SizedBox(height:5),
             Container(
               padding: const EdgeInsets.only(left: 40),
@@ -81,7 +89,7 @@ class _LoginState extends State<Login> {
                                   style: TextStyle(fontSize: 14))),
             const SizedBox(height: 10),
             RadiusButton("S'inscrire", 
-                                () { Navigator.pushNamed(context, "/signup"); })
+                                () { Navigator.pushNamed(context, "/signup"); }, Colors.lightBlue)
         ],
       )
     ));
