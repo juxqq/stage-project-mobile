@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/views/assoc/signup_assoc.dart';
 import 'views/auth/profile.dart';
 import 'views/auth/reset.dart';
 import 'views/auth/login.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         '/main': (context) => const Login(),
         '/signup': (context) => const SignUp(),
         '/profile': (context) => const Profile(),
-        '/reset': (context) => const ResetPassword()
+        '/reset': (context) => const ResetPassword(),
+        '/signupAssoc': (context) => const SignUpAssoc(),
       },
       home: FutureBuilder(
         future: UserService.getToken(),

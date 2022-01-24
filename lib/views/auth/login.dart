@@ -89,7 +89,9 @@ class _LoginState extends State<Login> {
                                   style: TextStyle(fontSize: 14))),
             const SizedBox(height: 10),
             RadiusButton("S'inscrire", 
-                                () { Navigator.pushNamed(context, "/signup"); }, Colors.lightBlue)
+                                () { Navigator.pushNamed(context, "/signup"); }, Colors.lightBlue),
+          RadiusButton("vous êtes une association ?",
+                  () { Navigator.pushNamed(context, "/signupAssoc"); }, Colors.lightBlue)
         ],
       )
     ));

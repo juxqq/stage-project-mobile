@@ -188,7 +188,7 @@ class _SignUpAssocState extends State<SignUpAssoc> {
               child: TextFormField(
                 controller: siteWebController,
                 validator: (value) {
-                  return value!.validateEmail();
+                  return value!.validateLink();
                 },
                 decoration: InputDecoration(
                     labelText: "Site web", icon: Icon(Icons.add_link)),

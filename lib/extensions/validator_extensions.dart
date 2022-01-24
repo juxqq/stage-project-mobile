@@ -79,4 +79,18 @@ extension ValidatorExtensions on String {
     }
     return null;
   }
+
+  String? validateLink() {
+    String pattern =
+    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+    r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+    r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+
+    if (!regex.hasMatch(this)) {
+      return 'Veuillez entrer un Lien valide';
+    }
+
+    return null;
+  }
 }
