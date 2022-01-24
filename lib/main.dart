@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/views/profile.dart';
-import 'package:mobile_app/views/reset.dart';
-import 'views/login.dart';
-import 'views/signup.dart';
+import 'package:mobile_app/views/assoc/signup_assoc.dart';
+import 'views/auth/profile.dart';
+import 'views/auth/reset.dart';
+import 'views/auth/login.dart';
+import 'views/auth/signup.dart';
 import 'services/user_service.dart';
 
 void main() {
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         '/main': (context) => const Login(),
         '/signup': (context) => const SignUp(),
         '/profile': (context) => const Profile(),
-        '/reset': (context) => const ResetPassword()
+        '/reset': (context) => const ResetPassword(),
+        '/signupAssoc': (context) => const SignUpAssoc(),
       },
       home: FutureBuilder(
         future: UserService.getToken(),

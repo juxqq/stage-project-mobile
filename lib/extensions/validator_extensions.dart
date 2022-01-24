@@ -70,4 +70,27 @@ extension ValidatorExtensions on String {
 
     return null;
   }
+
+  String? validateSiret() {
+    String pattern = '[0-9]';
+    RegExp regex = RegExp(pattern);
+    if (isEmpty || !regex.hasMatch(this) || length > 14) {
+      return 'Veuillez entrer un N° Siret valide';
+    }
+    return null;
+  }
+
+  String? validateLink() {
+    String pattern =
+    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+    r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+    r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+
+    if (!regex.hasMatch(this)) {
+      return 'Veuillez entrer un Lien valide';
+    }
+
+    return null;
+  }
 }
