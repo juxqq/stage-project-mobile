@@ -53,6 +53,7 @@ dev_dependencies:
   galileo_mysql: ^3.0.0
   http: ^0.13.3
   flutter_email_sender: ^5.0.2
+  flutter_verification_code: ^1.1.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -64,6 +65,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/img/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

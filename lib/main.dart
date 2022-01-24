@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        '/main': (context) => const Login(),
+        '/main': (context) => const LoginPage(),
         '/signup': (context) => const SignUp(),
         '/profile': (context) => const Profile(),
         '/reset': (context) => const ResetPassword(),
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           } else if (snapshot.hasData) {
             return const Profile();
           } else {
-            return const Login();
+            return const LoginPage();
           }
         },
       ),
