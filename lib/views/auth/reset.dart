@@ -4,6 +4,7 @@ import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/share/radius_button.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:mobile_app/share/text_form.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   late int resetCode;
   User? user;
   bool? showCodeInput;
+  String? _code;
   String buttonText = "Envoyer le code";
 
   @override
@@ -30,13 +32,12 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Form(
           key: _formKey,
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -62,22 +63,19 @@ class _ResetPasswordState extends State<ResetPassword> {
                 const Text("Réinitialisation du mot de passe",
                     style: TextStyle(fontSize: 20)),
                 const SizedBox(height: 40),
-                VerificationCode(
-                  length: 4,
-                  textStyle: TextStyle(fontSize: 20, color: Colors.black),
-                  underlineColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  underlineUnfocusedColor: Colors.black,
-                  onCompleted: (value) {},
-                  onEditing: (value) {},
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 700),
+                  child: _otherWidget,
+                  transitionBuilder: (child, animation) =>
+                      ScaleTransition(scale: animation, child: child),
                 ),
-                showCodeInput == true
-                    ? _buildCodeInput()
-                    : const SizedBox(height: 40),
+                const SizedBox(
+                  height: 20,
+                ),
                 RadiusButton(buttonText, () {
                   if (_formKey.currentState!.validate()) {
                     if (showCodeInput == true) {
-                      if (resetCode == int.parse(codeController.text)) {
+                      if (resetCode == int.parse(_code!)) {
                         UserService.updateUser(
                                 user!.id,
                                 passwordController.text.hashPass(),
@@ -111,12 +109,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                             showCodeInput = true;
                             buttonText = "Valider le code";
                             user = User.fromJson(value);
+                            _otherWidget = _myWidget;
                           });
                         }
                       });
                     }
                   }
-                }, Colors.lightBlue),
+                }, Colors.black),
                 const SizedBox(
                   height: 30,
                 ),
@@ -124,18 +123,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Vous n'avez pas de compte ?",
+                      "Vous n'avez pas reçu le code ?",
                       style: TextStyle(
                           color: Colors.grey.shade600,
                           fontSize: 14.0,
                           fontWeight: FontWeight.w400),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed("/signup");
-                      },
+                      onPressed: () {},
                       child: const Text(
-                        "S'enregistrer",
+                        "Renvoyez",
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 14.0,
@@ -150,29 +147,35 @@ class _ResetPasswordState extends State<ResetPassword> {
         )));
   }
 
-  _buildCodeInput() {
-    return Container(
-      alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
-        children: [
-          TextFormField(
-            controller: passwordController,
-            validator: (value) => value!.validatePassword(),
-            obscureText: true,
-            decoration: const InputDecoration(
-                labelText: "Nouveau mot de passe", icon: Icon(Icons.lock)),
-          ),
-          const SizedBox(height: 20),
-          TextFormField(
-              keyboardType: TextInputType.number,
-              controller: codeController,
-              validator: (value) => value!.validateCode(),
-              decoration: const InputDecoration(
-                  labelText: "Code", icon: Icon(Icons.code))),
-          const SizedBox(height: 20)
-        ],
-      ),
-    );
-  }
+  late final Widget _myWidget = Column(children: [
+    TextForm(
+        passwordController,
+        'Nouveau mot de passe',
+        (value) => value!.validatePassword(),
+        Icons.lock,
+        true,
+        () {},
+        TextInputType.text),
+    VerificationCode(
+      textStyle: const TextStyle(fontSize: 20.0, color: Colors.black),
+      underlineColor: Colors.amber,
+      keyboardType: TextInputType.number,
+      length: 4,
+      onCompleted: (String value) {
+        setState(() {
+          _code = value;
+        });
+      },
+      onEditing: (bool value) {},
+    )
+  ]);
+
+  late Widget _otherWidget = TextForm(
+      loginController,
+      'E-mail',
+      (p0) => p0!.validateEmail(),
+      Icons.mail,
+      false,
+      () {},
+      TextInputType.emailAddress);
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobile_app/controller/user_controller.dart';
+import 'package:mobile_app/extensions/validator_extensions.dart';
+import 'package:mobile_app/share/text_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -44,81 +47,25 @@ class LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 40,
                 ),
-                TextField(
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(0.0),
-                    labelText: 'Email',
-                    hintText: 'e-mail',
-                    labelStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    hintStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14.0,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.mail,
-                      color: Colors.black,
-                      size: 18,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.grey.shade200, width: 2),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    floatingLabelStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.black, width: 1.5),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
+                TextForm(
+                    mailController,
+                    'E-mail',
+                    (value) => value!.validateEmail(),
+                    Icons.mail,
+                    false,
+                    () {},
+                    TextInputType.emailAddress),
                 const SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(0.0),
-                    labelText: 'Mot de passe',
-                    hintText: 'Mot de passe',
-                    hintStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14.0,
-                    ),
-                    labelStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                      size: 18,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.grey.shade200, width: 2),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    floatingLabelStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.black, width: 1.5),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
+                TextForm(
+                    passwordController,
+                    'Mot de passe',
+                    (value) => value!.validatePassword(),
+                    Icons.lock,
+                    true,
+                    () {},
+                    TextInputType.text),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

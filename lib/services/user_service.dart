@@ -55,8 +55,7 @@ class UserService {
           return false;
         }
       });
-    }
-    catch(e) {
+    } catch (e) {
       rethrow;
     }
 
@@ -69,7 +68,8 @@ class UserService {
         "password": "$password"
       });
 
-      await http.post(Uri.parse('$uri/checkMail.php?mail=$mail')); // requete d'envoie mail confirmation
+      await http.post(Uri.parse(
+          '$uri/checkMail.php?mail=$mail')); // requete d'envoie mail confirmation
 
       if (response.statusCode == 200) {
         return true;
@@ -90,12 +90,12 @@ class UserService {
     User user = User.fromJson(data[0]);
 
     try {
-      final response = await http.get(Uri.parse('$uri/mail.php'));
+      final response = await http.get(Uri.parse('$uri/mail.php?mail=$login'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
 
-        if (json['code'].toString().length == 6) {
+        if (json['code'].toString().length == 4) {
           return {
             'id': user.id,
             'name': user.name,

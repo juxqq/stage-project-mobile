@@ -11,11 +11,11 @@ class RadiusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: MaterialButton(
         onPressed: action,
         height: 45,
-        color: Colors.black,
+        color: color,
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontSize: 16.0),
