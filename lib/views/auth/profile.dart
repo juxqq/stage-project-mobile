@@ -4,6 +4,7 @@ import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/share/bottom_nav_bar.dart';
 import 'package:mobile_app/share/radius_button.dart';
+import 'package:mobile_app/share/text_form.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -48,63 +49,63 @@ class _ProfileState extends State<Profile> {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 180,
+                ),
                 const Text("Votre profil", style: TextStyle(fontSize: 40)),
                 //A modifier avec la requère SQL adapté
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextFormField(
-                    validator: (value) => value!.validateLastName(),
-                    controller: nameController,
-                    decoration: const InputDecoration(labelText: "Nom"),
-                  ),
+
+                const SizedBox(
+                  height: 50,
                 ),
+                TextForm(
+                  nameController,
+                  'Nom',
+                  (value) => value!.validateName(),
+                  Icons.person,
+                  false,
+                  () {},
+                  TextInputType.name),
                 //A modifier avec la requère SQL adapté
                 const SizedBox(
                   height: 70,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextFormField(
-                    validator: (value) => value!.validateName(),
-                    controller: firstNameController,
-                    decoration: const InputDecoration(labelText: "Prenom"),
-                  ),
-                ),
+                TextForm(
+                    firstNameController,
+                    'Prenom',
+                    (value) => value!.validateName(),
+                    Icons.person,
+                    false,
+                    () {},
+                    TextInputType.name),
                 //A modifier avec la requère SQL adapté
                 const SizedBox(
                   height: 70,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextFormField(
-                    validator: (value) => value!.validateEmail(),
-                    controller: mailController,
-                    decoration: const InputDecoration(labelText: "Email"),
-                  ),
-                ),
+                TextForm(
+                    mailController,
+                    'adresse email',
+                    (value) => value!.validateEmail(),
+                    Icons.alternate_email_sharp,
+                    false,
+                    () {},
+                    TextInputType.emailAddress),
                 const SizedBox(
                   height: 70,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextFormField(
-                    validator: (value) => value!.validatePhone(),
-                    controller: phoneController,
-                    decoration: const InputDecoration(labelText: "Télephone"),
-                  ),
-                ),
+                //Box pour le telephone
+                TextForm(
+                    phoneController,
+                    'Telephone',
+                    (value) => value!.validatePhone(),
+                    Icons.add_call,
+                    false,
+                    () {},
+                    TextInputType.phone),
                 const SizedBox(
                   height: 20,
                 ),
-                RadiusButton("Se déconnecter", () {
-                 // Navigator.pushNamed(context, "/reset");
-                  UserService.removeToken();
-                                               Navigator.pushNamed(context, "/main");
-                }, Colors.red),
+
                 const SizedBox(height: 10),
                 RadiusButton("Confirmer les modifications", () {
                   if (_formKey.currentState!.validate()) {
@@ -121,7 +122,9 @@ class _ProfileState extends State<Profile> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content:
-                                            Text('Modification réussie !')),
+                                            Text('Modification réussie !'),
+                                        backgroundColor: Colors.green),
+
                                   )
                                 }
                               else
@@ -135,7 +138,15 @@ class _ProfileState extends State<Profile> {
                                 }
                             });
                   }
-                }, Colors.lightBlue),
+                }, Colors.black),
+                const SizedBox(
+                  height: 20,
+                ),
+                RadiusButton("Se déconnecter", () {
+                  // Navigator.pushNamed(context, "/reset");
+                  UserService.removeToken();
+                  Navigator.pushNamed(context, "/main");
+                }, Colors.red),
               ],
             ))),
         bottomNavigationBar: const AppBarWidget());

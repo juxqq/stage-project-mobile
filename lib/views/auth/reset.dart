@@ -88,7 +88,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text(
-                                      'Mot de passe modifier avec succès.'),
+                                      'Mot de passe modifié avec succès.'),
                                   backgroundColor: Colors.green),
                             );
                             Navigator.pushNamed(context, '/main');
