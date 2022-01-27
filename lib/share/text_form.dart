@@ -11,7 +11,7 @@ class TextForm extends StatelessWidget {
 
   const TextForm(this.controller, this.text, this.validator, this.icon,
       this.obscureText, this.onTap, this.input,
-      {Key? key})
+      {Key? key, maxLines})
       : super(key: key);
 
   @override

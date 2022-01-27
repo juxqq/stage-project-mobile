@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/share/dropdown_list.dart';

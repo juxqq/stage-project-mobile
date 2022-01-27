@@ -145,6 +145,30 @@ class LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Vous êtes une association ?",
+                      style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed("/signupAssoc");
+                      },
+                      child: const Text(
+                        "S'inscrire",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
           ),
