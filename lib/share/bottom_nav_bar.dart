@@ -37,8 +37,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 activeColor: Colors.cyan
             ),
             BottomNavyBarItem(
-                icon: Icon(Icons.account_circle_outlined),
-                title: Text('Profil'),
+                icon: Icon(Icons.app_settings_alt_rounded),
+                title: Text('Paramètres'),
                 activeColor: Colors.cyan
             ),
           ],

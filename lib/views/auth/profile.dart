@@ -147,6 +147,10 @@ class _ProfileState extends State<Profile> {
                   UserService.removeToken();
                   Navigator.pushNamed(context, "/main");
                 }, Colors.red),
+                RadiusButton("test", () {
+                  // Navigator.pushNamed(context, "/reset");
+                  Navigator.pushNamed(context, "/settings");
+                }, Colors.white),
               ],
             ))),
         bottomNavigationBar: const AppBarWidget());
