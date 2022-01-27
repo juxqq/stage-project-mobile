@@ -46,7 +46,7 @@ class _ProfileState extends State<Profile> {
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(
-                child: Column(
+                child: Padding(padding: EdgeInsets.symmetric(horizontal: 20), child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
@@ -142,17 +142,13 @@ class _ProfileState extends State<Profile> {
                 const SizedBox(
                   height: 20,
                 ),
-                RadiusButton("Se déconnecter", () {
-                  // Navigator.pushNamed(context, "/reset");
-                  UserService.removeToken();
-                  Navigator.pushNamed(context, "/main");
-                }, Colors.red),
+
                 RadiusButton("test", () {
                   // Navigator.pushNamed(context, "/reset");
                   Navigator.pushNamed(context, "/settings");
                 }, Colors.white),
               ],
-            ))),
+            )))),
         bottomNavigationBar: const AppBarWidget());
   }
 }
