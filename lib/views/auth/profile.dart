@@ -43,15 +43,12 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Form(
+        body: SafeArea(child: Form(
             key: _formKey,
             child: SingleChildScrollView(
                 child: Padding(padding: EdgeInsets.symmetric(horizontal: 20), child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 180,
-                ),
                 const Text("Votre profil", style: TextStyle(fontSize: 40)),
                 //A modifier avec la requère SQL adapté
 
@@ -148,7 +145,7 @@ class _ProfileState extends State<Profile> {
                   Navigator.pushNamed(context, "/settings");
                 }, Colors.white),
               ],
-            )))),
+            ))))),
         bottomNavigationBar: const AppBarWidget());
   }
 }
