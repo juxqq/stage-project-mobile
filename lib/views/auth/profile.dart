@@ -44,7 +44,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Form(
+        body: SafeArea(child: Form(
             key: _formKey,
             child: SafeArea(
                 child: SingleChildScrollView(
@@ -53,9 +53,7 @@ class _ProfileState extends State<Profile> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Edition de profil",
-                                style: TextStyle(fontSize: 40)),
-                            //A modifier avec la requère SQL adapté
+                const Text("Votre profil", style: TextStyle(fontSize: 40)),
 
                             const SizedBox(
                               height: 50,
