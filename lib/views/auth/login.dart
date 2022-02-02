@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_app/controller/user_controller.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final TextEditingController mailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final UserController userController = UserController();
   final GlobalKey<FormState> _key = GlobalKey();
 
   @override
@@ -33,19 +33,10 @@ class LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(
                   height: 250,
-                  child: Stack(children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child:
-                          Image.asset('assets/img/fond-arbre.png', height: 400),
-                    )
-                  ]),
+                  child: Image.asset('assets/img/arbre.png'),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 TextForm(
                     mailController,
@@ -89,19 +80,16 @@ class LoginPageState extends State<LoginPage> {
                 MaterialButton(
                   onPressed: () {
                     if (_key.currentState!.validate()) {
-                      userController
-                          .connect(mailController.value.text,
+                      UserController.connect(mailController.value.text,
                               passwordController.value.text)
                           .then((value) {
                         if (value == true) {
-                          Navigator.pushNamed(context, "/profile");
+                          Navigator.pushNamed(context, "/settings");
                         } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text(
-                                'Idenfiants incorrect ou compte non confirmer'),
-                            backgroundColor: Colors.red,
-                          ));
+                          showSnackBar(
+                              context,
+                              'Identifiants incorrect ou compte non confirmer',
+                              Colors.red);
                         }
                       });
                     }
@@ -144,31 +132,7 @@ class LoginPageState extends State<LoginPage> {
                       ),
                     )
                   ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Vous êtes une association ?",
-                      style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed("/signupAssoc");
-                      },
-                      child: const Text(
-                        "S'inscrire",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    )
-                  ],
-                ),
+                )
               ],
             ),
           ),

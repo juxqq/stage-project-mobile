@@ -5,6 +5,7 @@ import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/share/radius_button.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -20,14 +21,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   final TextEditingController passwordController = TextEditingController();
   late int resetCode;
   User? user;
-  bool? showCodeInput;
+  bool? reset;
   String? _code;
   String buttonText = "Envoyer le code";
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +42,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 SizedBox(
                   height: 250,
-                  child: Stack(children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Image.asset('assets/img/mail_validate.png',
-                          height: 400),
-                    )
-                  ]),
+                  child: Image.asset('assets/img/mail_validate.png'),
                 ),
                 const SizedBox(
                   height: 40,
@@ -74,43 +61,39 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 RadiusButton(buttonText, () {
                   if (_formKey.currentState!.validate()) {
-                    if (showCodeInput == true) {
+                    if (reset == true) {
                       if (resetCode == int.parse(_code!)) {
-                        UserService.updateUser(
-                                user!.id,
-                                passwordController.text.hashPass(),
-                                user!.name,
-                                user!.firstName,
-                                user!.phone,
-                                user!.mail)
-                            .then((value) {
+                        UserService.updateUser(user!.id, {
+                          'password': passwordController.text.hashPass()
+                        }).then((value) {
                           if (value == true) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Mot de passe modifié avec succès.'),
-                                  backgroundColor: Colors.green),
-                            );
+                            showSnackBar(
+                                context,
+                                'Mot de passe modifié avec succès.',
+                                Colors.green);
                             Navigator.pushNamed(context, '/main');
                           }
                         });
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Le code est incorrect'),
-                                backgroundColor: Colors.red));
+                        showSnackBar(
+                            context, 'Le code est incorrect', Colors.red);
                       }
                     } else {
                       UserService.resetPassword(loginController.text)
                           .then((value) {
-                        if (value['code'].toString().isNotEmpty) {
+                        if (value['response'] == true) {
                           setState(() {
                             resetCode = value['code'];
-                            showCodeInput = true;
+                            reset = true;
                             buttonText = "Valider le code";
                             user = User.fromJson(value);
                             _otherWidget = _myWidget;
                           });
+                        } else {
+                          showSnackBar(
+                              context,
+                              "Erreur lors de l'envoie du code. Réessayez plus tard.",
+                              Colors.red);
                         }
                       });
                     }

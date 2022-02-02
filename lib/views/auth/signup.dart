@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/services/user_service.dart';
+import 'package:mobile_app/controller/user_controller.dart';
 import 'package:mobile_app/share/dropdown_list.dart';
 import 'package:mobile_app/share/radius_button.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:drop_down_list/drop_down_list.dart';
 import 'package:mobile_app/share/text_form.dart';
-import 'package:crypto/crypto.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -26,7 +25,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController genreController = TextEditingController();
-  final UserService userService = UserService();
 
   @override
   void initState() {
@@ -41,26 +39,17 @@ class _SignUpState extends State<SignUp> {
         backgroundColor: Colors.white,
         body: SafeArea(
             child: Form(
-                autovalidateMode: AutovalidateMode.always,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 key: _formKey,
                 child: SingleChildScrollView(
                     child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         height: 250,
-                        child: Stack(children: [
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            child: Image.asset('assets/img/creatingprofile.png',
-                                height: 400),
-                          )
-                        ]),
+                        child: Image.asset('assets/img/creatingprofile.png'),
                       ),
                       const Text("Inscription", style: TextStyle(fontSize: 25)),
                       const SizedBox(height: 25),
@@ -83,10 +72,12 @@ class _SignUpState extends State<SignUp> {
   }
 
   late Widget initialButton = RadiusButton("Suivant", () {
-    setState(() {
-      signupWidget = finalSignup;
-      buttonWidget = finalButton;
-    });
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        signupWidget = finalSignup;
+        buttonWidget = finalButton;
+      });
+    }
   }, Colors.black);
 
   late Widget finalButton = Row(
@@ -99,32 +90,14 @@ class _SignUpState extends State<SignUp> {
       }, Colors.black),
       RadiusButton("S'inscrire", () async {
         if (_formKey.currentState!.validate()) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Inscription en cours...')),
-          );
-          await userService
-              .createUser(
-                  sha512
-                      .convert(utf8.encode(passwordController.text))
-                      .toString(),
-                  nameController.text,
-                  firstNameController.text,
-                  phoneController.text,
-                  mailController.text)
-              .then((value) {
-            if (value == true) {
-              Navigator.pushNamed(context, '/main');
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text(
-                      'Inscription réussie ! Confirmer votre adresse mail.'),
-                  backgroundColor: Colors.green));
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text(
-                      "Inscription impossible ! Un compte utilise déjà cet adresse mail."),
-                  backgroundColor: Colors.red));
-            }
-          });
+          showSnackBar(context, 'Inscription en cours...', Colors.grey);
+          UserController.register(
+              passwordController.text,
+              nameController.text,
+              firstNameController.text,
+              phoneController.text,
+              mailController.text,
+              context);
         }
       }, Colors.black)
     ],
@@ -138,14 +111,14 @@ class _SignUpState extends State<SignUp> {
         Icons.assignment, false, () {}, TextInputType.text),
     const SizedBox(height: 20),
     AppTextField(
-      textEditingController: genreController,
-      isCitySelected: true,
-      cities: [
-        SelectedListItem(false, 'Homme'),
-        SelectedListItem(false, 'Femme'),
-        SelectedListItem(false, 'Autre'),
-      ],
-    )
+        textEditingController: genreController,
+        isCitySelected: true,
+        cities: [
+          SelectedListItem(false, 'Homme'),
+          SelectedListItem(false, 'Femme'),
+          SelectedListItem(false, 'Autre'),
+        ],
+        text: 'Genre')
   ]);
 
   late Widget finalSignup = Column(children: [

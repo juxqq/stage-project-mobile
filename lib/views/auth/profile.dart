@@ -5,6 +5,7 @@ import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/share/bottom_nav_bar.dart';
 import 'package:mobile_app/share/radius_button.dart';
 import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -45,110 +46,100 @@ class _ProfileState extends State<Profile> {
         resizeToAvoidBottomInset: false,
         body: Form(
             key: _formKey,
-            child: SingleChildScrollView(
-                child: Padding(padding: EdgeInsets.symmetric(horizontal: 20), child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 180,
-                ),
-                const Text("Votre profil", style: TextStyle(fontSize: 40)),
-                //A modifier avec la requère SQL adapté
+            child: SafeArea(
+                child: SingleChildScrollView(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Edition de profil",
+                                style: TextStyle(fontSize: 40)),
+                            //A modifier avec la requère SQL adapté
 
-                const SizedBox(
-                  height: 50,
-                ),
-                TextForm(
-                  nameController,
-                  'Nom',
-                  (value) => value!.validateName(),
-                  Icons.person,
-                  false,
-                  () {},
-                  TextInputType.name),
-                //A modifier avec la requère SQL adapté
-                const SizedBox(
-                  height: 70,
-                ),
-                TextForm(
-                    firstNameController,
-                    'Prenom',
-                    (value) => value!.validateName(),
-                    Icons.person,
-                    false,
-                    () {},
-                    TextInputType.name),
-                //A modifier avec la requère SQL adapté
-                const SizedBox(
-                  height: 70,
-                ),
-                TextForm(
-                    mailController,
-                    'adresse email',
-                    (value) => value!.validateEmail(),
-                    Icons.alternate_email_sharp,
-                    false,
-                    () {},
-                    TextInputType.emailAddress),
-                const SizedBox(
-                  height: 70,
-                ),
-                //Box pour le telephone
-                TextForm(
-                    phoneController,
-                    'Telephone',
-                    (value) => value!.validatePhone(),
-                    Icons.add_call,
-                    false,
-                    () {},
-                    TextInputType.phone),
-                const SizedBox(
-                  height: 20,
-                ),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            TextForm(
+                                nameController,
+                                'Nom',
+                                (value) => value!.validateName(),
+                                Icons.person,
+                                false,
+                                () {},
+                                TextInputType.name),
+                            //A modifier avec la requère SQL adapté
+                            const SizedBox(
+                              height: 70,
+                            ),
+                            TextForm(
+                                firstNameController,
+                                'Prenom',
+                                (value) => value!.validateName(),
+                                Icons.person,
+                                false,
+                                () {},
+                                TextInputType.name),
+                            //A modifier avec la requère SQL adapté
+                            const SizedBox(
+                              height: 70,
+                            ),
+                            TextForm(
+                                mailController,
+                                'adresse email',
+                                (value) => value!.validateEmail(),
+                                Icons.alternate_email_sharp,
+                                false,
+                                () {},
+                                TextInputType.emailAddress),
+                            const SizedBox(
+                              height: 70,
+                            ),
+                            //Box pour le telephone
+                            TextForm(
+                                phoneController,
+                                'Telephone',
+                                (value) => value!.validatePhone(),
+                                Icons.add_call,
+                                false,
+                                () {},
+                                TextInputType.phone),
+                            const SizedBox(
+                              height: 20,
+                            ),
 
-                const SizedBox(height: 10),
-                RadiusButton("Confirmer les modifications", () {
-                  if (_formKey.currentState!.validate()) {
-                    UserService.updateUser(
-                            user.id,
-                            user.password,
-                            nameController.text,
-                            firstNameController.text,
-                            phoneController.text,
-                            mailController.text)
-                        .then((value) => {
-                              if (value == true)
-                                {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Modification réussie !'),
-                                        backgroundColor: Colors.green),
-
-                                  )
-                                }
-                              else
-                                {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'Modifications impossible pour le moment.'),
-                                        backgroundColor: Colors.red),
-                                  )
-                                }
-                            });
-                  }
-                }, Colors.black),
-                const SizedBox(
-                  height: 20,
-                ),
-
-                RadiusButton("test", () {
-                  // Navigator.pushNamed(context, "/reset");
-                  Navigator.pushNamed(context, "/settings");
-                }, Colors.white),
-              ],
-            )))),
+                            const SizedBox(height: 10),
+                            RadiusButton("Confirmer les modifications", () {
+                              if (_formKey.currentState!.validate()) {
+                                UserService.updateUser(user.id, {
+                                  "name": nameController.text,
+                                  "firstName": firstNameController.text,
+                                  "phone": phoneController.text,
+                                  "mail": mailController.text,
+                                  "password": user.password
+                                }).then((value) => {
+                                      if (value == true)
+                                        {
+                                          showSnackBar(
+                                              context,
+                                              'Modification réussie !',
+                                              Colors.green)
+                                        }
+                                      else
+                                        {
+                                          showSnackBar(
+                                              context,
+                                              'Modifications impossible pour le moment.',
+                                              Colors.red)
+                                        }
+                                    });
+                              }
+                            }, Colors.black),
+                            const SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ))))),
         bottomNavigationBar: const AppBarWidget());
   }
 }

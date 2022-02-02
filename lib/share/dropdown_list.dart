@@ -6,10 +6,12 @@ class AppTextField extends StatefulWidget {
   TextEditingController textEditingController = TextEditingController();
   final bool isCitySelected;
   final List<SelectedListItem>? cities;
+  final String text;
   AppTextField({
     required this.textEditingController,
     required this.isCitySelected,
     this.cities,
+    required this.text,
     Key? key,
   }) : super(key: key);
 
@@ -26,7 +28,7 @@ class _AppTextFieldState extends State<AppTextField> {
       DropDown(
         submitButtonText: 'Done',
         submitButtonColor: const Color.fromRGBO(70, 76, 222, 1),
-        bottomSheetTitle: 'Genre',
+        bottomSheetTitle: widget.text,
         searchBackgroundColor: Colors.black12,
         dataList: widget.cities ?? [],
         selectedItems: (List<dynamic> selectedList) {},
@@ -41,7 +43,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextForm(widget.textEditingController, 'Genre', (value) {},
+    return TextForm(widget.textEditingController, widget.text, (value) {},
         Icons.assignment_ind, false, () {
       FocusScope.of(context).unfocus();
       onTextFieldTap();
