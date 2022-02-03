@@ -6,3 +6,10 @@ showSnackBar(context, text, color) {
     backgroundColor: color,
   ));
 }
+
+List buttons = [
+  {"name": "Mon profil", "icon": Icons.assignment_ind},
+  {"name": "Enregistrer une association", "icon": Icons.assignment},
+  {"name": "Conditions générales", "icon": Icons.rule},
+  {"name": "Se déconnecter", "icon": Icons.logout},
+];
