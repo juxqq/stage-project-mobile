@@ -13,3 +13,5 @@ List buttons = [
   {"name": "Conditions générales", "icon": Icons.rule},
   {"name": "Se déconnecter", "icon": Icons.logout},
 ];
+
+const String uriApi = 'https://www.dorian-roulet.com/stage_2022_01x02_epsi';

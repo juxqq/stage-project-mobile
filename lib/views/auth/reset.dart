@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/user_service.dart';
-import 'package:mobile_app/share/radius_button.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:mobile_app/share/text_form.dart';
 import 'package:mobile_app/utils/utils.dart';
+import 'package:mobile_app/widgets/radius_button.dart';
+import 'package:mobile_app/widgets/text_form.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);

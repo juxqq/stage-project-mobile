@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/services/user_service.dart';
-import 'package:mobile_app/share/radius_button.dart';
-import 'package:mobile_app/share/settings_button.dart';
+import 'package:mobile_app/widgets/radius_button.dart';
 
 class AcceuilProfil extends StatefulWidget {
   const AcceuilProfil({Key? key}) : super(key: key);
 
   String? get title => null;
-
-
 
   @override
   _AcceuilProfilState createState() => _AcceuilProfilState();
@@ -23,8 +20,6 @@ class _AcceuilProfilState extends State<AcceuilProfil> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Form(
@@ -63,5 +58,4 @@ class _AcceuilProfilState extends State<AcceuilProfil> {
           ),
         ));
   }
-
 }

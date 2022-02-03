@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/user_service.dart';
-import 'package:mobile_app/share/bottom_nav_bar.dart';
-import 'package:mobile_app/share/radius_button.dart';
-import 'package:mobile_app/share/text_form.dart';
 import 'package:mobile_app/utils/utils.dart';
+import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
