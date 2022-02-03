@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class RadiusButton extends StatelessWidget {
+class SettingsButton extends StatelessWidget {
   final Function() action;
   final String text;
   final Color color;
 
-  const RadiusButton(this.text, this.action, this.color, {Key? key})
+  const SettingsButton(this.text, this.action, this.color, {Key? key})
       : super(key: key);
 
   @override
@@ -16,6 +16,7 @@ class RadiusButton extends StatelessWidget {
         onPressed: action,
         height: 45,
         color: color,
+        minWidth: 100,
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontSize: 16.0),

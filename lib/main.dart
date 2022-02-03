@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/views/assoc/signup_assoc.dart';
+import 'package:mobile_app/views/auth/settings.dart';
 import 'views/auth/profile.dart';
 import 'views/auth/reset.dart';
 import 'views/auth/login.dart';
@@ -23,11 +24,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        '/main': (context) => const Login(),
+        '/main': (context) => const LoginPage(),
         '/signup': (context) => const SignUp(),
         '/profile': (context) => const Profile(),
         '/reset': (context) => const ResetPassword(),
         '/signupAssoc': (context) => const SignUpAssoc(),
+        '/settings': (context) => const AcceuilProfil()
       },
       home: FutureBuilder(
         future: UserService.getToken(),
@@ -35,9 +37,9 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            return const Profile();
+            return const AcceuilProfil();
           } else {
-            return const Login();
+            return const LoginPage();
           }
         },
       ),

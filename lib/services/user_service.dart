@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:flutter/material.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:http/http.dart' as http;
 // ignore: import_of_legacy_library_into_null_safe
@@ -12,52 +10,51 @@ class UserService {
   static final session = FlutterSession();
 
   static Future<dynamic> getUser(param, value) async {
+    var json = <String, dynamic>{'response': false};
+
     try {
       final response =
           await http.get(Uri.parse('$uri/login.php?$param=$value'));
 
       if (response.statusCode == 200) {
-        var json = jsonDecode(utf8.decode(response.bodyBytes));
+        json = jsonDecode(utf8.decode(response.bodyBytes))[0];
 
-        if (json.length > 0) {
-          json[0]['id'] = int.parse(json[0]['id']);
+        if (json.length > 1) {
+          json['id'] = int.parse(json[0]['id']);
+          json['response'] = true;
           return json;
         }
       }
-    } catch (e) {
-      rethrow;
+    } catch (identifier) {
+      return json;
     }
   }
 
-  static Future<dynamic> updateUser(
-      id, password, name, firstName, phone, mail) async {
+  static Future<dynamic> updateUser(id, body) async {
     try {
-      final response = await http.put(Uri.parse('$uri/put.php?id=$id'), body: {
-        "name": name,
-        "firstName": firstName,
-        "phone": phone,
-        "mail": mail,
-        "password": password
-      });
+      final response =
+          await http.put(Uri.parse('$uri/put.php?id=$id'), body: body);
 
-      if (response.statusCode == 200) {
-        return true;
+      if (response.statusCode != 200) {
+        return false;
       }
-    } finally {}
+    } catch (identifier) {
+      return false;
+    }
+
+    return true;
   }
 
-  Future<dynamic> createUser(password, name, firstName, phone, mail) async {
-    User? user;
-    // Vérification si utilisateur déjà existant
+  static Future<dynamic> createUser(
+      password, name, firstName, phone, mail) async {
     try {
       await getUser("mail", mail).then((value) {
-        if (value != null && value.length != 0) {
+        if (value['response'] == true) {
           return false;
         }
       });
-    }
-    catch(e) {
-      rethrow;
+    } catch (e) {
+      return false;
     }
 
     try {
@@ -69,33 +66,36 @@ class UserService {
         "password": "$password"
       });
 
-      await http.post(Uri.parse('$uri/checkMail.php?mail=$mail')); // requete d'envoie mail confirmation
+      await http.post(Uri.parse(
+          '$uri/checkMail.php?mail=$mail')); // requete d'envoie mail confirmation
 
-      if (response.statusCode == 200) {
-        return true;
+      if (response.statusCode != 200) {
+        return false;
       }
     } catch (e) {
-      rethrow;
+      return false;
     }
 
-    return user;
+    return true;
   }
 
   static Future<dynamic> resetPassword(login) async {
+    var json = <String, dynamic>{'response': false};
     var data = await getUser("mail", login);
 
-    if (data.length == 0) {
-      return null;
+    if (data['response'] == false) {
+      return json;
     }
+
     User user = User.fromJson(data[0]);
 
     try {
-      final response = await http.get(Uri.parse('$uri/mail.php'));
+      final response = await http.get(Uri.parse('$uri/mail.php?mail=$login'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
 
-        if (json['code'].toString().length == 6) {
+        if (json['code'].toString().length == 4) {
           return {
             'id': user.id,
             'name': user.name,
@@ -103,11 +103,14 @@ class UserService {
             'phoneNumber': user.phone,
             'mail': user.mail,
             'password': user.password,
-            'code': json['code']
+            'code': json['code'],
+            'response': true
           };
         }
       }
-    } finally {}
+    } catch (exception) {
+      return json;
+    }
   }
 
   static setToken(String token, String refreshToken, User? user) async {
@@ -116,17 +119,12 @@ class UserService {
     await session.set('user', user);
   }
 
-  static Future<Map<String, dynamic>> getToken() async {
-    return await session.get('tokens');
-  }
+  static Future<Map<String, dynamic>> getToken() async =>
+      await session.get('tokens');
 
-  static Future<dynamic> getUserId() async {
-    return await session.get('user');
-  }
+  static Future<dynamic> getUserId() async => await session.get('user');
 
-  static removeToken() async {
-    await session.prefs.clear();
-  }
+  static removeToken() async => await session.prefs.clear();
 }
 
 class _AuthData {

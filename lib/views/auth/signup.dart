@@ -1,9 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/services/user_service.dart';
+import 'package:mobile_app/controller/user_controller.dart';
+import 'package:mobile_app/share/dropdown_list.dart';
 import 'package:mobile_app/share/radius_button.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
-import 'package:crypto/crypto.dart';
+import 'package:drop_down_list/drop_down_list.dart';
+import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -13,182 +15,126 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  late Widget signupWidget;
+  late Widget buttonWidget;
   final _formKey = GlobalKey<FormState>();
-  String dropdownValue = 'M';
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController mailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final UserService userService = UserService();
+  final TextEditingController genreController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    signupWidget = initialSignup;
+    buttonWidget = initialButton;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Form(
-            autovalidateMode: AutovalidateMode.always,
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Inscription", style: TextStyle(fontSize: 25)),
-                  const SizedBox(height: 25),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      left: 40,
-                      right: 60,
-                    ),
-                    child: TextFormField(
-                      controller: nameController,
-                      validator: (value) {
-                        return value!.validateName();
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Prénom",
-                          icon: Icon(Icons.assignment_ind)),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      left: 40,
-                      right: 60,
-                    ),
-                    child: TextFormField(
-                      controller: firstNameController,
-                      validator: (value) {
-                        return value!.validateLastName();
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Nom", icon: Icon(Icons.assignment_ind)),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(
-                        left: 40,
-                        right: 60,
+        backgroundColor: Colors.white,
+        body: SafeArea(
+            child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: _formKey,
+                child: SingleChildScrollView(
+                    child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 250,
+                        child: Image.asset('assets/img/creatingprofile.png'),
                       ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.assignment_ind, color: Colors.grey),
-                          const SizedBox(width: 20),
-                          _buildDropButton()
-                        ],
-                      )),
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      left: 40,
-                      right: 60,
-                    ),
-                    child: TextFormField(
-                      controller: mailController,
-                      validator: (value) {
-                        return value!.validateEmail();
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Email", icon: Icon(Icons.mail)),
-                    ),
+                      const Text("Inscription", style: TextStyle(fontSize: 25)),
+                      const SizedBox(height: 25),
+                      AnimatedSwitcher(
+                        duration: const Duration(seconds: 1),
+                        child: signupWidget,
+                        transitionBuilder: (child, animation) =>
+                            ScaleTransition(scale: animation, child: child),
+                      ),
+                      const SizedBox(height: 25),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 400),
+                        child: buttonWidget,
+                        transitionBuilder: (child, animation) =>
+                            ScaleTransition(scale: animation, child: child),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      left: 40,
-                      right: 60,
-                    ),
-                    child: TextFormField(
-                      controller: passwordController,
-                      validator: (value) => value!.validatePassword(),
-                      decoration: InputDecoration(
-                          labelText: "Mot de passe", icon: Icon(Icons.lock)),
-                      obscureText: true,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      left: 40,
-                      right: 60,
-                    ),
-                    child: TextFormField(
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      validator: (value) {
-                        return value!.validatePhone();
-                      },
-                      decoration: const InputDecoration(
-                          labelText: "Téléphone", icon: Icon(Icons.phone)),
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  RadiusButton("S'inscrire", () async {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Inscription en cours...')),
-                      );
-                      await userService
-                          .createUser(
-                              sha512
-                                  .convert(utf8.encode(passwordController.text))
-                                  .toString(),
-                              nameController.text,
-                              firstNameController.text,
-                              phoneController.text,
-                              mailController.text)
-                          .then((value) {
-                        if (value == true) {
-                          Navigator.pushNamed(context, '/main');
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text(
-                                  'Inscription réussie ! Confirmer votre adresse mail.'),
-                              backgroundColor: Colors.green));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text(
-                                  "Inscription impossible ! Un compte utilise déjà cet adresse mail."),
-                              backgroundColor: Colors.red));
-                        }
-                      });
-                    }
-                  }, Colors.lightBlue),
-                ],
-              ),
-            )));
+                )))));
   }
 
-  Widget _buildDropButton() {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      onChanged: (String? newValue) {
+  late Widget initialButton = RadiusButton("Suivant", () {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        signupWidget = finalSignup;
+        buttonWidget = finalButton;
+      });
+    }
+  }, Colors.black);
+
+  late Widget finalButton = Row(
+    children: [
+      RadiusButton('Retour', () {
         setState(() {
-          dropdownValue = newValue!;
+          buttonWidget = initialButton;
+          signupWidget = initialSignup;
         });
-      },
-      items:
-          <String>['M', 'F', 'A'].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
+      }, Colors.black),
+      RadiusButton("S'inscrire", () async {
+        if (_formKey.currentState!.validate()) {
+          showSnackBar(context, 'Inscription en cours...', Colors.grey);
+          UserController.register(
+              passwordController.text,
+              nameController.text,
+              firstNameController.text,
+              phoneController.text,
+              mailController.text,
+              context);
+        }
+      }, Colors.black)
+    ],
+  );
+
+  late Widget initialSignup = Column(children: [
+    TextForm(nameController, 'Prénom', (value) => value!.validateName(),
+        Icons.assignment_ind, false, () {}, TextInputType.text),
+    const SizedBox(height: 20),
+    TextForm(firstNameController, 'Nom', (p0) => p0!.validateLastName(),
+        Icons.assignment, false, () {}, TextInputType.text),
+    const SizedBox(height: 20),
+    AppTextField(
+        textEditingController: genreController,
+        isCitySelected: true,
+        cities: [
+          SelectedListItem(false, 'Homme'),
+          SelectedListItem(false, 'Femme'),
+          SelectedListItem(false, 'Autre'),
+        ],
+        text: 'Genre')
+  ]);
+
+  late Widget finalSignup = Column(children: [
+    TextForm(mailController, 'E-mail', (p0) => p0!.validateEmail(), Icons.mail,
+        false, () {}, TextInputType.emailAddress),
+    const SizedBox(height: 20),
+    TextForm(passwordController, 'Mot de passe', (p0) => p0!.validatePassword(),
+        Icons.lock, true, () {}, TextInputType.text),
+    const SizedBox(height: 20),
+    TextForm(
+        phoneController,
+        'Numéro de téléphone',
+        (p0) => p0!.validatePhone(),
+        Icons.phone,
+        false,
+        () {},
+        TextInputType.phone)
+  ]);
 }
