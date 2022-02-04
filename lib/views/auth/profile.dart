@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
+import 'package:mobile_app/widgets/radius_button.dart';
+import 'package:mobile_app/widgets/text_form.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -39,57 +42,104 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 70,
-                    backgroundImage:
-                        Image.asset('assets/img/creatingprofile.png').image,
-                  ),
-                  const Text(
-                    'Giroud Cyrille',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              )),
-          Container(
-              decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1, color: Color(0xFF7F7F7F)),
-            ),
-            color: Colors.grey,
-          )),
-          Column(
-              children: List.generate(buttons.length, (index) {
-            return ElevatedButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Icon(
-                      buttons[index]['icon'],
-                      color: Colors.black,
-                    ),
-                    const SizedBox(width: 15),
-                    Text(buttons[index]['name'],
-                        style: const TextStyle(color: Colors.black))
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width, 30),
-                    primary: Colors.white,
-                    elevation: 0));
-          })),
-        ],
-      ),
-      bottomNavigationBar: const AppBarWidget(),
-    ));
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+            child: Form(
+                key: _formKey,
+                child: SafeArea(
+                    child: SingleChildScrollView(
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Votre profil",
+                                    style: TextStyle(fontSize: 40)),
+
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                TextForm(
+                                    nameController,
+                                    'Nom',
+                                    (value) => value!.validateName(),
+                                    Icons.person,
+                                    false,
+                                    () {},
+                                    TextInputType.name),
+                                //A modifier avec la requère SQL adapté
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                TextForm(
+                                    firstNameController,
+                                    'Prenom',
+                                    (value) => value!.validateName(),
+                                    Icons.person,
+                                    false,
+                                    () {},
+                                    TextInputType.name),
+                                //A modifier avec la requère SQL adapté
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                TextForm(
+                                    mailController,
+                                    'adresse email',
+                                    (value) => value!.validateEmail(),
+                                    Icons.alternate_email_sharp,
+                                    false,
+                                    () {},
+                                    TextInputType.emailAddress),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                //Box pour le telephone
+                                TextForm(
+                                    phoneController,
+                                    'Telephone',
+                                    (value) => value!.validatePhone(),
+                                    Icons.add_call,
+                                    false,
+                                    () {},
+                                    TextInputType.phone),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+
+                                const SizedBox(height: 10),
+                                RadiusButton("Confirmer les modifications", () {
+                                  if (_formKey.currentState!.validate()) {
+                                    UserService.updateUser(user.id, {
+                                      "name": nameController.text,
+                                      "firstName": firstNameController.text,
+                                      "phone": phoneController.text,
+                                      "mail": mailController.text,
+                                      "password": user.password
+                                    }).then((value) => {
+                                          if (value == true)
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification réussie !',
+                                                  Colors.green)
+                                            }
+                                          else
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modifications impossible pour le moment.',
+                                                  Colors.red)
+                                            }
+                                        });
+                                  }
+                                }, Colors.black),
+                                const SizedBox(
+                                  height: 20,
+                                )
+                              ],
+                            )))))),
+        bottomNavigationBar: const AppBarWidget());
   }
 }

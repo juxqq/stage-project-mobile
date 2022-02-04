@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/models/user.dart';
+import 'package:mobile_app/services/article_service.dart';
 import 'package:mobile_app/services/user_service.dart';
+import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
@@ -71,7 +73,26 @@ class _PublishArticleState extends State<PublishArticle> {
                         maxLines: null),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ArticleService.createArticle(
+                                  titleController.text,
+                                  resumeController.text,
+                                  textController.text,
+                                  DateTime.now(),
+                                  DateTime.now(),
+                                  1)
+                              .then((value) {
+                            if (value == true) {
+                              showSnackBar(context,
+                                  'Votre article est publiée !', Colors.green);
+                            } else {
+                              showSnackBar(
+                                  context,
+                                  "Erreur lors de la publication de l'article",
+                                  Colors.red);
+                            }
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green,
                             fixedSize:
