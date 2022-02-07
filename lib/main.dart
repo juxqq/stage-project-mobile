@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            return const AcceuilProfil();
+            return const PublishArticle();
           } else {
             return const LoginPage();
           }
