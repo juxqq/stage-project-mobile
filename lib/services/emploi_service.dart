@@ -8,7 +8,7 @@ class EmploiService {
 
   Future<dynamic> createAssoc(intitule, description, typeContrat, remuneration, assoc, localisation) async {
     try {
-      final response = await http.post(Uri.parse('$uri/postAssoc.php'), body: {
+      final response = await http.post(Uri.parse('$uri/postJob.php'), body: {
         "intitule": "$intitule",
         "description": "$description",
         "typeContrat": "$typeContrat",
