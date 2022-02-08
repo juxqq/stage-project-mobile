@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/views/assoc/publish_job.dart';
 import 'package:mobile_app/views/assoc/signup_assoc.dart';
 import 'package:mobile_app/views/auth/settings.dart';
 import 'views/auth/profile.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            return const PublishArticle();
+            return const PublishJob();
           } else {
             return const LoginPage();
           }

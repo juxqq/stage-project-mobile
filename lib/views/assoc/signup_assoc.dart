@@ -26,7 +26,6 @@ class _SignUpAssocState extends State<SignUpAssoc> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController mailController = TextEditingController();
   final TextEditingController siteWebController = TextEditingController();
-  final AssocService assocService = AssocService();
   int activeIndex = 0;
 
   @override
@@ -104,7 +103,7 @@ class _SignUpAssocState extends State<SignUpAssoc> {
     RadiusButton("S'inscrire", () async {
       if (_formKey.currentState!.validate()) {
         showSnackBar(context, 'Inscription en cours...', Colors.grey);
-        await assocService
+        await AssocService
             .createAssoc(
                 nameController.text,
                 siretController.text,

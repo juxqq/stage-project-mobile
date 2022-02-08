@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/models/user.dart';
+import 'package:mobile_app/services/emploi_service.dart';
 import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/share/bottom_nav_bar.dart';
 import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class PublishJob extends StatefulWidget {
   const PublishJob({Key? key}) : super(key: key);
@@ -13,9 +15,11 @@ class PublishJob extends StatefulWidget {
 }
 
 class _PublishJobState extends State<PublishJob> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController resumeController = TextEditingController();
-  final TextEditingController textController = TextEditingController();
+  final TextEditingController intituleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController typeContratController = TextEditingController();
+  final TextEditingController remunerationController = TextEditingController();
+  final TextEditingController localisationController = TextEditingController();
   //late User user;
 
   @override
@@ -47,11 +51,11 @@ class _PublishJobState extends State<PublishJob> {
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
-                    TextForm(titleController, 'Intitulé', (value) {}, Icons.title,
+                    TextForm(intituleController, 'Intitulé', (value) {}, Icons.title,
                         false, () {}, TextInputType.text),
                     const SizedBox(height: 10),
                     TextForm(
-                        resumeController,
+                        descriptionController,
                         'Description',
                             (p0) => null,
                         Icons.text_fields,
@@ -61,7 +65,7 @@ class _PublishJobState extends State<PublishJob> {
                         maxLines: null),
                     const SizedBox(height: 10),
                     TextForm(
-                        textController,
+                        typeContratController,
                         "Type de contrat",
                             (p0) => null,
                         Icons.text_fields,
@@ -70,35 +74,42 @@ class _PublishJobState extends State<PublishJob> {
                         TextInputType.multiline,
                         maxLines: null),
                     TextForm(
-                        textController,
+                        remunerationController,
                         "Remuneration",
                             (p0) => null,
-                        Icons.text_fields,
+                        Icons.euro,
                         false,
                             () => null,
                         TextInputType.multiline,
                         maxLines: null),
                     TextForm(
-                        textController,
-                        "Type de contrat",
-                            (p0) => null,
-                        Icons.text_fields,
-                        false,
-                            () => null,
-                        TextInputType.multiline,
-                        maxLines: null),
-                    TextForm(
-                        textController,
+                        localisationController,
                         "localisation",
                             (p0) => null,
-                        Icons.text_fields,
+                        Icons.add_location,
                         false,
                             () => null,
                         TextInputType.multiline,
                         maxLines: null),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          EmploiService.createJob(
+                            intituleController.text,
+                            descriptionController.text,
+                            typeContratController.text,
+                            remunerationController.text,
+                            1,
+                            localisationController.text,
+                          )
+                        .then((value){
+                          if (value == true){
+                            showSnackBar(context, "Votre offre d'emploi à été publiée", Colors.green);
+                          } else {
+                            showSnackBar(context, "Erreur lors de la publication de l'annonce", Colors.red);
+                          }
+                         });
+                        },
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green,
                             fixedSize:
