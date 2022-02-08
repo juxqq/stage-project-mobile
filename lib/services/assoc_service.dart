@@ -6,7 +6,7 @@ class AssocService {
       'https://www.dorian-roulet.com/stage_2022_01x02_epsi';
   static final session = FlutterSession();
 
-  Future<dynamic> createAssoc(name, siret, president, tresorier, secretaire,
+  static Future<dynamic> createAssoc(name, siret, president, tresorier, secretaire,
       nbMembre, localisation, description, mail, siteWeb) async {
     try {
       final response = await http.post(Uri.parse('$uri/postAssoc.php'), body: {

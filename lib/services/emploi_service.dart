@@ -6,7 +6,7 @@ class EmploiService {
       'https://www.dorian-roulet.com/stage_2022_01x02_epsi';
   static final session = FlutterSession();
 
-  Future<dynamic> createAssoc(intitule, description, typeContrat, remuneration, assoc, localisation) async {
+  static Future<dynamic> createJob(intitule, description, typeContrat, remuneration, assoc, localisation) async {
     try {
       final response = await http.post(Uri.parse('$uri/postJob.php'), body: {
         "intitule": "$intitule",
