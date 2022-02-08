@@ -14,35 +14,31 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return BottomNavyBar(
-          iconSize: 25,
-          selectedIndex: _selectedIndex,
-          onItemSelected: (index) {
-            setState(() => _selectedIndex = index);
-            _pageController.jumpToPage(index);
-          },
-          items: [
-            BottomNavyBarItem(
-              icon: Icon(Icons.home_outlined),
-              title: Text('Accueil'),
-              activeColor: Colors.cyan,
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.shopping_cart_outlined),
-                title: Text('Panier'),
-                activeColor: Colors.cyan
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.access_time),
-                title: Text('Commandes'),
-                activeColor: Colors.cyan
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.app_settings_alt_rounded),
-                title: Text('Paramètres'),
-                activeColor: Colors.cyan
-            ),
-          ],
-        
+      iconSize: 25,
+      selectedIndex: _selectedIndex,
+      onItemSelected: (index) {
+        setState(() => _selectedIndex = index);
+        _pageController.jumpToPage(index);
+      },
+      items: [
+        BottomNavyBarItem(
+          icon: const Icon(Icons.home_outlined),
+          title: const Text('Accueil'),
+          activeColor: Colors.cyan,
+        ),
+        BottomNavyBarItem(
+            icon: const Icon(Icons.shopping_cart_outlined),
+            title: const Text('Panier'),
+            activeColor: Colors.cyan),
+        BottomNavyBarItem(
+            icon: Icon(Icons.access_time),
+            title: Text('Commandes'),
+            activeColor: Colors.cyan),
+        BottomNavyBarItem(
+            icon: Icon(Icons.app_settings_alt_rounded),
+            title: Text('Paramètres'),
+            activeColor: Colors.cyan),
+      ],
     );
   }
 }

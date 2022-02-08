@@ -11,11 +11,11 @@ class Article {
       this.updateDate, this.authorId);
 
   Article.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+      : id = int.parse(json['id']),
         title = json['title'],
         resume = json['resume'],
         text = json['text'],
-        publishedDate = json['publishedDate'],
-        updateDate = json['editedDate'],
-        authorId = json['author'];
+        publishedDate = DateTime.parse(json['publishedDate']),
+        updateDate = DateTime.parse(json['editedDate']),
+        authorId = int.parse(json['author']);
 }

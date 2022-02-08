@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
-import 'package:mobile_app/widgets/radius_button.dart';
 
 class AcceuilProfil extends StatefulWidget {
   const AcceuilProfil({Key? key}) : super(key: key);
