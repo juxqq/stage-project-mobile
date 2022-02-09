@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_app/controller/user_controller.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
-import 'package:mobile_app/share/text_form.dart';
 import 'package:mobile_app/utils/utils.dart';
+import 'package:mobile_app/widgets/text_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

@@ -21,6 +21,7 @@ class TextForm extends StatelessWidget {
       keyboardType: input,
       onTap: onTap,
       validator: validator,
+      maxLines: obscureText ? 1 : null,
       obscureText: obscureText,
       cursorColor: Colors.black,
       decoration: InputDecoration(

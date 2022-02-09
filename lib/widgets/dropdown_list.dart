@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drop_down_list/drop_down_list.dart';
-import 'package:mobile_app/share/text_form.dart';
+import 'text_form.dart';
 
 class AppTextField extends StatefulWidget {
   TextEditingController textEditingController = TextEditingController();

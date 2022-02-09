@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/controller/user_controller.dart';
-import 'package:mobile_app/share/dropdown_list.dart';
-import 'package:mobile_app/share/radius_button.dart';
-import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:drop_down_list/drop_down_list.dart';
-import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/utils/utils.dart';
+import 'package:mobile_app/widgets/dropdown_list.dart';
+import 'package:mobile_app/widgets/radius_button.dart';
+import 'package:mobile_app/widgets/text_form.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
