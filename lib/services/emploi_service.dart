@@ -6,7 +6,7 @@ class EmploiService {
       'https://www.dorian-roulet.com/stage_2022_01x02_epsi';
   static final session = FlutterSession();
 
-  static Future<dynamic> createJob(intitule, description, typeContrat, remuneration, assoc, localisation) async {
+  static Future<dynamic> createJob(intitule, description, typeContrat, remuneration, assoc, localisation, date, dateFin, competences, niveauEtudes, experience, secteur) async {
     try {
       final response = await http.post(Uri.parse('$uri/postJob.php'), body: {
         "intitule": "$intitule",
@@ -15,6 +15,13 @@ class EmploiService {
         "remuneration":"$remuneration",
         "assoc":"$assoc",
         "localisation": "$localisation",
+        "date": "$date",
+        "dateFin": "$dateFin",
+        "competences": "$competences",
+        "niveauEtudes": "$niveauEtudes",
+        "experience": "$experience",
+        "secteur": "$secteur",
+
       });
 
       if (response.statusCode == 200) {
