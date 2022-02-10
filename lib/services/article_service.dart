@@ -5,11 +5,12 @@ import 'package:mobile_app/models/article.dart';
 import 'package:mobile_app/utils/utils.dart';
 
 class ArticleService {
-  static Future<dynamic> getArticles() async {
+  static Future<dynamic> getArticles(title) async {
     var articles = [];
 
     try {
-      final response = await http.get(Uri.parse('$uriApi/articles.php'));
+      final response =
+          await http.get(Uri.parse('$uriApi/articles.php?title=$title'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
