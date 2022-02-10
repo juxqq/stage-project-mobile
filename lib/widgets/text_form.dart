@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextForm extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String text;
   final String? Function(String?) validator;
   final IconData icon;

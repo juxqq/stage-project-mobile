@@ -3,6 +3,7 @@ import 'package:mobile_app/services/article_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/views/articles/details_article.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
+import 'package:mobile_app/widgets/search.dart';
 
 class ShowArticles extends StatefulWidget {
   const ShowArticles({Key? key}) : super(key: key);
@@ -12,9 +13,14 @@ class ShowArticles extends StatefulWidget {
 }
 
 class _ShowArticlesState extends State<ShowArticles> {
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController authorController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SearchWidget(
+          searchArticlesWidget(titleController, authorController, context)),
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
           backgroundColor: Colors.green[500],
@@ -23,7 +29,7 @@ class _ShowArticlesState extends State<ShowArticles> {
           toolbarHeight: MediaQuery.of(context).size.height * 0.08),
       body: SingleChildScrollView(
           child: FutureBuilder(
-              future: ArticleService.getArticles(),
+              future: ArticleService.getArticles(titleController.text),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return SizedBox(
