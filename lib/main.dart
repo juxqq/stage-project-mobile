@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/views/assoc/publish_job.dart';
+import 'package:mobile_app/views/articles/publish.dart';
+import 'package:mobile_app/views/articles/show_articles.dart';
 import 'package:mobile_app/views/assoc/signup_assoc.dart';
 import 'package:mobile_app/views/auth/settings.dart';
 import 'package:mobile_app/views/jobs/fetch_jobs.dart';
@@ -31,7 +33,8 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const Profile(),
         '/reset': (context) => const ResetPassword(),
         '/signupAssoc': (context) => const SignUpAssoc(),
-        '/settings': (context) => const AcceuilProfil()
+        '/settings': (context) => const AcceuilProfil(),
+        '/pushArticle': (context) => const PublishArticle()
       },
       home: FutureBuilder(
         future: UserService.getToken(),
@@ -39,9 +42,9 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            return const PublishJob();
+            return const AcceuilProfile();
           } else {
-            return const fetchJobs();
+            return const LoginPage();
           }
         },
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextForm extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String text;
   final String? Function(String?) validator;
   final IconData icon;
@@ -21,6 +21,7 @@ class TextForm extends StatelessWidget {
       keyboardType: input,
       onTap: onTap,
       validator: validator,
+      maxLines: obscureText ? 1 : null,
       obscureText: obscureText,
       cursorColor: Colors.black,
       decoration: InputDecoration(
