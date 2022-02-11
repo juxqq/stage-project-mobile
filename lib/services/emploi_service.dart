@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
+import 'package:mobile_app/models/job.dart';
 
 class EmploiService {
   static const String uri =
@@ -29,23 +30,25 @@ class EmploiService {
   }
 
   Future<dynamic> getJob(intitule, localisation) async {
-    var json = <String, dynamic>{'response': false};
+    var jobs = [];
 
     try {
       final response =
-      await http.get(Uri.parse('$uri/getJob.php?$intitule=$localisation'));
+      await http.get(Uri.parse('$uri/getJob.php?intitule=$intitule&loc=$localisation'));
 
       if (response.statusCode == 200) {
-        json = jsonDecode(utf8.decode(response.bodyBytes))[0];
+        var json = jsonDecode(utf8.decode(response.bodyBytes));
 
-        if (json.length > 1) {
-          json['id'] = int.parse(json[0]['id']);
-          json['response'] = true;
-          return json;
+        if (json.length >= 1) {
+          for (var jobJson in json) {
+            jobs.add(Job.fromJson(jobJson));
+          }
         }
       }
     } catch (identifier) {
-      return json;
+      return jobs;
     }
+
+    return jobs;
   }
 }
