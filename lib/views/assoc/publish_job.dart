@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/emploi_service.dart';
 import 'package:mobile_app/services/user_service.dart';
-import 'package:mobile_app/share/bottom_nav_bar.dart';
-import 'package:mobile_app/share/text_form.dart';
 import 'package:mobile_app/utils/utils.dart';
+import 'package:mobile_app/widgets/bottom_nav_bar.dart';
+import 'package:mobile_app/widgets/text_form.dart';
 
 class PublishJob extends StatefulWidget {
   const PublishJob({Key? key}) : super(key: key);
