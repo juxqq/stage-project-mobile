@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/share/bottom_nav_bar.dart';
 import 'package:mobile_app/share/radius_button.dart';
+import 'package:mobile_app/share/search.dart';
 import 'package:mobile_app/share/text_form.dart';
 import 'package:mobile_app/services/emploi_service.dart';
+import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/views/jobs/job_details.dart';
 
 class fetchJobs extends StatefulWidget {
@@ -15,12 +17,21 @@ class fetchJobs extends StatefulWidget {
 class _fetchJobsState extends State<fetchJobs> {
   final TextEditingController intituleController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  final TextEditingController? typeContratController = TextEditingController();
+  final TextEditingController? remunerationController = TextEditingController();
   final EmploiService emploiService = EmploiService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      drawer: SearchWidget(
+          searchJobsWidget(typeContratController, remunerationController, context)),
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+          backgroundColor: Colors.green[500],
+          title: const Text('Liste des emplois correspondants à votre recherche'),
+          centerTitle: true,
+          toolbarHeight: MediaQuery.of(context).size.height * 0.08),
       body: SafeArea(
         child: Form(
           child: SingleChildScrollView(
@@ -51,7 +62,7 @@ class _fetchJobsState extends State<fetchJobs> {
                       });
                   }, Colors.black),
                   FutureBuilder(
-                      future: emploiService.getJob(intituleController.text, locationController.text),
+                      future: emploiService.getJob(intituleController.text, locationController.text, typeContratController!.text, remunerationController!.text),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return SizedBox(
