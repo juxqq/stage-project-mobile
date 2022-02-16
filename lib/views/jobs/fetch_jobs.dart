@@ -4,6 +4,7 @@ import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/views/jobs/job_details.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
+import 'package:mobile_app/widgets/search.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
 class fetchJobs extends StatefulWidget {

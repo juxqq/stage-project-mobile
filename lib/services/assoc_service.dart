@@ -7,7 +7,7 @@ class AssocService {
   static final session = FlutterSession();
 
   static Future<dynamic> createAssoc(name, siret, president, tresorier, secretaire,
-      nbMembre, localisation, description, mail, siteWeb) async {
+      nbMembre, description, mail, siteWeb, pdp, adresse, cp, ville) async {
     try {
       final response = await http.post(Uri.parse('$uri/postAssoc.php'), body: {
         "name": "$name",
@@ -16,10 +16,13 @@ class AssocService {
         "tresorier": "$tresorier",
         "secretaire": "$secretaire",
         "nbMembre": "$nbMembre",
-        "localisation": "$localisation",
         "description": "$description",
         "mail": "$mail",
-        "siteWeb": "$siteWeb"
+        "siteWeb": "$siteWeb",
+        "pdp": "$pdp",
+        "adresse": "$adresse",
+        "cp": "$cp",
+        "ville": "$ville",
       });
 
       if (response.statusCode == 200) {

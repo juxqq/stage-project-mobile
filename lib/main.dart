@@ -3,7 +3,6 @@ import 'package:mobile_app/views/Events/event_details.dart';
 import 'package:mobile_app/views/Events/fetch_events.dart';
 import 'package:mobile_app/views/assoc/publish_job.dart';
 import 'package:mobile_app/views/articles/publish.dart';
-import 'package:mobile_app/views/articles/test.dart';
 import 'package:mobile_app/views/assoc/signup_assoc.dart';
 import 'package:mobile_app/views/auth/settings.dart';
 import 'package:mobile_app/views/jobs/fetch_jobs.dart';

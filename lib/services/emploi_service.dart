@@ -9,7 +9,7 @@ class EmploiService {
       'https://www.dorian-roulet.com/stage_2022_01x02_epsi';
   static final session = FlutterSession();
 
-  static Future<dynamic> createJob(intitule, description, typeContrat, remuneration, assoc, localisation, date, dateFin, competences, niveauEtudes, experience, secteur) async {
+  static Future<dynamic> createJob(intitule, description, typeContrat, remuneration, assoc, date, dateFin, datePublication, dateUpdate, competences, niveauEtudes, experience, secteur, adresse, cp, ville) async {
     try {
       final response = await http.post(Uri.parse('$uri/postJob.php'), body: {
         "intitule": "$intitule",
@@ -17,14 +17,17 @@ class EmploiService {
         "typeContrat": "$typeContrat",
         "remuneration":"$remuneration",
         "assoc":"$assoc",
-        "localisation": "$localisation",
         "date": "$date",
         "dateFin": "$dateFin",
+        "datePublication" : "$datePublication",
+        "dateUpdate": "$dateUpdate",
         "competences": "$competences",
         "niveauEtudes": "$niveauEtudes",
         "experience": "$experience",
         "secteur": "$secteur",
-
+        "adresse": "$adresse",
+        "cp": "$cp",
+        "ville": "$ville",
       });
 
       if (response.statusCode == 200) {
@@ -36,12 +39,12 @@ class EmploiService {
     return null;
   }
 
-  Future<dynamic> getJob(intitule, localisation, typeContrat, remuneration) async {
+  Future<dynamic> getJob(intitule, ville, typeContrat, remuneration) async {
     var jobs = [];
 
     try {
       final response =
-      await http.get(Uri.parse('$uri/getJob.php?intitule=$intitule&loc=$localisation&typeContrat=$typeContrat&remuneration=$remuneration'));
+      await http.get(Uri.parse('$uri/getJob.php?intitule=$intitule&ville=$ville&typeContrat=$typeContrat&remuneration=$remuneration'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));

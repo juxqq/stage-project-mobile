@@ -23,7 +23,9 @@ class _PublishEventState extends State<PublishEvent> {
   DateTime dateEvent = DateTime.now();
   DateTime dateReservationMax= DateTime.now();
   final TextEditingController autreOrganisateurController = TextEditingController();
-  final TextEditingController localisationController = TextEditingController();
+  final TextEditingController adresseController = TextEditingController();
+  final TextEditingController cpController = TextEditingController();
+  final TextEditingController villeController = TextEditingController();
   //late User user;
 
   @override
@@ -87,8 +89,26 @@ class _PublishEventState extends State<PublishEvent> {
                         TextInputType.multiline,
                         maxLines: null),
                     TextForm(
-                        localisationController,
-                        "localisation",
+                        adresseController,
+                        "Adresse",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
+                    TextForm(
+                        cpController,
+                        "Code postal",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
+                    TextForm(
+                        villeController,
+                        "Ville",
                             (p0) => null,
                         Icons.add_location,
                         false,
@@ -136,13 +156,15 @@ class _PublishEventState extends State<PublishEvent> {
                               dateReservationMax,
                               autreOrganisateurController,
                               1,
-                              localisationController.text,
+                              adresseController.text,
+                              cpController.text,
+                              villeController.text,
                             )
                               .then((value) {
                             if (value == true) {
                               showSnackBar(
                                   context,
-                                  "Votre évènement à été publiée",
+                                  "Votre évènement a été publié",
                                   Colors.green);
                             } else {
                               showSnackBar(

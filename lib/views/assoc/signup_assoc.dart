@@ -22,10 +22,12 @@ class _SignUpAssocState extends State<SignUpAssoc> {
   final TextEditingController tresorierController = TextEditingController();
   final TextEditingController secretaireController = TextEditingController();
   final TextEditingController membreController = TextEditingController();
-  final TextEditingController localisationController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController mailController = TextEditingController();
   final TextEditingController siteWebController = TextEditingController();
+  final TextEditingController adresseController = TextEditingController();
+  final TextEditingController villeController = TextEditingController();
+  final TextEditingController cpController = TextEditingController();
   int activeIndex = 0;
 
   @override
@@ -111,10 +113,14 @@ class _SignUpAssocState extends State<SignUpAssoc> {
                 tresorierController.text,
                 secretaireController.text,
                 membreController.text,
-                localisationController.text,
                 descriptionController.text,
                 mailController.text,
-                siteWebController.text)
+                siteWebController.text,
+                null,
+                adresseController.text,
+                cpController.text,
+                villeController.text,
+        )
             .then((value) {
           if (value == true) {
             Navigator.pushNamed(context, '/main');
@@ -180,7 +186,13 @@ class _SignUpAssocState extends State<SignUpAssoc> {
   ]);
 
   late Widget thirdSignup = Column(children: [
-    TextForm(localisationController, 'Localisation', (value) {},
+    TextForm(adresseController, 'Adresse', (value) {},
+        Icons.location_on, false, () {}, TextInputType.text),
+    const SizedBox(height: 20),
+    TextForm(cpController, 'Code postal', (value) {},
+        Icons.location_on, false, () {}, TextInputType.text),
+    const SizedBox(height: 20),
+    TextForm(villeController, 'Ville', (value) {},
         Icons.location_on, false, () {}, TextInputType.text),
     const SizedBox(height: 20),
     TextForm(

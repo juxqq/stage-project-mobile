@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
-import 'package:mobile_app/models/job.dart';
+import 'package:mobile_app/models/event.dart';
 
 class EventService {
   static const String uri =
@@ -11,7 +11,7 @@ class EventService {
 
   static Future<dynamic> createEvent(nom, publicVise, description,
       datePublication, dateReservationMax, dateEvenement, organisateurPrincipal,
-      autreOrganisateurs, localisation) async {
+      autreOrganisateurs, adresse, cp, ville) async {
     try {
       final response = await http.post(Uri.parse('$uri/postEvent.php'), body: {
         "nom": "$nom",
@@ -22,7 +22,9 @@ class EventService {
         "dateEvenement": "$dateEvenement",
         "organisateurPrincipal": "$organisateurPrincipal",
         "autreOrganisateurs": "$autreOrganisateurs",
-        "localisation": "$localisation",
+        "adresse": "$adresse",
+        "cp": "$cp",
+        "ville": "$ville",
       });
 
       if (response.statusCode == 200) {
@@ -34,19 +36,19 @@ class EventService {
     return null;
   }
 
-Future<dynamic> getEvent(nom, localisation) async {
+Future<dynamic> getEvent(nom, ville) async {
     var event = [];
 
     try {
       final response =
-      await http.get(Uri.parse('$uri/getEvent.php?intitule=$nom&loc=$localisation'));
+      await http.get(Uri.parse('$uri/getEvent.php?nom=$nom&ville=$ville'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
 
         if (json.length >= 1) {
-          for (var jobJson in json) {
-            event.add(event.fromJson(eventJson));
+          for (var eventJson in json) {
+            event.add(Event.fromJson(eventJson));
           }
         }
       }
