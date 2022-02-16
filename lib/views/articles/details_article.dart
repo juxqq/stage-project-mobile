@@ -1,42 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/models/job.dart';
+import 'package:mobile_app/models/article.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 
+class ArticleDetails extends StatefulWidget {
+  final Article article;
 
-class JobDetails extends StatefulWidget {
-  final Job job;
-
-  const JobDetails(this.job, {Key? key}) : super(key: key);
+  const ArticleDetails(this.article, {Key? key}) : super(key: key);
 
   @override
-  _JobDetailsState createState() => _JobDetailsState();
+  _ArticleDetailsState createState() => _ArticleDetailsState();
 }
 
-class _JobDetailsState extends State<JobDetails> {
+class _ArticleDetailsState extends State<ArticleDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
           title:
-          Text(widget.job.intitule, style: const TextStyle(fontSize: 14)),
+              Text(widget.article.title, style: const TextStyle(fontSize: 14)),
           centerTitle: true,
           backgroundColor: Colors.green[500]),
       body: SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(children: [
+                Image.asset(
+                  'assets/img/logo_assoc.jpg',
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget.job.intitule,
+                    child: Text(widget.article.title,
                         style: const TextStyle(fontWeight: FontWeight.bold))),
                 const SizedBox(
                   height: 10,
                 ),
                 Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget.job.loc))
+                    child: Text(widget.article.text))
               ]))),
       bottomNavigationBar: const AppBarWidget(),
     );

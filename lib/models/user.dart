@@ -16,4 +16,13 @@ class User {
         phone = json['phoneNumber'],
         mail = json['mail'],
         password = json['password'];
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'firstName': firstName,
+        'phoneNumber': phone,
+        'mail': mail,
+        'password': password
+      };
 }

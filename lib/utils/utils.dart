@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/share/radius_button.dart';
-import 'package:mobile_app/share/text_form.dart';
+import 'package:mobile_app/widgets/radius_button.dart';
+import 'package:mobile_app/widgets/text_form.dart';
 
 showSnackBar(context, text, color) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -23,6 +23,18 @@ List<dynamic> searchJobsWidget(contratController, remunerationController, contex
     TextForm(remunerationController, 'Fourchette de rémunération', (value) {}, Icons.attach_money, false, () {},
         TextInputType.text),
     RadiusButton('Rechercher', () {
+      Navigator.of(context).pop();
+    }, Colors.green)
+  ];
+}
+
+List<dynamic> searchArticlesWidget(titleController, authorController, context) {
+  return [
+    TextForm(titleController, 'Titre', (value) {}, Icons.search, false, () {},
+        TextInputType.streetAddress),
+    TextForm(authorController, 'Auteur', (value) {}, Icons.people, false, () {},
+        TextInputType.text),
+    RadiusButton('Recherche', () {
       Navigator.of(context).pop();
     }, Colors.green)
   ];

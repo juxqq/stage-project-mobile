@@ -20,7 +20,7 @@ class UserService {
         json = jsonDecode(utf8.decode(response.bodyBytes))[0];
 
         if (json.length > 1) {
-          json['id'] = int.parse(json[0]['id']);
+          json['id'] = int.parse(json['id']);
           json['response'] = true;
           return json;
         }
