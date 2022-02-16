@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/services/emploi_service.dart';
+import 'package:mobile_app/services/event_service.dart';
 import 'package:mobile_app/views/jobs/job_details.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
-class fetchJobs extends StatefulWidget {
-  const fetchJobs({Key? key}) : super(key: key);
+import 'event_details.dart';
+
+class fetchEvent extends StatefulWidget {
+  const fetchEvent({Key? key}) : super(key: key);
 
   @override
-  _fetchJobsState createState() => _fetchJobsState();
+  _fetchEventState createState() => _fetchEventState();
 }
 
-class _fetchJobsState extends State<fetchJobs> {
-  final TextEditingController intituleController = TextEditingController();
+class _fetchEventState extends State<fetchEvent> {
+  final TextEditingController nomController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  final EmploiService emploiService = EmploiService();
+  final EventService eventService = EventService();
 
   @override
   Widget build(BuildContext context) {
@@ -30,46 +32,40 @@ class _fetchJobsState extends State<fetchJobs> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20),
-                  const Text("Rechercher une annonce d'emploi",
+                  const Text("Rechercher un évènement",
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 20),
-                  TextForm(intituleController, 'Quoi', (value) {}, Icons.search,
+                  TextForm(nomController, 'Quoi', (value) {}, Icons.search,
                       false, () {}, TextInputType.text),
                   const SizedBox(width: 10),
                   TextForm(
                       locationController,
                       'Où',
-                      (value) {},
+                          (value) {},
                       Icons.location_on_sharp,
                       false,
-                      () {},
+                          () {},
                       TextInputType.text),
                   const SizedBox(width: 20),
                   RadiusButton("Rechercher", () {
-
-                    setState(() {});
+                    setState(() {
+                    });
                   }, Colors.black),
                   FutureBuilder(
-                      future: emploiService.getJob(
-                          intituleController.text, locationController.text),
+                      future: eventService.getEvent(nomController.text, locationController.text),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           return SizedBox(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height,
-                              child: const Center(
-                                  child: CircularProgressIndicator()));
+                              child: const Center(child: CircularProgressIndicator()));
                         } else if (snapshot.hasData) {
                           return Padding(
                               padding: const EdgeInsets.only(top: 10),
-                              child: _buildCardJob(
-                                  snapshot.data as List<dynamic>));
+                              child: _buildCardJob(snapshot.data as List<dynamic>));
                         } else {
-                          return const Text(
-                              "Nous n'avons pas trouver d'offres d'emploi qui correspondent à votre recherche.");
-
+                          return const Text("Nous n'avons pas trouver d'évènements qui correspondent à votre recherche.");
                         }
                       })
                 ],
@@ -81,14 +77,13 @@ class _fetchJobsState extends State<fetchJobs> {
       bottomNavigationBar: const AppBarWidget(),
     );
   }
-
   _buildCardJob(data) {
     return Column(
         children: List.generate(data.length, (index) {
           return GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => JobDetails(data[index])));
+                    builder: (context) => EventDetails(data[index])));
               },
               child: Card(
                   shape: const RoundedRectangleBorder(

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/views/Events/event_details.dart';
+import 'package:mobile_app/views/Events/fetch_events.dart';
+import 'package:mobile_app/views/assoc/publish_job.dart';
 import 'package:mobile_app/views/articles/publish.dart';
 import 'package:mobile_app/views/articles/test.dart';
 import 'package:mobile_app/views/assoc/signup_assoc.dart';
 import 'package:mobile_app/views/auth/settings.dart';
+import 'package:mobile_app/views/jobs/fetch_jobs.dart';
 import 'views/auth/profile.dart';
 import 'views/auth/reset.dart';
 import 'views/auth/login.dart';
@@ -40,9 +44,11 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
+
             return const AcceuilProfil();
           } else {
             return const AcceuilProfil();
+
           }
         },
       ),
