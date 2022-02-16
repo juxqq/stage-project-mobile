@@ -36,12 +36,12 @@ class EmploiService {
     return null;
   }
 
-  Future<dynamic> getJob(intitule, localisation) async {
+  Future<dynamic> getJob(intitule, localisation, typeContrat, remuneration) async {
     var jobs = [];
 
     try {
       final response =
-      await http.get(Uri.parse('$uri/getJob.php?intitule=$intitule&loc=$localisation'));
+      await http.get(Uri.parse('$uri/getJob.php?intitule=$intitule&loc=$localisation&typeContrat=$typeContrat&remuneration=$remuneration'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
