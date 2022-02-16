@@ -57,23 +57,29 @@ class _fetchJobsState extends State<fetchJobs> {
                       TextInputType.text),
                   const SizedBox(width: 20),
                   RadiusButton("Rechercher", () {
-                      setState(() {
-                      });
+
+                    setState(() {});
                   }, Colors.black),
                   FutureBuilder(
                       future: emploiService.getJob(intituleController.text, locationController.text, typeContratController!.text, remunerationController!.text),
+
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return SizedBox(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height,
-                              child: const Center(child: CircularProgressIndicator()));
+                              child: const Center(
+                                  child: CircularProgressIndicator()));
                         } else if (snapshot.hasData) {
                           return Padding(
                               padding: const EdgeInsets.only(top: 10),
-                              child: _buildCardJob(snapshot.data as List<dynamic>));
+                              child: _buildCardJob(
+                                  snapshot.data as List<dynamic>));
                         } else {
-                          return const Text("Nous n'avons pas trouver d'offres d'emploi qui correspondent à votre recherche.");
+                          return const Text(
+                              "Nous n'avons pas trouver d'offres d'emploi qui correspondent à votre recherche.");
+
                         }
                       })
                 ],
@@ -85,6 +91,7 @@ class _fetchJobsState extends State<fetchJobs> {
       bottomNavigationBar: const AppBarWidget(),
     );
   }
+
   _buildCardJob(data) {
     return Column(
         children: List.generate(data.length, (index) {
