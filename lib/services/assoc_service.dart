@@ -33,4 +33,18 @@ class AssocService {
     }
     return null;
   }
+
+  static Future<dynamic> updateAssoc(id, body) async {
+    try {
+      final response =
+      await http.put(Uri.parse('$uri/putAssoc.php?id=$id'), body: body);
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+    } catch (identifier) {
+      return false;
+    }
+    return true;
+  }
 }

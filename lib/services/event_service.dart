@@ -36,6 +36,20 @@ class EventService {
     return null;
   }
 
+  static Future<dynamic> updateEvent(id, body) async {
+    try {
+      final response =
+      await http.put(Uri.parse('$uri/putEvent.php?id=$id'), body: body);
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+    } catch (identifier) {
+      return false;
+    }
+    return true;
+  }
+
 Future<dynamic> getEvent(nom, ville) async {
     var event = [];
 

@@ -24,8 +24,21 @@ class ArticleService {
     } catch (exception) {
       return articles;
     }
-
     return articles;
+  }
+
+  static Future<dynamic> updateUser(id_article, body) async {
+    try {
+      final response =
+      await http.put(Uri.parse('$uriApi/put.php?id_article=$id_article'), body: body);
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+    } catch (identifier) {
+      return false;
+    }
+    return true;
   }
 
   static Future<bool> createArticle(

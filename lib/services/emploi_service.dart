@@ -39,6 +39,20 @@ class EmploiService {
     return null;
   }
 
+  static Future<dynamic> updateJob(id, body) async {
+    try {
+      final response =
+      await http.put(Uri.parse('$uri/putJob.php?id=$id'), body: body);
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+    } catch (identifier) {
+      return false;
+    }
+    return true;
+  }
+
   Future<dynamic> getJob(intitule, ville, typeContrat, remuneration) async {
     var jobs = [];
 
