@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
-import 'package:mobile_app/models/event.dart';
-import 'package:mobile_app/services/event_service.dart';
+import 'package:mobile_app/models/job.dart';
+import 'package:mobile_app/services/emploi_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
-class EditEvent extends StatefulWidget {
-  const EditEvent({Key? key}) : super(key: key);
+class EditJob extends StatefulWidget {
+  const EditJob({Key? key}) : super(key: key);
 
   @override
-  _EditEventState createState() => _EditEventState();
+  _EditJobState createState() => _EditJobState();
 }
 
-class _EditEventState extends State<EditEvent> {
+class _EditJobState extends State<EditJob> {
+  @override
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController publicViseController = TextEditingController();
+  final TextEditingController intituleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController typeContratController = TextEditingController();
+  final TextEditingController remunerationController = TextEditingController();
+  final TextEditingController assocController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController dateFinController = TextEditingController();
   final TextEditingController datePublicationController = TextEditingController();
-  final TextEditingController dateReservationMaxController = TextEditingController();
-  final TextEditingController dateEvenementController = TextEditingController();
-  final TextEditingController organisateurPrincipalController = TextEditingController();
-  final TextEditingController autreOrganisateursController = TextEditingController();
+  final TextEditingController dateUpdateController = TextEditingController();
+  final TextEditingController competencesController = TextEditingController();
+  final TextEditingController niveauEtudesController = TextEditingController();
+  final TextEditingController experienceController = TextEditingController();
+  final TextEditingController secteurController = TextEditingController();
   final TextEditingController adresseController = TextEditingController();
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
-  late Event event;
+  late Job job;
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -43,28 +48,16 @@ class _EditEventState extends State<EditEvent> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Modifier un événement",
+                                const Text("Modifier une annonce d'emploi",
                                     style: TextStyle(fontSize: 40)),
 
                                 const SizedBox(
                                   height: 50,
                                 ),
                                 TextForm(
-                                    nameController,
-                                    'Nom',
-                                        (value) => value!.validateLastName(),
-                                    Icons.person,
-                                    false,
-                                        () {},
-                                    TextInputType.text),
-                                //A modifier avec la requère SQL adapté
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                TextForm(
-                                    publicViseController,
-                                    'Public visé',
-                                    (value) {},
+                                    intituleController,
+                                    "Intitulé de l'emploi",
+                                        (value) {},
                                     Icons.person,
                                     false,
                                         () {},
@@ -84,6 +77,74 @@ class _EditEventState extends State<EditEvent> {
                                 const SizedBox(
                                   height: 70,
                                 ),
+                                TextForm(
+                                    typeContratController,
+                                    'Type de contrat',
+                                        (value) {},
+                                    Icons.text_fields,
+                                    false,
+                                        () {},
+                                    TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                TextForm(
+                                    remunerationController,
+                                    'Rémunération',
+                                        (value) {},
+                                    Icons.text_fields,
+                                    false,
+                                        () {},
+                                    TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                TextForm(
+                                    assocController,
+                                    'Association',
+                                        (value) {},
+                                    Icons.text_fields,
+                                    false,
+                                        () {},
+                                    TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                TextForm(
+                                    typeContratController,
+                                    'Type de contrat',
+                                        (value) {},
+                                    Icons.text_fields,
+                                    false,
+                                        () {},
+                                    TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                //Box pour le telephone
+                                TextForm(
+                                    dateController,
+                                    'Date de début',
+                                        (value) {},
+                                    Icons.date_range,
+                                    false,
+                                        () {},
+                                    TextInputType.datetime),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                //Box pour le telephone
+                                TextForm(
+                                    dateFinController,
+                                    'Date de fin',
+                                        (value) {},
+                                    Icons.date_range,
+                                    false,
+                                        () {},
+                                    TextInputType.datetime),
+                                const SizedBox(
+                                  height: 70,
+                                ),
                                 //Box pour le telephone
                                 TextForm(
                                     datePublicationController,
@@ -98,8 +159,8 @@ class _EditEventState extends State<EditEvent> {
                                 ),
                                 //Box pour le telephone
                                 TextForm(
-                                    dateReservationMaxController,
-                                    'Date de réservation max',
+                                    dateUpdateController,
+                                    'Date de modification',
                                         (value) {},
                                     Icons.date_range,
                                     false,
@@ -110,22 +171,10 @@ class _EditEventState extends State<EditEvent> {
                                 ),
                                 //Box pour le telephone
                                 TextForm(
-                                    dateEvenementController,
-                                    "Date de l'événement",
+                                    competencesController,
+                                    "Compétences",
                                         (value) {},
                                     Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    organisateurPrincipalController,
-                                    "Organistateur principal",
-                                        (value) {},
-                                    Icons.person,
                                     false,
                                         () {},
                                     TextInputType.text),
@@ -134,8 +183,32 @@ class _EditEventState extends State<EditEvent> {
                                 ),
                                 //Box pour le telephone
                                 TextForm(
-                                    autreOrganisateursController,
-                                    "Autre(s) organisateur(s)",
+                                    niveauEtudesController,
+                                    "Niveau d'études",
+                                        (value) {},
+                                    Icons.date_range,
+                                    false,
+                                        () {},
+                                    TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                //Box pour le telephone
+                                TextForm(
+                                    experienceController,
+                                    "Expérience",
+                                        (value) {},
+                                    Icons.date_range,
+                                    false,
+                                        () {},
+                                    TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                //Box pour le telephone
+                                TextForm(
+                                    secteurController,
+                                    "Secteur",
                                         (value) {},
                                     Icons.person,
                                     false,
@@ -182,15 +255,20 @@ class _EditEventState extends State<EditEvent> {
                                 ),
                                 RadiusButton("Confirmer les modifications", () {
                                   if (_formKey.currentState!.validate()) {
-                                    EventService.updateEvent(event, {
-                                      "name": nameController.text,
-                                      "publicVise": publicViseController.text,
+                                    EmploiService.updateJob(job, {
+                                      "intitule": intituleController.text,
                                       "description": descriptionController.text,
-                                      "datePublication": datePublicationController.text,
-                                      "dateReservationMax": dateReservationMaxController.text,
-                                      "dateEvenement": dateEvenementController.text,
-                                      "organisateurPrincipal": organisateurPrincipalController.text,
-                                      "autreOrganisateurs": autreOrganisateursController.text,
+                                      "typeContrat": typeContratController.text,
+                                      "remuneration": remunerationController.text,
+                                      "assoc": assocController.text,
+                                      "date": dateController.text,
+                                      "dateFin": dateFinController.text,
+                                      "datePublication" : datePublicationController.text,
+                                      "dateUpdate": dateUpdateController.text,
+                                      "competences": competencesController.text,
+                                      "niveauEtudes": niveauEtudesController.text,
+                                      "experience": experienceController.text,
+                                      "secteur": secteurController.text,
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
                                       "ville": villeController.text,
