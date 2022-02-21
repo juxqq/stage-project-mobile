@@ -27,7 +27,7 @@ class ArticleService {
     return articles;
   }
 
-  static Future<dynamic> updateUser(id_article, body) async {
+  static Future<dynamic> updateArticle(id_article, body) async {
     try {
       final response =
       await http.put(Uri.parse('$uriApi/put.php?id_article=$id_article'), body: body);
