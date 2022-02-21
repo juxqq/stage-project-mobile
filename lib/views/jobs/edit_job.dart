@@ -24,8 +24,6 @@ class _EditJobState extends State<EditJob> {
   final TextEditingController assocController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController dateFinController = TextEditingController();
-  final TextEditingController datePublicationController = TextEditingController();
-  final TextEditingController dateUpdateController = TextEditingController();
   final TextEditingController competencesController = TextEditingController();
   final TextEditingController niveauEtudesController = TextEditingController();
   final TextEditingController experienceController = TextEditingController();
@@ -147,30 +145,6 @@ class _EditJobState extends State<EditJob> {
                                 ),
                                 //Box pour le telephone
                                 TextForm(
-                                    datePublicationController,
-                                    'Date de publication',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateUpdateController,
-                                    'Date de modification',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
                                     competencesController,
                                     "Compétences",
                                         (value) {},
@@ -263,8 +237,6 @@ class _EditJobState extends State<EditJob> {
                                       "assoc": assocController.text,
                                       "date": dateController.text,
                                       "dateFin": dateFinController.text,
-                                      "datePublication" : datePublicationController.text,
-                                      "dateUpdate": dateUpdateController.text,
                                       "competences": competencesController.text,
                                       "niveauEtudes": niveauEtudesController.text,
                                       "experience": experienceController.text,

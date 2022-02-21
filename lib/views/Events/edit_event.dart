@@ -19,9 +19,6 @@ class _EditEventState extends State<EditEvent> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController publicViseController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController datePublicationController = TextEditingController();
-  final TextEditingController dateReservationMaxController = TextEditingController();
-  final TextEditingController dateEvenementController = TextEditingController();
   final TextEditingController organisateurPrincipalController = TextEditingController();
   final TextEditingController autreOrganisateursController = TextEditingController();
   final TextEditingController adresseController = TextEditingController();
@@ -81,42 +78,6 @@ class _EditEventState extends State<EditEvent> {
                                     false,
                                         () {},
                                     TextInputType.multiline),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    datePublicationController,
-                                    'Date de publication',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateReservationMaxController,
-                                    'Date de réservation max',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateEvenementController,
-                                    "Date de l'événement",
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
                                 const SizedBox(
                                   height: 70,
                                 ),
@@ -186,9 +147,6 @@ class _EditEventState extends State<EditEvent> {
                                       "name": nameController.text,
                                       "publicVise": publicViseController.text,
                                       "description": descriptionController.text,
-                                      "datePublication": datePublicationController.text,
-                                      "dateReservationMax": dateReservationMaxController.text,
-                                      "dateEvenement": dateEvenementController.text,
                                       "organisateurPrincipal": organisateurPrincipalController.text,
                                       "autreOrganisateurs": autreOrganisateursController.text,
                                       "adresse": adresseController.text,

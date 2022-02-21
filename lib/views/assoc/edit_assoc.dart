@@ -9,14 +9,14 @@ import 'package:mobile_app/widgets/dropdown_list.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
-class EditJob extends StatefulWidget {
-  const EditJob({Key? key}) : super(key: key);
+class EditAssoc extends StatefulWidget {
+  const EditAssoc({Key? key}) : super(key: key);
 
   @override
-  _EditJobState createState() => _EditJobState();
+  _EditAssocState createState() => _EditAssocState();
 }
 
-class _EditJobState extends State<EditJob> {
+class _EditAssocState extends State<EditAssoc> {
   @override
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
