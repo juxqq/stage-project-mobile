@@ -16,6 +16,7 @@ class Job {
   final String cp;
   final String ville;
 
+
   Job(this.intitule, this.description, this.typeContrat, this.remuneration, this.assoc, this.date, this.dateFin, this.datePublication, this.dateUpdate, this.competences, this.niveauEtudes, this.experience, this.secteur, this.adresse, this.cp, this.ville);
 
   Job.fromJson(Map<String, dynamic> json)

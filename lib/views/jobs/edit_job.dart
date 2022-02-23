@@ -4,6 +4,7 @@ import 'package:mobile_app/models/job.dart';
 import 'package:mobile_app/services/emploi_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
+import 'package:mobile_app/widgets/dropdown_list.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
@@ -32,8 +33,22 @@ class _EditJobState extends State<EditJob> {
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
   late Job job;
+  DateTime date = DateTime.now();
+  DateTime dateFin = DateTime.now();
+  RangeValues experience = const RangeValues(0, 10);
+  //setup dates pour dateRange
+  DateTimeRange dateRange = DateTimeRange(
+      start: DateTime(2022,02, 5),
+      end: DateTime(2100, 02,5)
+  );
 
   Widget build(BuildContext context) {
+    final debut = dateRange.start;
+    final fin = dateRange.end;
+
+
+
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -86,6 +101,7 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 70,
                                 ),
+
                                 TextForm(
                                     remunerationController,
                                     'Rémunération',
@@ -108,42 +124,6 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 70,
                                 ),
-                                TextForm(
-                                    typeContratController,
-                                    'Type de contrat',
-                                        (value) {},
-                                    Icons.text_fields,
-                                    false,
-                                        () {},
-                                    TextInputType.text),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateController,
-                                    'Date de début',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateFinController,
-                                    'Date de fin',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
                                 TextForm(
                                     competencesController,
                                     "Compétences",
@@ -227,6 +207,69 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 30,
                                 ),
+
+                                Text('Date de début et date de fin'),
+
+                                Container(
+                                  child:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _selectDateDebut(context);
+                                        },
+                                        child: Text("${date.day}/${date.month}/${date.year}"),
+                                        style:
+                                        ElevatedButton.styleFrom(primary: Colors.green),
+                                      ),
+                                      const SizedBox( width: 10),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _selectDateFin(context);
+                                        },
+                                        child: Text("${dateFin.day}/${dateFin.month}/${dateFin.year}"),
+                                        style:
+                                        ElevatedButton.styleFrom(primary: Colors.green),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                //DateRangePicker test non fonctionnel
+
+                                /*Container (
+                                  child:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:  [
+                                      ElevatedButton(
+                                          onPressed: () async {
+                                            final picked = await showDateRangePicker(
+                                                context: context,
+                                                firstDate: dateFin,
+                                                lastDate: new DateTime(2022),
+                                            );
+                                            if (picked != null && picked != null) {
+                                              print(picked);
+                                              setState(() {
+                                                 date = picked.start;
+                                                 dateFin = picked.end;
+                                                //methode récupération de la date
+                                                recupDatesFuture = _recupDatesFuture(
+                                                  picked.start.toIso8601String(),
+                                                  picked.end
+                                                    .add(new Duration(hours: 24))
+                                                    .toIso8601String());
+
+                                              }
+                                              );
+                                            }
+                                          },
+                                          child: Text("Sélectionner la date de début et de fin de l'emploi"),
+                                          style: ElevatedButton.styleFrom(primary: Colors.green),
+                                      )
+                                    ]
+                                  ),
+                                ),*/
                                 RadiusButton("Confirmer les modifications", () {
                                   if (_formKey.currentState!.validate()) {
                                     EmploiService.updateJob(job, {
@@ -244,6 +287,8 @@ class _EditJobState extends State<EditJob> {
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
                                       "ville": villeController.text,
+                                      "date": date,
+                                      "dateFin": dateFin,
                                     }).then((value) => {
                                       if (value == true)
                                         {
@@ -270,4 +315,33 @@ class _EditJobState extends State<EditJob> {
                             )))))),
         bottomNavigationBar: const AppBarWidget());
   }
+
+  _selectDateDebut(BuildContext) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2122));
+    if (selected != null && selected != date)
+      setState(() {
+        date = selected;
+      });
+  }
+
+  _selectDateFin(BuildContext) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: dateFin,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2122));
+    if (selected != null && selected != dateFin)
+      setState(() {
+        dateFin = selected;
+      });
+  }
 }
+
+
+
+
+

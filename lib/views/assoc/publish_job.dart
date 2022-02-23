@@ -30,6 +30,19 @@ class _PublishJobState extends State<PublishJob> {
   final TextEditingController adresseController = TextEditingController();
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
+
+  String? dropdownvalue = '---';
+  //Liste  choix
+  var typeContrat = [
+    'CDD',
+    'CDI',
+    'Stage',
+    'Benevolat',
+    'Alternance',
+
+  ];
+
+
   //late User user;
 
   @override
@@ -155,7 +168,6 @@ class _PublishJobState extends State<PublishJob> {
                             () => null,
                         TextInputType.multiline,
                         maxLines: null),
-
                       Container(
                         child:  Row(
                           mainAxisAlignment: MainAxisAlignment.center,
