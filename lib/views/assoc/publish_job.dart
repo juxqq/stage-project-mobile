@@ -30,8 +30,8 @@ class _PublishJobState extends State<PublishJob> {
   final TextEditingController adresseController = TextEditingController();
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
+  RangeValues experience = const RangeValues(40, 80);
 
-  String? dropdownvalue = '---';
   //Liste  choix
   var typeContrat = [
     'CDD',
@@ -132,6 +132,25 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
+                    Text ("Experience requise pour l'emploi (Bac +)"),
+                    Container(
+                      child:
+                      RangeSlider(
+                        values: experience,
+                        max: 15,
+                        divisions: 15,
+                        labels: RangeLabels(
+                          experience.start.round().toString(),
+                          experience.end.round().toString(),
+                        ),
+                        onChanged: (RangeValues values) {
+                          setState(() {
+                            experience = values;
+                          });
+                        },
+                        activeColor: Colors.black,
+                      ),
+                    ),
                     TextForm(
                         secteurController,
                         "secteur de l'emploi",

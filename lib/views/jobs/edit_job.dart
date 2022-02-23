@@ -35,7 +35,8 @@ class _EditJobState extends State<EditJob> {
   late Job job;
   DateTime date = DateTime.now();
   DateTime dateFin = DateTime.now();
-  RangeValues experience = const RangeValues(0, 10);
+  double remuneration = 1;
+  RangeValues experience = const RangeValues(0, 15);
   //setup dates pour dateRange
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(2022,02, 5),
@@ -124,6 +125,22 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 70,
                                 ),
+                                Text("Rémunération"),
+                                Container(
+                                    child:
+                                    Slider(
+                                      value: remuneration,
+                                      max: 3000,
+                                      divisions: 30,
+                                      label: remuneration.round().toString(),
+                                      onChanged: (double value) {
+                                        setState(() {
+                                          remuneration = value;
+                                        });
+                                      },
+                                      activeColor: Colors.black,
+                                    )
+                                ),
                                 TextForm(
                                     competencesController,
                                     "Compétences",
@@ -156,6 +173,28 @@ class _EditJobState extends State<EditJob> {
                                     false,
                                         () {},
                                     TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                Text ("Experience requise pour l'emploi (Bac +)"),
+                                Container(
+                                  child:
+                                  RangeSlider(
+                                    values: experience,
+                                    max: 15,
+                                    divisions: 15,
+                                    labels: RangeLabels(
+                                      experience.start.round().toString(),
+                                      experience.end.round().toString(),
+                                    ),
+                                    onChanged: (RangeValues values) {
+                                      setState(() {
+                                        experience = values;
+                                      });
+                                    },
+                                    activeColor: Colors.black,
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 70,
                                 ),
@@ -227,7 +266,7 @@ class _EditJobState extends State<EditJob> {
                                         onPressed: () {
                                           _selectDateFin(context);
                                         },
-                                        child: Text("${dateFin.day}/${dateFin.month}/${dateFin.year}"),
+                                        child: Text("${dateFin.day}/${dateFin.month}/${dateFin .year}"),
                                         style:
                                         ElevatedButton.styleFrom(primary: Colors.green),
                                       ),
@@ -276,19 +315,17 @@ class _EditJobState extends State<EditJob> {
                                       "intitule": intituleController.text,
                                       "description": descriptionController.text,
                                       "typeContrat": typeContratController.text,
-                                      "remuneration": remunerationController.text,
                                       "assoc": assocController.text,
-                                      "date": dateController.text,
-                                      "dateFin": dateFinController.text,
                                       "competences": competencesController.text,
                                       "niveauEtudes": niveauEtudesController.text,
-                                      "experience": experienceController.text,
                                       "secteur": secteurController.text,
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
                                       "ville": villeController.text,
                                       "date": date,
                                       "dateFin": dateFin,
+                                      "remuneration": remuneration,
+                                      "experience": experience,
                                     }).then((value) => {
                                       if (value == true)
                                         {
