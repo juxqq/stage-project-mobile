@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/reset': (context) => const ResetPassword(),
         '/signupAssoc': (context) => const SignUpAssoc(),
         '/settings': (context) => const AcceuilProfil(),
-        '/pushArticle': (context) => const PublishArticle()
+        '/pushArticle': (context) => const PublishArticle(),
       },
       home: FutureBuilder(
         future: UserService.getToken(),
@@ -46,11 +46,9 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-
-            return const EditJob();
+            return const LoginPage();
           } else {
-            return const EditJob();
-
+            return const LoginPage();
           }
         },
       ),
