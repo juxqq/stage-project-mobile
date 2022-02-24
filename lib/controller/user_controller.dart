@@ -5,9 +5,21 @@ import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/utils/utils.dart';
 
 class UserController {
-  static void register(password, name, firstName, phone, mail, context) async {
+  static User? _user;
+
+  static get user async {
+    if (_user == null) {
+      var data = await UserService.getUserId();
+      _user = User.fromJson(data);
+    }
+
+    return _user;
+  }
+
+  static void register(
+      password, name, firstName, phone, mail, context, image) async {
     await UserService.createUser(
-            password.hashPass(), name, firstName, phone, mail)
+            password.hashPass(), name, firstName, phone, mail, image)
         .then((value) {
       if (value == true) {
         Navigator.pushNamed(context, '/main');
@@ -43,6 +55,7 @@ class UserController {
     }
 
     UserService.setToken(json['token'], json['refreshToken'], user);
+    _user = user;
     return true;
   }
 }

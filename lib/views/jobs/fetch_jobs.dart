@@ -4,6 +4,7 @@ import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/views/jobs/job_details.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
+import 'package:mobile_app/widgets/search.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
 class fetchJobs extends StatefulWidget {
@@ -78,7 +79,7 @@ class _fetchJobsState extends State<fetchJobs> {
                                   snapshot.data as List<dynamic>));
                         } else {
                           return const Text(
-                              "Nous n'avons pas trouver d'offres d'emploi qui correspondent à votre recherche.");
+                              "Nous n'avons pas trouvé d'offres d'emploi qui correspondent à votre recherche.");
 
                         }
                       })

@@ -5,6 +5,7 @@ import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
+import 'edit_event.dart';
 import 'event_details.dart';
 
 class fetchEvent extends StatefulWidget {
@@ -67,7 +68,7 @@ class _fetchEventState extends State<fetchEvent> {
                         } else {
                           return const Text("Nous n'avons pas trouver d'évènements qui correspondent à votre recherche.");
                         }
-                      })
+                      }),
                 ],
               ),
             ),
@@ -103,7 +104,16 @@ class _fetchEventState extends State<fetchEvent> {
                       ListTile(
                         subtitle: Text(data[index].loc),
                         leading: const Icon(Icons.location_on_sharp),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      RadiusButton("Modifier un évément", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EditEvent(data[index])),
+                        );
+                      }, Colors.black)
                     ],
                   )));
         }));

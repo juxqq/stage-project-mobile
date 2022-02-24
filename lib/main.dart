@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/views/Events/edit_event.dart';
 import 'package:mobile_app/views/Events/event_details.dart';
 import 'package:mobile_app/views/Events/fetch_events.dart';
+import 'package:mobile_app/views/assoc/edit_assoc.dart';
 import 'package:mobile_app/views/assoc/publish_job.dart';
 import 'package:mobile_app/views/articles/publish.dart';
-import 'package:mobile_app/views/articles/test.dart';
 import 'package:mobile_app/views/assoc/signup_assoc.dart';
 import 'package:mobile_app/views/auth/settings.dart';
+import 'package:mobile_app/views/jobs/edit_job.dart';
 import 'package:mobile_app/views/jobs/fetch_jobs.dart';
 import 'views/auth/profile.dart';
 import 'views/auth/reset.dart';
@@ -23,7 +25,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Messenger Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         '/reset': (context) => const ResetPassword(),
         '/signupAssoc': (context) => const SignUpAssoc(),
         '/settings': (context) => const AcceuilProfil(),
-        '/pushArticle': (context) => const PublishArticle()
+        '/pushArticle': (context) => const PublishArticle(),
       },
       home: FutureBuilder(
         future: UserService.getToken(),
@@ -44,11 +45,9 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-
             return const AcceuilProfil();
           } else {
-            return const AcceuilProfil();
-
+            return const LoginPage();
           }
         },
       ),

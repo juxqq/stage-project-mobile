@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:mobile_app/utils/utils.dart';
+
 class User {
   final int id;
   final String name;
@@ -5,9 +8,14 @@ class User {
   final String phone;
   final String mail;
   final String password;
+  final String imageName;
 
-  User(
-      this.id, this.name, this.firstName, this.phone, this.mail, this.password);
+  get image {
+    return NetworkImage('$uriApi/images/$imageName');
+  }
+
+  User(this.id, this.name, this.firstName, this.phone, this.mail, this.password,
+      this.imageName);
 
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -15,7 +23,8 @@ class User {
         firstName = json['firstName'],
         phone = json['phoneNumber'],
         mail = json['mail'],
-        password = json['password'];
+        password = json['password'],
+        imageName = json['image'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -23,6 +32,7 @@ class User {
         'firstName': firstName,
         'phoneNumber': phone,
         'mail': mail,
-        'password': password
+        'password': password,
+        'image': imageName
       };
 }

@@ -68,11 +68,7 @@ class _ShowArticlesState extends State<ShowArticles> {
                     title: Text(data[index].title),
                     leading: const Icon(Icons.article),
                   ),
-                  Image.asset(
-                    'assets/img/arbre.png',
-                    height: 120,
-                    width: MediaQuery.of(context).size.width,
-                  ),
+                  data[index].image,
                   const SizedBox(
                     height: 5,
                   ),

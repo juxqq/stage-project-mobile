@@ -19,13 +19,30 @@ class _PublishJobState extends State<PublishJob> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController typeContratController = TextEditingController();
   final TextEditingController remunerationController = TextEditingController();
-  final TextEditingController localisationController = TextEditingController();
   DateTime date = DateTime.now();
   DateTime dateFin = DateTime.now();
+  DateTime datePublication = DateTime.now();
+  DateTime dateUpdate = DateTime.now();
   final TextEditingController competencesController = TextEditingController();
   final TextEditingController niveauEtudesController = TextEditingController();
   final TextEditingController experienceController = TextEditingController();
   final TextEditingController secteurController = TextEditingController();
+  final TextEditingController adresseController = TextEditingController();
+  final TextEditingController cpController = TextEditingController();
+  final TextEditingController villeController = TextEditingController();
+  RangeValues experience = const RangeValues(40, 80);
+
+  //Liste  choix
+  var typeContrat = [
+    'CDD',
+    'CDI',
+    'Stage',
+    'Benevolat',
+    'Alternance',
+
+  ];
+
+
   //late User user;
 
   @override
@@ -79,20 +96,12 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
+                    const SizedBox(height: 10),
                     TextForm(
                         remunerationController,
                         "Remuneration",
                         (p0) => null,
                         Icons.euro,
-                        false,
-                        () => null,
-                        TextInputType.multiline,
-                        maxLines: null),
-                    TextForm(
-                        localisationController,
-                        "localisation",
-                        (p0) => null,
-                        Icons.add_location,
                         false,
                         () => null,
                         TextInputType.multiline,
@@ -124,6 +133,25 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
+                    const Text ("Experience requise pour l'emploi (Bac +)"),
+                    Container(
+                      child:
+                      RangeSlider(
+                        values: experience,
+                        max: 15,
+                        divisions: 15,
+                        labels: RangeLabels(
+                          experience.start.round().toString(),
+                          experience.end.round().toString(),
+                        ),
+                        onChanged: (RangeValues values) {
+                          setState(() {
+                            experience = values;
+                          });
+                        },
+                        activeColor: Colors.black,
+                      ),
+                    ),
                     TextForm(
                         secteurController,
                         "secteur de l'emploi",
@@ -133,7 +161,33 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
-
+                    TextForm(
+                        adresseController,
+                        "Adresse",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
+                    TextForm(
+                        cpController,
+                        "Code postal",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
+                    TextForm(
+                        villeController,
+                        "Ville",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
                       Container(
                         child:  Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -142,7 +196,7 @@ class _PublishJobState extends State<PublishJob> {
                               onPressed: () {
                                 _selectDateDebut(context);
                               },
-                              child: Text("date de debut"),
+                              child: Text("Date de début"),
                               style:
                               ElevatedButton.styleFrom(primary: Colors.green),
                             ),
@@ -151,10 +205,10 @@ class _PublishJobState extends State<PublishJob> {
                               onPressed: () {
                                 _selectDateFin(context);
                               },
-                              child: Text("date de Fin"),
+                              child: Text("Date de fin"),
                               style:
                               ElevatedButton.styleFrom(primary: Colors.green),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -169,13 +223,18 @@ class _PublishJobState extends State<PublishJob> {
                                   typeContratController.text,
                                   remunerationController.text,
                                   1,
-                                  localisationController.text,
                                   date,
                                   dateFin,
+                                  datePublication,
+                                  dateUpdate,
                                   competencesController.text,
                                   niveauEtudesController.text,
-                                  experienceController.text,
-                                  secteurController.text)
+                                  secteurController.text,
+                                  adresseController.text,
+                                  cpController.text,
+                                  villeController.text,
+                                  experience
+                          )
                               .then((value) {
                             if (value == true) {
                               showSnackBar(
@@ -209,10 +268,11 @@ class _PublishJobState extends State<PublishJob> {
         initialDate: date,
         firstDate: DateTime(2022),
         lastDate: DateTime(2122));
-    if (selected != null && selected != date)
+    if (selected != null && selected != date) {
       setState(() {
         date = selected;
       });
+    }
   }
 
   _selectDateFin(BuildContext) async {
@@ -221,9 +281,13 @@ class _PublishJobState extends State<PublishJob> {
         initialDate: dateFin,
         firstDate: DateTime(2022),
         lastDate: DateTime(2122));
-    if (selected != null && selected != dateFin)
+    if (selected != null && selected != dateFin) {
       setState(() {
         dateFin = selected;
       });
+    }
   }
+
+
+
 }

@@ -24,12 +24,25 @@ class ArticleService {
     } catch (exception) {
       return articles;
     }
-
     return articles;
   }
 
+  static Future<dynamic> updateArticle(id_article, body) async {
+    try {
+      final response =
+      await http.put(Uri.parse('$uriApi/put.php?id_article=$id_article'), body: body);
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+    } catch (identifier) {
+      return false;
+    }
+    return true;
+  }
+
   static Future<bool> createArticle(
-      title, resume, text, published, update, idUser) async {
+      title, resume, text, published, update, idUser, imageName) async {
     try {
       final response =
           await http.post(Uri.parse('$uriApi/postArticle.php'), body: {
@@ -38,7 +51,8 @@ class ArticleService {
         "text": "$text",
         "published": "$published",
         "update": "$update",
-        "idUser": "$idUser"
+        "idUser": "$idUser",
+        "image": "$imageName"
       });
 
       if (response.statusCode != 200) {

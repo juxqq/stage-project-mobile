@@ -46,7 +46,7 @@ class UserService {
   }
 
   static Future<dynamic> createUser(
-      password, name, firstName, phone, mail) async {
+      password, name, firstName, phone, mail, image) async {
     try {
       await getUser("mail", mail).then((value) {
         if (value['response'] == true) {
@@ -63,7 +63,8 @@ class UserService {
         "firstName": "$firstName",
         "phone": "$phone",
         "mail": "$mail",
-        "password": "$password"
+        "password": "$password",
+        "image": image
       });
 
       await http.post(Uri.parse(
@@ -103,6 +104,7 @@ class UserService {
             'phoneNumber': user.phone,
             'mail': user.mail,
             'password': user.password,
+            'image': user.imageName,
             'code': json['code'],
             'response': true
           };
