@@ -36,7 +36,7 @@ class _JobDetailsState extends State<JobDetails> {
                 ),
                 Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget.job.loc))
+                    child: Text(widget.job.ville))
               ]))),
       bottomNavigationBar: const AppBarWidget(),
     );

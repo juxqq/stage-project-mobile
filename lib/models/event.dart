@@ -10,24 +10,16 @@ class Event {
   final DateTime dateEvenement;
   final String orgPrinicp;
   final String orgSecond;
-  final String loc;
+  final String adresse;
+  final String cp;
+  final String ville;
   final String imageName;
 
   get image {
     return NetworkImage('$uriApi/images/$imageName');
   }
 
-  Event(
-      this.nom,
-      this.publicVise,
-      this.description,
-      this.datePublication,
-      this.dateReservationMax,
-      this.dateEvenement,
-      this.orgPrinicp,
-      this.orgSecond,
-      this.loc,
-      this.imageName);
+  Event(this.nom, this.publicVise, this.description, this.datePublication, this.dateReservationMax, this.dateEvenement, this.orgPrinicp, this.orgSecond, this.adresse, this.cp, this.ville, this.imageName);
 
   Event.fromJson(Map<String, dynamic> json)
       : nom = json['nom'],
@@ -38,6 +30,8 @@ class Event {
         dateEvenement = DateTime.parse(json['dateReservationMax']),
         orgPrinicp = json['organisateurPrincipal'],
         orgSecond = json['autreOrganisateurs'],
-        loc = json['localisation'],
+        adresse = json['adresse'],
+        cp = json['cp'],
+        ville = json['ville'];
         imageName = json['image'];
 }

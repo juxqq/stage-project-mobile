@@ -26,10 +26,12 @@ class _PublishEventState extends State<PublishEvent> {
   final TextEditingController descriptionController = TextEditingController();
   DateTime datePublication = DateTime.now();
   DateTime dateEvent = DateTime.now();
+  DateTime dateReservationMax= DateTime.now();
+  final TextEditingController autreOrganisateurController = TextEditingController();
+  final TextEditingController adresseController = TextEditingController();
+  final TextEditingController cpController = TextEditingController();
+  final TextEditingController villeController = TextEditingController();
   DateTime dateReservationMax = DateTime.now();
-  final TextEditingController autreOrganisateurController =
-      TextEditingController();
-  final TextEditingController localisationController = TextEditingController();
   File? _image;
   //late User user;
 
@@ -94,9 +96,27 @@ class _PublishEventState extends State<PublishEvent> {
                         TextInputType.multiline,
                         maxLines: null),
                     TextForm(
-                        localisationController,
-                        "localisation",
-                        (p0) => null,
+                        adresseController,
+                        "Adresse",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
+                    TextForm(
+                        cpController,
+                        "Code postal",
+                            (p0) => null,
+                        Icons.add_location,
+                        false,
+                            () => null,
+                        TextInputType.multiline,
+                        maxLines: null),
+                    TextForm(
+                        villeController,
+                        "Ville",
+                            (p0) => null,
                         Icons.add_location,
                         false,
                         () => null,
@@ -121,8 +141,8 @@ class _PublishEventState extends State<PublishEvent> {
                             },
                             child: Text("date maximale de réservation"),
                             style:
-                                ElevatedButton.styleFrom(primary: Colors.green),
-                          )
+                            ElevatedButton.styleFrom(primary: Colors.green),
+                          ),
                         ],
                       ),
                     ),
@@ -144,21 +164,23 @@ class _PublishEventState extends State<PublishEvent> {
                     ElevatedButton(
                         onPressed: () {
                           EventService.createEvent(
-                                  nomController,
-                                  publicViseController,
-                                  descriptionController.text,
-                                  dateEvent,
-                                  datePublication,
-                                  dateReservationMax,
-                                  autreOrganisateurController,
-                                  1,
-                                  localisationController.text,
-                                  basename(_image!.path))
-                              .then((value) {
+                              nomController,
+                              publicViseController,
+                              descriptionController.text,
+                              dateEvent,
+                              datePublication,
+                              dateReservationMax,
+                              autreOrganisateurController,
+                              1,
+                              adresseController.text,
+                              cpController.text,
+                              villeController.text,
+                              basename(_image!.path)
+                            ).then((value) {
                             if (value == true) {
                               showSnackBar(
                                   context,
-                                  "Votre évènement à été publiée",
+                                  "Votre évènement a été publié",
                                   Colors.green);
                             } else {
                               showSnackBar(

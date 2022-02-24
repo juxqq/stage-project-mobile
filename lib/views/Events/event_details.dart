@@ -37,7 +37,7 @@ class _EventDetailsState extends State<EventDetails> {
                 ),
                 Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget.event.loc))
+                    child: Text(widget.event.ville))
               ]))),
       bottomNavigationBar: const AppBarWidget(),
     );
