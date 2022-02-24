@@ -96,6 +96,7 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
+                    const SizedBox(height: 10),
                     TextForm(
                         remunerationController,
                         "Remuneration",
@@ -132,7 +133,7 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
-                    Text ("Experience requise pour l'emploi (Bac +)"),
+                    const Text ("Experience requise pour l'emploi (Bac +)"),
                     Container(
                       child:
                       RangeSlider(
@@ -208,24 +209,6 @@ class _PublishJobState extends State<PublishJob> {
                               style:
                               ElevatedButton.styleFrom(primary: Colors.green),
                             ),
-                            const SizedBox( width: 10),
-                            ElevatedButton(
-                              onPressed: () {
-                                _selectDatePublication(context);
-                              },
-                              child: Text("Date de publication"),
-                              style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
-                            ),
-                            const SizedBox( width: 10),
-                            ElevatedButton(
-                              onPressed: () {
-                                _selectDateUpdate(context);
-                              },
-                              child: Text("Date de l'update"),
-                              style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
-                            )
                           ],
                         ),
                       ),
@@ -246,11 +229,11 @@ class _PublishJobState extends State<PublishJob> {
                                   dateUpdate,
                                   competencesController.text,
                                   niveauEtudesController.text,
-                                  experienceController.text,
                                   secteurController.text,
                                   adresseController.text,
                                   cpController.text,
                                   villeController.text,
+                                  experience
                           )
                               .then((value) {
                             if (value == true) {
@@ -285,10 +268,11 @@ class _PublishJobState extends State<PublishJob> {
         initialDate: date,
         firstDate: DateTime(2022),
         lastDate: DateTime(2122));
-    if (selected != null && selected != date)
+    if (selected != null && selected != date) {
       setState(() {
         date = selected;
       });
+    }
   }
 
   _selectDateFin(BuildContext) async {
@@ -297,35 +281,13 @@ class _PublishJobState extends State<PublishJob> {
         initialDate: dateFin,
         firstDate: DateTime(2022),
         lastDate: DateTime(2122));
-    if (selected != null && selected != dateFin)
+    if (selected != null && selected != dateFin) {
       setState(() {
         dateFin = selected;
       });
+    }
   }
 
-  _selectDatePublication(BuildContext) async {
-    final DateTime? selected = await showDatePicker(
-        context: context,
-        initialDate: datePublication,
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2122));
-    if (selected != null && selected != datePublication)
-      setState(() {
-        datePublication = selected;
-      });
-  }
-
-  _selectDateUpdate(BuildContext) async {
-    final DateTime? selected = await showDatePicker(
-        context: context,
-        initialDate: dateUpdate,
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2122));
-    if (selected != null && selected != dateUpdate)
-      setState(() {
-        dateUpdate = selected;
-      });
-  }
 
 
 }

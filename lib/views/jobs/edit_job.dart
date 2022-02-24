@@ -49,10 +49,10 @@ class _EditJobState extends State<EditJob> {
 
 
 
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
+
             child: Form(
                 key: _formKey,
                 child: SafeArea(
@@ -62,6 +62,7 @@ class _EditJobState extends State<EditJob> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+
                                 const Text("Modifier une annonce d'emploi",
                                     style: TextStyle(fontSize: 40)),
 
@@ -247,6 +248,9 @@ class _EditJobState extends State<EditJob> {
                                   height: 30,
                                 ),
 
+
+
+
                                 Text('Date de début et date de fin'),
 
                                 Container(
@@ -353,6 +357,8 @@ class _EditJobState extends State<EditJob> {
         bottomNavigationBar: const AppBarWidget());
   }
 
+
+
   _selectDateDebut(BuildContext) async {
     final DateTime? selected = await showDatePicker(
         context: context,
@@ -375,6 +381,8 @@ class _EditJobState extends State<EditJob> {
       setState(() {
         dateFin = selected;
       });
+
+
   }
 }
 

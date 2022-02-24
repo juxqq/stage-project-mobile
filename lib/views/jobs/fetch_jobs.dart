@@ -79,7 +79,7 @@ class _fetchJobsState extends State<fetchJobs> {
                                   snapshot.data as List<dynamic>));
                         } else {
                           return const Text(
-                              "Nous n'avons pas trouver d'offres d'emploi qui correspondent à votre recherche.");
+                              "Nous n'avons pas trouvé d'offres d'emploi qui correspondent à votre recherche.");
 
                         }
                       })
