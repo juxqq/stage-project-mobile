@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/models/user.dart';
 import 'package:mobile_app/services/article_service.dart';
 import 'package:mobile_app/services/user_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
+import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
 class PublishArticle extends StatefulWidget {
@@ -18,6 +23,7 @@ class _PublishArticleState extends State<PublishArticle> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController resumeController = TextEditingController();
   final TextEditingController textController = TextEditingController();
+  File? _image;
   //late User user;
 
   @override
@@ -72,6 +78,20 @@ class _PublishArticleState extends State<PublishArticle> {
                         TextInputType.multiline,
                         maxLines: null),
                     const SizedBox(height: 10),
+                    RadiusButton('Choisir dans la galerie', () async {
+                      final image = await ImagePicker()
+                          .getImage(source: ImageSource.gallery);
+                      if (image == null) {
+                        return;
+                      }
+
+                      final imageTemporary = File(image.path);
+                      setState(() {
+                        _image = imageTemporary;
+                      });
+                      upload(_image!, "articles");
+                    }, Colors.black),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                         onPressed: () {
                           ArticleService.createArticle(
@@ -80,7 +100,8 @@ class _PublishArticleState extends State<PublishArticle> {
                                   textController.text,
                                   DateTime.now(),
                                   DateTime.now(),
-                                  1)
+                                  1,
+                                  basename(_image!.path))
                               .then((value) {
                             if (value == true) {
                               showSnackBar(context,

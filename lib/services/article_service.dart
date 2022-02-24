@@ -29,7 +29,7 @@ class ArticleService {
   }
 
   static Future<bool> createArticle(
-      title, resume, text, published, update, idUser) async {
+      title, resume, text, published, update, idUser, imageName) async {
     try {
       final response =
           await http.post(Uri.parse('$uriApi/postArticle.php'), body: {
@@ -38,7 +38,8 @@ class ArticleService {
         "text": "$text",
         "published": "$published",
         "update": "$update",
-        "idUser": "$idUser"
+        "idUser": "$idUser",
+        "image": "$imageName"
       });
 
       if (response.statusCode != 200) {

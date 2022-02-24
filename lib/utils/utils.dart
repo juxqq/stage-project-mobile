@@ -34,11 +34,10 @@ List<dynamic> searchArticlesWidget(titleController, authorController, context) {
   ];
 }
 
-upload(File image) async {
+upload(File image, dir) async {
   try {
     ///[1] CREATING INSTANCE
     var dioRequest = dio.Dio();
-    dioRequest.options.baseUrl = '<YOUR-URL>';
 
     //[2] ADDING TOKEN
     dioRequest.options.headers = {
@@ -47,19 +46,15 @@ upload(File image) async {
     };
 
     //[3] ADDING EXTRA INFO
-    var formData =
-        dio.FormData.fromMap({'<SOME-EXTRA-FIELD>': 'username-forexample'});
-
-    //[4] ADD IMAGE TO UPLOAD
+    var formData = dio.FormData();
     var file = await dio.MultipartFile.fromFile(image.path,
         filename: basename(image.path),
         contentType: MediaType("image", basename(image.path)));
 
     formData.files.add(MapEntry('userfile', file));
 
-    //[5] SEND TO SERVER
     var response = await dioRequest.post(
-      '$uriApi/photos.php',
+      '$uriApi/photos.php?dir=$dir',
       data: formData,
     );
     final result = json.decode(response.toString())['result'];

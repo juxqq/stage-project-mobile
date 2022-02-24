@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
 import 'package:mobile_app/services/assoc_service.dart';
 import 'package:drop_down_list/drop_down_list.dart';
+import 'package:path/path.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/dropdown_list.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
@@ -27,6 +31,7 @@ class _SignUpAssocState extends State<SignUpAssoc> {
   final TextEditingController mailController = TextEditingController();
   final TextEditingController siteWebController = TextEditingController();
   int activeIndex = 0;
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +48,13 @@ class _SignUpAssocState extends State<SignUpAssoc> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 250,
-                        child: Stack(children: [
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            child: Image.asset('assets/img/logo_assoc.jpg',
-                                height: 400),
-                          )
-                        ]),
-                      ),
+                          height: 250,
+                          child: CircleAvatar(
+                              radius: 90,
+                              backgroundImage: _image == null
+                                  ? Image.asset('assets/img/logo_assoc.jpg')
+                                      .image
+                                  : Image.file(_image!).image)),
                       // const Text("Inscription association", style: TextStyle(fontSize: 25)),
                       const SizedBox(height: 25),
                       AnimatedSwitcher(
@@ -102,9 +102,9 @@ class _SignUpAssocState extends State<SignUpAssoc> {
     }, Colors.black),
     RadiusButton("S'inscrire", () async {
       if (_formKey.currentState!.validate()) {
-        showSnackBar(context, 'Inscription en cours...', Colors.grey);
-        await AssocService
-            .createAssoc(
+        showSnackBar(
+            context as BuildContext, 'Inscription en cours...', Colors.grey);
+        await AssocService.createAssoc(
                 nameController.text,
                 siretController.text,
                 presidentController.text,
@@ -114,11 +114,13 @@ class _SignUpAssocState extends State<SignUpAssoc> {
                 localisationController.text,
                 descriptionController.text,
                 mailController.text,
-                siteWebController.text)
+                siteWebController.text,
+                basename(_image!.path))
             .then((value) {
           if (value == true) {
-            Navigator.pushNamed(context, '/main');
-            showSnackBar(context, 'Inscription réussie !', Colors.green);
+            Navigator.of(context as BuildContext).pushNamed('/main');
+            showSnackBar(
+                context as BuildContext, 'Inscription réussie !', Colors.green);
           }
         });
       }
@@ -200,6 +202,22 @@ class _SignUpAssocState extends State<SignUpAssoc> {
     const SizedBox(height: 20),
     TextForm(siteWebController, 'Site web', (p0) {}, Icons.add_link, false,
         () {}, TextInputType.text),
+    const SizedBox(
+      height: 20,
+    ),
+    RadiusButton('Choisir dans la galerie', () async {
+      final image = await ImagePicker().getImage(source: ImageSource.gallery);
+      if (image == null) {
+        return;
+      }
+
+      final imageTemporary = File(image.path);
+      setState(() {
+        _image = imageTemporary;
+      });
+      upload(_image!, "assoc");
+    }, Colors.black),
+    const SizedBox(height: 10)
   ]);
 
   Widget getSignup() {

@@ -1,15 +1,22 @@
 import 'package:http/http.dart' as http;
-import 'package:flutter_session/flutter_session.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class AssocService {
-  static const String uri =
-      'https://www.dorian-roulet.com/stage_2022_01x02_epsi';
-  static final session = FlutterSession();
-
-  static Future<dynamic> createAssoc(name, siret, president, tresorier, secretaire,
-      nbMembre, localisation, description, mail, siteWeb) async {
+  static Future<dynamic> createAssoc(
+      name,
+      siret,
+      president,
+      tresorier,
+      secretaire,
+      nbMembre,
+      localisation,
+      description,
+      mail,
+      siteWeb,
+      image) async {
     try {
-      final response = await http.post(Uri.parse('$uri/postAssoc.php'), body: {
+      final response =
+          await http.post(Uri.parse('$uriApi/postAssoc.php'), body: {
         "name": "$name",
         "siret": "$siret",
         "president": "$president",
@@ -19,7 +26,8 @@ class AssocService {
         "localisation": "$localisation",
         "description": "$description",
         "mail": "$mail",
-        "siteWeb": "$siteWeb"
+        "siteWeb": "$siteWeb",
+        "image": image
       });
 
       if (response.statusCode == 200) {
