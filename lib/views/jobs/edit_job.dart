@@ -4,11 +4,14 @@ import 'package:mobile_app/models/job.dart';
 import 'package:mobile_app/services/emploi_service.dart';
 import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
+import 'package:drop_down_list/drop_down_list.dart';
+import 'package:mobile_app/widgets/dropdown_list.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
 class EditJob extends StatefulWidget {
-  const EditJob({Key? key}) : super(key: key);
+  final Job job;
+  const EditJob(this.job, {Key? key}) : super(key: key);
 
   @override
   _EditJobState createState() => _EditJobState();
@@ -75,14 +78,17 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 70,
                                 ),
-                                TextForm(
-                                    typeContratController,
-                                    'Type de contrat',
-                                        (value) {},
-                                    Icons.text_fields,
-                                    false,
-                                        () {},
-                                    TextInputType.text),
+                                AppTextField(
+                                    textEditingController: typeContratController,
+                                    isCitySelected: true,
+                                    cities: [
+                                      SelectedListItem(false, 'CDD'),
+                                      SelectedListItem(false, 'CDI'),
+                                      SelectedListItem(false, 'Apprentissage'),
+                                      SelectedListItem(false, 'Stagiaire'),
+                                      SelectedListItem(false, 'Autre'),
+                                    ],
+                                    text: 'Type de contrat'),
                                 const SizedBox(
                                   height: 70,
                                 ),
@@ -180,14 +186,29 @@ class _EditJobState extends State<EditJob> {
                                   height: 70,
                                 ),
                                 //Box pour le telephone
-                                TextForm(
-                                    secteurController,
-                                    "Secteur",
-                                        (value) {},
-                                    Icons.person,
-                                    false,
-                                        () {},
-                                    TextInputType.text),
+                                AppTextField(
+                                    textEditingController: secteurController,
+                                    isCitySelected: true,
+                                    cities: [
+                                      SelectedListItem(false, 'Agroalimentaire'),
+                                      SelectedListItem(false, 'Bois / Papier / Carton / Imprimerie'),
+                                      SelectedListItem(false, 'Chimie / Parachimie'),
+                                      SelectedListItem(false, 'Édition / Communication / Multimédia'),
+                                      SelectedListItem(false, 'Études et conseils'),
+                                      SelectedListItem(false, 'Machines et équipements / Automobile'),
+                                      SelectedListItem(false, 'Plastique / Caoutchouc'),
+                                      SelectedListItem(false, 'Textile / Habillement / Chaussure'),
+                                      SelectedListItem(false, 'Banque / Assurance'),
+                                      SelectedListItem(false, 'BTP / Matériaux de construction'),
+                                      SelectedListItem(false, 'Commerce / Négoce / Distribution'),
+                                      SelectedListItem(false, 'Électronique / Électricité'),
+                                      SelectedListItem(false, 'Industrie pharmaceutique'),
+                                      SelectedListItem(false, 'Informatique / Télécoms'),
+                                      SelectedListItem(false, 'Métallurgie / Travail du métal'),
+                                      SelectedListItem(false, 'Services aux entreprises'),
+                                      SelectedListItem(false, 'Transports / Logistique'),
+                                    ],
+                                    text: 'Secteur'),
                                 const SizedBox(
                                   height: 70,
                                 ),

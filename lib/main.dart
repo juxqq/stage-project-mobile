@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/views/Events/edit_event.dart';
 import 'package:mobile_app/views/Events/event_details.dart';
 import 'package:mobile_app/views/Events/fetch_events.dart';
 import 'package:mobile_app/views/assoc/publish_job.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/reset': (context) => const ResetPassword(),
         '/signupAssoc': (context) => const SignUpAssoc(),
         '/settings': (context) => const AcceuilProfil(),
-        '/pushArticle': (context) => const PublishArticle()
+        '/pushArticle': (context) => const PublishArticle(),
       },
       home: FutureBuilder(
         future: UserService.getToken(),
@@ -43,11 +44,9 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-
-            return const AcceuilProfil();
+            return const LoginPage();
           } else {
-            return const AcceuilProfil();
-
+            return const LoginPage();
           }
         },
       ),

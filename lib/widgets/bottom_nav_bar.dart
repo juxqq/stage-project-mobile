@@ -28,11 +28,15 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         ),
         BottomNavyBarItem(
             icon: const Icon(Icons.shopping_cart_outlined),
-            title: const Text('Panier'),
+            title: const Text('Emplois'),
+            activeColor: Colors.cyan),
+        BottomNavyBarItem(
+            icon: const Icon(Icons.shopping_cart_outlined),
+            title: const Text('Articles'),
             activeColor: Colors.cyan),
         BottomNavyBarItem(
             icon: Icon(Icons.access_time),
-            title: Text('Commandes'),
+            title: Text('Evenements'),
             activeColor: Colors.cyan),
         BottomNavyBarItem(
             icon: Icon(Icons.app_settings_alt_rounded),

@@ -8,7 +8,8 @@ import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
 
 class EditEvent extends StatefulWidget {
-  const EditEvent({Key? key}) : super(key: key);
+  final Event event;
+  const EditEvent(this.event, {Key? key}) : super(key: key);
 
   @override
   _EditEventState createState() => _EditEventState();
