@@ -19,7 +19,19 @@ class Event {
     return NetworkImage('$uriApi/images/$imageName');
   }
 
-  Event(this.nom, this.publicVise, this.description, this.datePublication, this.dateReservationMax, this.dateEvenement, this.orgPrinicp, this.orgSecond, this.adresse, this.cp, this.ville, this.imageName);
+  Event(
+      this.nom,
+      this.publicVise,
+      this.description,
+      this.datePublication,
+      this.dateReservationMax,
+      this.dateEvenement,
+      this.orgPrinicp,
+      this.orgSecond,
+      this.adresse,
+      this.cp,
+      this.ville,
+      this.imageName);
 
   Event.fromJson(Map<String, dynamic> json)
       : nom = json['nom'],
@@ -32,6 +44,6 @@ class Event {
         orgSecond = json['autreOrganisateurs'],
         adresse = json['adresse'],
         cp = json['cp'],
-        ville = json['ville'];
+        ville = json['ville'],
         imageName = json['image'];
 }

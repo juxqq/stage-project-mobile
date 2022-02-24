@@ -5,9 +5,19 @@ import 'package:mobile_app/models/event.dart';
 import 'package:mobile_app/utils/utils.dart';
 
 class EventService {
-  static Future<dynamic> createEvent(nom, publicVise, description,
-      datePublication, dateReservationMax, dateEvenement, organisateurPrincipal,
-      autreOrganisateurs, adresse, cp, ville, image) async {
+  static Future<dynamic> createEvent(
+      nom,
+      publicVise,
+      description,
+      datePublication,
+      dateReservationMax,
+      dateEvenement,
+      organisateurPrincipal,
+      autreOrganisateurs,
+      adresse,
+      cp,
+      ville,
+      image) async {
     try {
       final response =
           await http.post(Uri.parse('$uriApi/postEvent.php'), body: {
@@ -37,7 +47,7 @@ class EventService {
   static Future<dynamic> updateEvent(id, body) async {
     try {
       final response =
-      await http.put(Uri.parse('$uri/putEvent.php?id=$id'), body: body);
+          await http.put(Uri.parse('$uriApi/putEvent.php?id=$id'), body: body);
 
       if (response.statusCode != 200) {
         return false;
@@ -48,12 +58,12 @@ class EventService {
     return true;
   }
 
-Future<dynamic> getEvent(nom, ville) async {
+  Future<dynamic> getEvent(nom, ville) async {
     var event = [];
 
     try {
-      final response =
-      await http.get(Uri.parse('$uri/getEvent.php?nom=$nom&ville=$ville'));
+      final response = await http
+          .get(Uri.parse('$uriApi/getEvent.php?nom=$nom&ville=$ville'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
