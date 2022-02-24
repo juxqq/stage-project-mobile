@@ -1,19 +1,16 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
 import 'package:mobile_app/models/event.dart';
+import 'package:mobile_app/utils/utils.dart';
 
 class EventService {
-  static const String uri =
-      'https://www.dorian-roulet.com/stage_2022_01x02_epsi';
-  static final session = FlutterSession();
-
   static Future<dynamic> createEvent(nom, publicVise, description,
       datePublication, dateReservationMax, dateEvenement, organisateurPrincipal,
-      autreOrganisateurs, adresse, cp, ville) async {
+      autreOrganisateurs, adresse, cp, ville, image) async {
     try {
-      final response = await http.post(Uri.parse('$uri/postEvent.php'), body: {
+      final response =
+          await http.post(Uri.parse('$uriApi/postEvent.php'), body: {
         "nom": "$nom",
         "publicVise": "$publicVise",
         "description": "$description",
@@ -25,6 +22,7 @@ class EventService {
         "adresse": "$adresse",
         "cp": "$cp",
         "ville": "$ville",
+        "image": image
       });
 
       if (response.statusCode == 200) {
@@ -72,5 +70,4 @@ Future<dynamic> getEvent(nom, ville) async {
 
     return event;
   }
-
 }

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:mobile_app/utils/utils.dart';
+
 class Event {
   final String nom;
   final String publicVise;
@@ -10,8 +13,13 @@ class Event {
   final String adresse;
   final String cp;
   final String ville;
+  final String imageName;
 
-  Event(this.nom, this.publicVise, this.description, this.datePublication, this.dateReservationMax, this.dateEvenement, this.orgPrinicp, this.orgSecond, this.adresse, this.cp, this.ville);
+  get image {
+    return NetworkImage('$uriApi/images/$imageName');
+  }
+
+  Event(this.nom, this.publicVise, this.description, this.datePublication, this.dateReservationMax, this.dateEvenement, this.orgPrinicp, this.orgSecond, this.adresse, this.cp, this.ville, this.imageName);
 
   Event.fromJson(Map<String, dynamic> json)
       : nom = json['nom'],
@@ -25,4 +33,5 @@ class Event {
         adresse = json['adresse'],
         cp = json['cp'],
         ville = json['ville'];
+        imageName = json['image'];
 }

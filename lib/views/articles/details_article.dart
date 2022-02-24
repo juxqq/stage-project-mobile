@@ -26,11 +26,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
           child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(children: [
-                Image.asset(
-                  'assets/img/logo_assoc.jpg',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.25,
-                ),
+                widget.article.image,
                 const SizedBox(
                   height: 10,
                 ),

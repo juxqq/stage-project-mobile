@@ -33,10 +33,10 @@ class _ProfileState extends State<Profile> {
     user = User.fromJson(data);
 
     if (data != null) {
-      nameController.text = data['name'];
-      firstNameController.text = data['firstName'];
-      mailController.text = data['mail'];
-      phoneController.text = data['phone'];
+      nameController.text = user.name;
+      firstNameController.text = user.firstName;
+      mailController.text = user.mail;
+      phoneController.text = user.phone;
     }
   }
 

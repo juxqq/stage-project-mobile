@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app/controller/user_controller.dart';
 import 'package:drop_down_list/drop_down_list.dart';
 import 'package:mobile_app/extensions/validator_extensions.dart';
@@ -6,6 +9,7 @@ import 'package:mobile_app/utils/utils.dart';
 import 'package:mobile_app/widgets/dropdown_list.dart';
 import 'package:mobile_app/widgets/radius_button.dart';
 import 'package:mobile_app/widgets/text_form.dart';
+import 'package:path/path.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -25,6 +29,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController genreController = TextEditingController();
+  ImagePicker _picker = ImagePicker();
+  File? _image;
 
   @override
   void initState() {
@@ -48,9 +54,14 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 250,
-                        child: Image.asset('assets/img/creatingprofile.png'),
-                      ),
+                          height: 250,
+                          child: CircleAvatar(
+                              radius: 90,
+                              backgroundImage: _image == null
+                                  ? Image.asset(
+                                          'assets/img/creatingprofile.png')
+                                      .image
+                                  : Image.file(_image!).image)),
                       const Text("Inscription", style: TextStyle(fontSize: 25)),
                       const SizedBox(height: 25),
                       AnimatedSwitcher(
@@ -97,7 +108,8 @@ class _SignUpState extends State<SignUp> {
               firstNameController.text,
               phoneController.text,
               mailController.text,
-              context);
+              context,
+              basename(_image!.path));
         }
       }, Colors.black)
     ],
@@ -135,6 +147,18 @@ class _SignUpState extends State<SignUp> {
         Icons.phone,
         false,
         () {},
-        TextInputType.phone)
+        TextInputType.phone),
+    RadiusButton('Choisir dans la galerie', () async {
+      final image = await _picker.getImage(source: ImageSource.gallery);
+      if (image == null) {
+        return;
+      }
+
+      final imageTemporary = File(image.path);
+      setState(() {
+        _image = imageTemporary;
+      });
+      upload(_image!, "users");
+    }, Colors.black)
   ]);
 }
