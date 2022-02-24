@@ -26,6 +26,9 @@ class _EditEventState extends State<EditEvent> {
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
   late Event event;
+  DateTime datePublication = DateTime.now();
+  DateTime dateEvent = DateTime.now();
+  DateTime dateReservationMax = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,7 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     publicViseController,
                                     'Public visé',
-                                    (value) {},
+                                        (value) {},
                                     Icons.person,
                                     false,
                                         () {},
@@ -142,18 +145,52 @@ class _EditEventState extends State<EditEvent> {
                                 const SizedBox(
                                   height: 30,
                                 ),
+                                Text("Modifier la date de l'évènement et de réservation"),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _selectDateEvent(context);
+                                        },
+                                        child: Text(
+                                            "${dateEvent.day}/${dateEvent.month}/${dateEvent.year}"),
+                                        style:
+                                        ElevatedButton.styleFrom(
+                                            primary: Colors.green),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _selectDateReservation(context);
+                                        },
+                                        child: Text(
+                                            '${dateReservationMax.day}/${dateReservationMax.month}/${dateReservationMax.year}'),
+                                        style:
+                                        ElevatedButton.styleFrom(
+                                            primary: Colors.green),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
                                 RadiusButton("Confirmer les modifications", () {
                                   if (_formKey.currentState!.validate()) {
                                     EventService.updateEvent(event, {
                                       "name": nameController.text,
                                       "publicVise": publicViseController.text,
                                       "description": descriptionController.text,
-                                      "organisateurPrincipal": organisateurPrincipalController.text,
-                                      "autreOrganisateurs": autreOrganisateursController.text,
+                                      "organisateurPrincipal": organisateurPrincipalController
+                                          .text,
+                                      "autreOrganisateurs": autreOrganisateursController
+                                          .text,
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
                                       "ville": villeController.text,
-                                    }).then((value) => {
+                                      "dateReservationMax": dateReservationMax,
+                                    }).then((value) =>
+                                    {
                                       if (value == true)
                                         {
                                           showSnackBar(
@@ -178,5 +215,29 @@ class _EditEventState extends State<EditEvent> {
                               ],
                             )))))),
         bottomNavigationBar: const AppBarWidget());
+  }
+
+  _selectDateEvent(BuildContext) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: dateEvent,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2122));
+    if (selected != null && selected != dateEvent)
+      setState(() {
+        dateEvent = selected;
+      });
+  }
+
+  _selectDateReservation(BuildContext) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: dateReservationMax,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2122));
+    if (selected != null && selected != dateReservationMax)
+      setState(() {
+        dateReservationMax = selected;
+      });
   }
 }

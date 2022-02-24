@@ -138,7 +138,7 @@ class _PublishEventState extends State<PublishEvent> {
                             child: Text("date maximale de réservation"),
                             style:
                             ElevatedButton.styleFrom(primary: Colors.green),
-                          )
+                          ),
                         ],
                       ),
                     ),

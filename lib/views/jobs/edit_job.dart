@@ -35,11 +35,26 @@ class _EditJobState extends State<EditJob> {
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
   late Job job;
+  DateTime date = DateTime.now();
+  DateTime dateFin = DateTime.now();
+  double remuneration = 1;
+  RangeValues experience = const RangeValues(0, 15);
+  //setup dates pour dateRange
+  DateTimeRange dateRange = DateTimeRange(
+      start: DateTime(2022,02, 5),
+      end: DateTime(2100, 02,5)
+  );
 
   Widget build(BuildContext context) {
+    final debut = dateRange.start;
+    final fin = dateRange.end;
+
+
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
+
             child: Form(
                 key: _formKey,
                 child: SafeArea(
@@ -49,6 +64,7 @@ class _EditJobState extends State<EditJob> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+
                                 const Text("Modifier une annonce d'emploi",
                                     style: TextStyle(fontSize: 40)),
 
@@ -92,6 +108,7 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 70,
                                 ),
+
                                 TextForm(
                                     remunerationController,
                                     'Rémunération',
@@ -114,42 +131,22 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 70,
                                 ),
-                                TextForm(
-                                    typeContratController,
-                                    'Type de contrat',
-                                        (value) {},
-                                    Icons.text_fields,
-                                    false,
-                                        () {},
-                                    TextInputType.text),
-                                const SizedBox(
-                                  height: 70,
+                                Text("Rémunération"),
+                                Container(
+                                    child:
+                                    Slider(
+                                      value: remuneration,
+                                      max: 3000,
+                                      divisions: 30,
+                                      label: remuneration.round().toString(),
+                                      onChanged: (double value) {
+                                        setState(() {
+                                          remuneration = value;
+                                        });
+                                      },
+                                      activeColor: Colors.black,
+                                    )
                                 ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateController,
-                                    'Date de début',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
-                                TextForm(
-                                    dateFinController,
-                                    'Date de fin',
-                                        (value) {},
-                                    Icons.date_range,
-                                    false,
-                                        () {},
-                                    TextInputType.datetime),
-                                const SizedBox(
-                                  height: 70,
-                                ),
-                                //Box pour le telephone
                                 TextForm(
                                     competencesController,
                                     "Compétences",
@@ -182,6 +179,28 @@ class _EditJobState extends State<EditJob> {
                                     false,
                                         () {},
                                     TextInputType.text),
+                                const SizedBox(
+                                  height: 70,
+                                ),
+                                Text ("Experience requise pour l'emploi (Bac +)"),
+                                Container(
+                                  child:
+                                  RangeSlider(
+                                    values: experience,
+                                    max: 15,
+                                    divisions: 15,
+                                    labels: RangeLabels(
+                                      experience.start.round().toString(),
+                                      experience.end.round().toString(),
+                                    ),
+                                    onChanged: (RangeValues values) {
+                                      setState(() {
+                                        experience = values;
+                                      });
+                                    },
+                                    activeColor: Colors.black,
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 70,
                                 ),
@@ -248,23 +267,89 @@ class _EditJobState extends State<EditJob> {
                                 const SizedBox(
                                   height: 30,
                                 ),
+
+
+
+
+                                Text('Date de début et date de fin'),
+
+                                Container(
+                                  child:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _selectDateDebut(context);
+                                        },
+                                        child: Text("${date.day}/${date.month}/${date.year}"),
+                                        style:
+                                        ElevatedButton.styleFrom(primary: Colors.green),
+                                      ),
+                                      const SizedBox( width: 10),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _selectDateFin(context);
+                                        },
+                                        child: Text("${dateFin.day}/${dateFin.month}/${dateFin .year}"),
+                                        style:
+                                        ElevatedButton.styleFrom(primary: Colors.green),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                //DateRangePicker test non fonctionnel
+
+                                /*Container (
+                                  child:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:  [
+                                      ElevatedButton(
+                                          onPressed: () async {
+                                            final picked = await showDateRangePicker(
+                                                context: context,
+                                                firstDate: dateFin,
+                                                lastDate: new DateTime(2022),
+                                            );
+                                            if (picked != null && picked != null) {
+                                              print(picked);
+                                              setState(() {
+                                                 date = picked.start;
+                                                 dateFin = picked.end;
+                                                //methode récupération de la date
+                                                recupDatesFuture = _recupDatesFuture(
+                                                  picked.start.toIso8601String(),
+                                                  picked.end
+                                                    .add(new Duration(hours: 24))
+                                                    .toIso8601String());
+
+                                              }
+                                              );
+                                            }
+                                          },
+                                          child: Text("Sélectionner la date de début et de fin de l'emploi"),
+                                          style: ElevatedButton.styleFrom(primary: Colors.green),
+                                      )
+                                    ]
+                                  ),
+                                ),*/
                                 RadiusButton("Confirmer les modifications", () {
                                   if (_formKey.currentState!.validate()) {
                                     EmploiService.updateJob(job, {
                                       "intitule": intituleController.text,
                                       "description": descriptionController.text,
                                       "typeContrat": typeContratController.text,
-                                      "remuneration": remunerationController.text,
                                       "assoc": assocController.text,
-                                      "date": dateController.text,
-                                      "dateFin": dateFinController.text,
                                       "competences": competencesController.text,
                                       "niveauEtudes": niveauEtudesController.text,
-                                      "experience": experienceController.text,
                                       "secteur": secteurController.text,
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
                                       "ville": villeController.text,
+                                      "date": date,
+                                      "dateFin": dateFin,
+                                      "remuneration": remuneration,
+                                      "experience": experience,
                                     }).then((value) => {
                                       if (value == true)
                                         {
@@ -291,4 +376,37 @@ class _EditJobState extends State<EditJob> {
                             )))))),
         bottomNavigationBar: const AppBarWidget());
   }
+
+
+
+  _selectDateDebut(BuildContext) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2122));
+    if (selected != null && selected != date)
+      setState(() {
+        date = selected;
+      });
+  }
+
+  _selectDateFin(BuildContext) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: dateFin,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2122));
+    if (selected != null && selected != dateFin)
+      setState(() {
+        dateFin = selected;
+      });
+
+
+  }
 }
+
+
+
+
+
