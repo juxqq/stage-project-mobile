@@ -41,7 +41,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                     alignment: Alignment.centerLeft,
                     child: Text(widget.article.text))
               ]))),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: AppBarWidget(0),
     );
   }
 }

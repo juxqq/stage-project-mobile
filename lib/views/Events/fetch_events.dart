@@ -35,7 +35,7 @@ class _fetchEventState extends State<fetchEvent> {
                   const SizedBox(height: 20),
                   const Text("Rechercher un évènement",
                       style:
-                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 20),
                   TextForm(nomController, 'Quoi', (value) {}, Icons.search,
                       false, () {}, TextInputType.text),
@@ -43,30 +43,34 @@ class _fetchEventState extends State<fetchEvent> {
                   TextForm(
                       locationController,
                       'Où',
-                          (value) {},
+                      (value) {},
                       Icons.location_on_sharp,
                       false,
-                          () {},
+                      () {},
                       TextInputType.text),
                   const SizedBox(width: 20),
                   RadiusButton("Rechercher", () {
-                    setState(() {
-                    });
+                    setState(() {});
                   }, Colors.black),
                   FutureBuilder(
-                      future: eventService.getEvent(nomController.text, locationController.text),
+                      future: eventService.getEvent(
+                          nomController.text, locationController.text),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return SizedBox(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height,
-                              child: const Center(child: CircularProgressIndicator()));
+                              child: const Center(
+                                  child: CircularProgressIndicator()));
                         } else if (snapshot.hasData) {
                           return Padding(
                               padding: const EdgeInsets.only(top: 10),
-                              child: _buildCardJob(snapshot.data as List<dynamic>));
+                              child: _buildCardJob(
+                                  snapshot.data as List<dynamic>));
                         } else {
-                          return const Text("Nous n'avons pas trouver d'évènements qui correspondent à votre recherche.");
+                          return const Text(
+                              "Nous n'avons pas trouver d'évènements qui correspondent à votre recherche.");
                         }
                       }),
                 ],
@@ -75,47 +79,49 @@ class _fetchEventState extends State<fetchEvent> {
           ),
         ),
       ),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(1),
     );
   }
+
   _buildCardJob(data) {
     return Column(
         children: List.generate(data.length, (index) {
-          return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EventDetails(data[index])));
-              },
-              child: Card(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(10.0),
-                          top: Radius.circular(2.0))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        title: Text(data[index].intitule),
-                        leading: const Icon(Icons.article),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      ListTile(
-                        subtitle: Text(data[index].loc),
-                        leading: const Icon(Icons.location_on_sharp),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      RadiusButton("Modifier un évément", () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => EditEvent(data[index])),
-                        );
-                      }, Colors.black)
-                    ],
-                  )));
-        }));
+      return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EventDetails(data[index])));
+          },
+          child: Card(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(10.0),
+                      top: Radius.circular(2.0))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    title: Text(data[index].nom),
+                    leading: const Icon(Icons.article),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  ListTile(
+                    subtitle: Text(data[index].ville),
+                    leading: const Icon(Icons.location_on_sharp),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  RadiusButton("Modifier un évément", () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditEvent(data[index])),
+                    );
+                  }, Colors.black)
+                ],
+              )));
+    }));
   }
 }

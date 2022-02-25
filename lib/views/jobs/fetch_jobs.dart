@@ -24,12 +24,13 @@ class _fetchJobsState extends State<fetchJobs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SearchWidget(
-          searchJobsWidget(typeContratController, remunerationController, context)),
+      drawer: SearchWidget(searchJobsWidget(
+          typeContratController, remunerationController, context)),
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
           backgroundColor: Colors.green[500],
-          title: const Text('Liste des emplois correspondants à votre recherche'),
+          title:
+              const Text('Liste des emplois correspondants à votre recherche'),
           centerTitle: true,
           toolbarHeight: MediaQuery.of(context).size.height * 0.08),
       body: SafeArea(
@@ -58,12 +59,14 @@ class _fetchJobsState extends State<fetchJobs> {
                       TextInputType.text),
                   const SizedBox(width: 20),
                   RadiusButton("Rechercher", () {
-
                     setState(() {});
                   }, Colors.black),
                   FutureBuilder(
-                      future: emploiService.getJob(intituleController.text, locationController.text, typeContratController!.text, remunerationController!.text),
-
+                      future: emploiService.getJob(
+                          intituleController.text,
+                          locationController.text,
+                          typeContratController!.text,
+                          remunerationController!.text),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -80,7 +83,6 @@ class _fetchJobsState extends State<fetchJobs> {
                         } else {
                           return const Text(
                               "Nous n'avons pas trouvé d'offres d'emploi qui correspondent à votre recherche.");
-
                         }
                       })
                 ],
@@ -89,39 +91,39 @@ class _fetchJobsState extends State<fetchJobs> {
           ),
         ),
       ),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(2),
     );
   }
 
   _buildCardJob(data) {
     return Column(
         children: List.generate(data.length, (index) {
-          return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => JobDetails(data[index])));
-              },
-              child: Card(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(10.0),
-                          top: Radius.circular(2.0))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        title: Text(data[index].intitule),
-                        leading: const Icon(Icons.article),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      ListTile(
-                        subtitle: Text(data[index].loc),
-                        leading: const Icon(Icons.location_on_sharp),
-                      )
-                    ],
-                  )));
-        }));
+      return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => JobDetails(data[index])));
+          },
+          child: Card(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(10.0),
+                      top: Radius.circular(2.0))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    title: Text(data[index].intitule),
+                    leading: const Icon(Icons.article),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  ListTile(
+                    subtitle: Text(data[index].loc),
+                    leading: const Icon(Icons.location_on_sharp),
+                  )
+                ],
+              )));
+    }));
   }
 }

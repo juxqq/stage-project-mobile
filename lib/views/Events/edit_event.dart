@@ -20,8 +20,10 @@ class _EditEventState extends State<EditEvent> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController publicViseController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController organisateurPrincipalController = TextEditingController();
-  final TextEditingController autreOrganisateursController = TextEditingController();
+  final TextEditingController organisateurPrincipalController =
+      TextEditingController();
+  final TextEditingController autreOrganisateursController =
+      TextEditingController();
   final TextEditingController adresseController = TextEditingController();
   final TextEditingController cpController = TextEditingController();
   final TextEditingController villeController = TextEditingController();
@@ -53,10 +55,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     nameController,
                                     'Nom',
-                                        (value) => value!.validateLastName(),
+                                    (value) => value!.validateLastName(),
                                     Icons.person,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 //A modifier avec la requère SQL adapté
                                 const SizedBox(
@@ -65,10 +67,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     publicViseController,
                                     'Public visé',
-                                        (value) {},
+                                    (value) {},
                                     Icons.person,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 //A modifier avec la requère SQL adapté
                                 const SizedBox(
@@ -77,10 +79,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     descriptionController,
                                     'Description',
-                                        (value) {},
+                                    (value) {},
                                     Icons.text_fields,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.multiline),
                                 const SizedBox(
                                   height: 70,
@@ -89,10 +91,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     organisateurPrincipalController,
                                     "Organistateur principal",
-                                        (value) {},
+                                    (value) {},
                                     Icons.person,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -101,10 +103,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     autreOrganisateursController,
                                     "Autre(s) organisateur(s)",
-                                        (value) {},
+                                    (value) {},
                                     Icons.person,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -113,10 +115,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     adresseController,
                                     "Adresse de l'événement",
-                                        (value) {},
+                                    (value) {},
                                     Icons.location_on_sharp,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -125,10 +127,10 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     cpController,
                                     "Code postal",
-                                        (value) {},
+                                    (value) {},
                                     Icons.location_on_sharp,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -137,15 +139,16 @@ class _EditEventState extends State<EditEvent> {
                                 TextForm(
                                     villeController,
                                     "Ville",
-                                        (value) {},
+                                    (value) {},
                                     Icons.location_on_sharp,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                Text("Modifier la date de l'évènement et de réservation"),
+                                Text(
+                                    "Modifier la date de l'évènement et de réservation"),
                                 Container(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -156,8 +159,7 @@ class _EditEventState extends State<EditEvent> {
                                         },
                                         child: Text(
                                             "${dateEvent.day}/${dateEvent.month}/${dateEvent.year}"),
-                                        style:
-                                        ElevatedButton.styleFrom(
+                                        style: ElevatedButton.styleFrom(
                                             primary: Colors.green),
                                       ),
                                       const SizedBox(width: 10),
@@ -167,8 +169,7 @@ class _EditEventState extends State<EditEvent> {
                                         },
                                         child: Text(
                                             '${dateReservationMax.day}/${dateReservationMax.month}/${dateReservationMax.year}'),
-                                        style:
-                                        ElevatedButton.styleFrom(
+                                        style: ElevatedButton.styleFrom(
                                             primary: Colors.green),
                                       )
                                     ],
@@ -181,32 +182,31 @@ class _EditEventState extends State<EditEvent> {
                                       "name": nameController.text,
                                       "publicVise": publicViseController.text,
                                       "description": descriptionController.text,
-                                      "organisateurPrincipal": organisateurPrincipalController
-                                          .text,
-                                      "autreOrganisateurs": autreOrganisateursController
-                                          .text,
+                                      "organisateurPrincipal":
+                                          organisateurPrincipalController.text,
+                                      "autreOrganisateurs":
+                                          autreOrganisateursController.text,
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
                                       "ville": villeController.text,
                                       "dateReservationMax": dateReservationMax,
-                                    }).then((value) =>
-                                    {
-                                      if (value == true)
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification réussie !',
-                                              Colors.green)
-                                        }
-                                      else
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification'
+                                    }).then((value) => {
+                                          if (value == true)
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification réussie !',
+                                                  Colors.green)
+                                            }
+                                          else
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification'
                                                   ' impossible pour le moment.',
-                                              Colors.red)
-                                        }
-                                    });
+                                                  Colors.red)
+                                            }
+                                        });
                                   }
                                 }, Colors.black),
                                 const SizedBox(
@@ -214,7 +214,7 @@ class _EditEventState extends State<EditEvent> {
                                 )
                               ],
                             )))))),
-        bottomNavigationBar: const AppBarWidget());
+        bottomNavigationBar: const AppBarWidget(1));
   }
 
   _selectDateEvent(BuildContext) async {

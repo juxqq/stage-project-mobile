@@ -12,7 +12,7 @@ class Article {
   final String imageName;
 
   get image {
-    return NetworkImage('$uriApi/images/$imageName');
+    return NetworkImage('$uriApi/images/articles/$imageName');
   }
 
   Article(this.id, this.title, this.resume, this.text, this.publishedDate,

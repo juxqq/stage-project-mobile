@@ -43,10 +43,10 @@ class _EditArticleState extends State<EditArticle> {
                                 TextForm(
                                     titleController,
                                     "Titre de l'article",
-                                        (value) {},
+                                    (value) {},
                                     Icons.person,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 //A modifier avec la requère SQL adapté
                                 const SizedBox(
@@ -55,10 +55,10 @@ class _EditArticleState extends State<EditArticle> {
                                 TextForm(
                                     resumeController,
                                     'Description',
-                                        (value) {},
+                                    (value) {},
                                     Icons.text_fields,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.multiline),
                                 const SizedBox(
                                   height: 70,
@@ -66,10 +66,10 @@ class _EditArticleState extends State<EditArticle> {
                                 TextForm(
                                     textController,
                                     "Texte de l'article",
-                                        (value) {},
+                                    (value) {},
                                     Icons.text_fields,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 30,
@@ -81,22 +81,22 @@ class _EditArticleState extends State<EditArticle> {
                                       "resume": resumeController.text,
                                       "text": textController.text,
                                     }).then((value) => {
-                                      if (value == true)
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification réussie !',
-                                              Colors.green)
-                                        }
-                                      else
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification'
+                                          if (value == true)
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification réussie !',
+                                                  Colors.green)
+                                            }
+                                          else
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification'
                                                   ' impossible pour le moment.',
-                                              Colors.red)
-                                        }
-                                    });
+                                                  Colors.red)
+                                            }
+                                        });
                                   }
                                 }, Colors.black),
                                 const SizedBox(
@@ -104,6 +104,6 @@ class _EditArticleState extends State<EditArticle> {
                                 )
                               ],
                             )))))),
-        bottomNavigationBar: const AppBarWidget());
+        bottomNavigationBar: const AppBarWidget(0));
   }
 }

@@ -44,7 +44,7 @@ class _ShowArticlesState extends State<ShowArticles> {
                   return const Text('Aucune donnee');
                 }
               })),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(0),
     );
   }
 
@@ -68,7 +68,7 @@ class _ShowArticlesState extends State<ShowArticles> {
                     title: Text(data[index].title),
                     leading: const Icon(Icons.article),
                   ),
-                  data[index].image,
+                  Image(image: data[index].image),
                   const SizedBox(
                     height: 5,
                   ),

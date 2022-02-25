@@ -89,7 +89,7 @@ class _AcceuilProfilState extends State<AcceuilProfil> {
               return Center(child: Text('Impossible de charger les données.'));
             }
           }),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(4),
     ));
   }
 }

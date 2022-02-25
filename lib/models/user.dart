@@ -11,7 +11,7 @@ class User {
   final String imageName;
 
   get image {
-    return NetworkImage('$uriApi/images/$imageName');
+    return NetworkImage('$uriApi/images/users/$imageName');
   }
 
   User(this.id, this.name, this.firstName, this.phone, this.mail, this.password,

@@ -16,7 +16,7 @@ class Event {
   final String imageName;
 
   get image {
-    return NetworkImage('$uriApi/images/$imageName');
+    return NetworkImage('$uriApi/images/event/$imageName');
   }
 
   Event(

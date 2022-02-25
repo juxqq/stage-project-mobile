@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/views/Events/edit_event.dart';
 import 'package:mobile_app/views/Events/event_details.dart';
 import 'package:mobile_app/views/Events/fetch_events.dart';
+import 'package:mobile_app/views/articles/show_articles.dart';
 import 'package:mobile_app/views/assoc/edit_assoc.dart';
 import 'package:mobile_app/views/assoc/publish_job.dart';
 import 'package:mobile_app/views/articles/publish.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         '/signupAssoc': (context) => const SignUpAssoc(),
         '/settings': (context) => const AcceuilProfil(),
         '/pushArticle': (context) => const PublishArticle(),
+        '/articles': (context) => const ShowArticles(),
+        '/events': (context) => const fetchEvent(),
+        '/jobs': (context) => const fetchJobs(),
       },
       home: FutureBuilder(
         future: UserService.getToken(),
