@@ -140,6 +140,6 @@ class _ProfileState extends State<Profile> {
                                 )
                               ],
                             )))))),
-        bottomNavigationBar: const AppBarWidget());
+        bottomNavigationBar: const AppBarWidget(4));
   }
 }

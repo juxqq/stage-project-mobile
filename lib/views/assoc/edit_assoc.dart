@@ -55,27 +55,33 @@ class _EditAssocState extends State<EditAssoc> {
                                 TextForm(
                                     nameController,
                                     "Nom de l'association",
-                                        (value) => value!.validateLastName(),
+                                    (value) => value!.validateLastName(),
                                     Icons.business,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 //A modifier avec la requère SQL adapté
                                 const SizedBox(
                                   height: 70,
                                 ),
-                                TextForm(siretController, 'N° Siret', (p0) => p0!.validateSiret(),
-                                    Icons.assignment, false, () {}, TextInputType.text),
+                                TextForm(
+                                    siretController,
+                                    'N° Siret',
+                                    (p0) => p0!.validateSiret(),
+                                    Icons.assignment,
+                                    false,
+                                    () {},
+                                    TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 TextForm(
                                     presidentController,
                                     "Nom complet du président",
-                                        (value) => value!.validateLastName(),
+                                    (value) => value!.validateLastName(),
                                     Icons.hail,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -83,10 +89,10 @@ class _EditAssocState extends State<EditAssoc> {
                                 TextForm(
                                     tresorierController,
                                     'Nom complet du Trésorier',
-                                        (p0) => p0!.validateLastName(),
+                                    (p0) => p0!.validateLastName(),
                                     Icons.price_check,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -94,10 +100,10 @@ class _EditAssocState extends State<EditAssoc> {
                                 TextForm(
                                     secretaireController,
                                     'Nom complet du Secrétaire',
-                                        (p0) => p0!.validateLastName(),
+                                    (p0) => p0!.validateLastName(),
                                     Icons.assistant,
                                     true,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -119,42 +125,72 @@ class _EditAssocState extends State<EditAssoc> {
                                 TextForm(
                                   descriptionController,
                                   'Description',
-                                      (p0) {},
+                                  (p0) {},
                                   Icons.text_fields,
                                   false,
-                                      () {},
+                                  () {},
                                   TextInputType.multiline,
                                 ),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 //Box pour le telephone
-                                TextForm(mailController, 'Email', (value) => value!.validateEmail(),
-                                    Icons.mail, false, () {}, TextInputType.text),
+                                TextForm(
+                                    mailController,
+                                    'Email',
+                                    (value) => value!.validateEmail(),
+                                    Icons.mail,
+                                    false,
+                                    () {},
+                                    TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 //Box pour le telephone
-                                TextForm(siteWebController, 'Site web', (p0) {}, Icons.add_link, false,
-                                        () {}, TextInputType.text),
+                                TextForm(
+                                    siteWebController,
+                                    'Site web',
+                                    (p0) {},
+                                    Icons.add_link,
+                                    false,
+                                    () {},
+                                    TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 //Box pour le telephone
-                                TextForm(adresseController, 'Adresse', (value) {},
-                                    Icons.location_on, false, () {}, TextInputType.text),
+                                TextForm(
+                                    adresseController,
+                                    'Adresse',
+                                    (value) {},
+                                    Icons.location_on,
+                                    false,
+                                    () {},
+                                    TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 //Box pour le telephone
-                                TextForm(cpController, 'Code postal', (value) {},
-                                    Icons.location_on, false, () {}, TextInputType.text),
+                                TextForm(
+                                    cpController,
+                                    'Code postal',
+                                    (value) {},
+                                    Icons.location_on,
+                                    false,
+                                    () {},
+                                    TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 //Box pour le telephone
-                                TextForm(villeController, 'Ville', (value) {},
-                                    Icons.location_on, false, () {}, TextInputType.text),
+                                TextForm(
+                                    villeController,
+                                    'Ville',
+                                    (value) {},
+                                    Icons.location_on,
+                                    false,
+                                    () {},
+                                    TextInputType.text),
                                 const SizedBox(
                                   height: 30,
                                 ),
@@ -174,22 +210,22 @@ class _EditAssocState extends State<EditAssoc> {
                                       "cp": cpController.text,
                                       "ville": villeController.text,
                                     }).then((value) => {
-                                      if (value == true)
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification réussie !',
-                                              Colors.green)
-                                        }
-                                      else
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification'
+                                          if (value == true)
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification réussie !',
+                                                  Colors.green)
+                                            }
+                                          else
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification'
                                                   ' impossible pour le moment.',
-                                              Colors.red)
-                                        }
-                                    });
+                                                  Colors.red)
+                                            }
+                                        });
                                   }
                                 }, Colors.black),
                                 const SizedBox(
@@ -197,6 +233,6 @@ class _EditAssocState extends State<EditAssoc> {
                                 )
                               ],
                             )))))),
-        bottomNavigationBar: const AppBarWidget());
+        bottomNavigationBar: const AppBarWidget(3));
   }
 }

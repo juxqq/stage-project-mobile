@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/models/job.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
 
-
 class JobDetails extends StatefulWidget {
   final Job job;
 
@@ -20,7 +19,7 @@ class _JobDetailsState extends State<JobDetails> {
       backgroundColor: Colors.white,
       appBar: AppBar(
           title:
-          Text(widget.job.intitule, style: const TextStyle(fontSize: 14)),
+              Text(widget.job.intitule, style: const TextStyle(fontSize: 14)),
           centerTitle: true,
           backgroundColor: Colors.green[500]),
       body: SingleChildScrollView(
@@ -38,7 +37,7 @@ class _JobDetailsState extends State<JobDetails> {
                     alignment: Alignment.centerLeft,
                     child: Text(widget.job.ville))
               ]))),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(2),
     );
   }
 }

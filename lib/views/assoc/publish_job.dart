@@ -39,9 +39,7 @@ class _PublishJobState extends State<PublishJob> {
     'Stage',
     'Benevolat',
     'Alternance',
-
   ];
-
 
   //late User user;
 
@@ -133,10 +131,9 @@ class _PublishJobState extends State<PublishJob> {
                         () => null,
                         TextInputType.multiline,
                         maxLines: null),
-                    const Text ("Experience requise pour l'emploi (Bac +)"),
+                    const Text("Experience requise pour l'emploi (Bac +)"),
                     Container(
-                      child:
-                      RangeSlider(
+                      child: RangeSlider(
                         values: experience,
                         max: 15,
                         divisions: 15,
@@ -164,56 +161,54 @@ class _PublishJobState extends State<PublishJob> {
                     TextForm(
                         adresseController,
                         "Adresse",
-                            (p0) => null,
+                        (p0) => null,
                         Icons.add_location,
                         false,
-                            () => null,
+                        () => null,
                         TextInputType.multiline,
                         maxLines: null),
                     TextForm(
                         cpController,
                         "Code postal",
-                            (p0) => null,
+                        (p0) => null,
                         Icons.add_location,
                         false,
-                            () => null,
+                        () => null,
                         TextInputType.multiline,
                         maxLines: null),
                     TextForm(
                         villeController,
                         "Ville",
-                            (p0) => null,
+                        (p0) => null,
                         Icons.add_location,
                         false,
-                            () => null,
+                        () => null,
                         TextInputType.multiline,
                         maxLines: null),
-                      Container(
-                        child:  Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {
-                                _selectDateDebut(context);
-                              },
-                              child: Text("Date de début"),
-                              style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
-                            ),
-                            const SizedBox( width: 10),
-                            ElevatedButton(
-                              onPressed: () {
-                                _selectDateFin(context);
-                              },
-                              child: Text("Date de fin"),
-                              style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
-                            ),
-                          ],
-                        ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          ElevatedButton(
+                            onPressed: () {
+                              _selectDateDebut(context);
+                            },
+                            child: Text("Date de début"),
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.green),
+                          ),
+                          const SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              _selectDateFin(context);
+                            },
+                            child: Text("Date de fin"),
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.green),
+                          ),
+                        ],
                       ),
-
-
+                    ),
                     const SizedBox(height: 10),
                     ElevatedButton(
                         onPressed: () {
@@ -233,8 +228,7 @@ class _PublishJobState extends State<PublishJob> {
                                   adresseController.text,
                                   cpController.text,
                                   villeController.text,
-                                  experience
-                          )
+                                  experience)
                               .then((value) {
                             if (value == true) {
                               showSnackBar(
@@ -258,7 +252,7 @@ class _PublishJobState extends State<PublishJob> {
                   ],
                 ),
               ))),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(3),
     );
   }
 
@@ -287,7 +281,4 @@ class _PublishJobState extends State<PublishJob> {
       });
     }
   }
-
-
-
 }

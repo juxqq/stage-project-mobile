@@ -1,9 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/models/event.dart';
 import 'package:mobile_app/widgets/bottom_nav_bar.dart';
-
 
 class EventDetails extends StatefulWidget {
   final Event event;
@@ -20,8 +18,7 @@ class _EventDetailsState extends State<EventDetails> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title:
-          Text(widget.event.nom, style: const TextStyle(fontSize: 14)),
+          title: Text(widget.event.nom, style: const TextStyle(fontSize: 14)),
           centerTitle: true,
           backgroundColor: Colors.green[500]),
       body: SingleChildScrollView(
@@ -39,7 +36,7 @@ class _EventDetailsState extends State<EventDetails> {
                     alignment: Alignment.centerLeft,
                     child: Text(widget.event.ville))
               ]))),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(1),
     );
   }
 }

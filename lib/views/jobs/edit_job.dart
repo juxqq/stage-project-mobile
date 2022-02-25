@@ -40,21 +40,16 @@ class _EditJobState extends State<EditJob> {
   double remuneration = 1;
   RangeValues experience = const RangeValues(0, 15);
   //setup dates pour dateRange
-  DateTimeRange dateRange = DateTimeRange(
-      start: DateTime(2022,02, 5),
-      end: DateTime(2100, 02,5)
-  );
+  DateTimeRange dateRange =
+      DateTimeRange(start: DateTime(2022, 02, 5), end: DateTime(2100, 02, 5));
 
   Widget build(BuildContext context) {
     final debut = dateRange.start;
     final fin = dateRange.end;
 
-
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
-
             child: Form(
                 key: _formKey,
                 child: SafeArea(
@@ -64,7 +59,6 @@ class _EditJobState extends State<EditJob> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
                                 const Text("Modifier une annonce d'emploi",
                                     style: TextStyle(fontSize: 40)),
 
@@ -74,10 +68,10 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     intituleController,
                                     "Intitulé de l'emploi",
-                                        (value) {},
+                                    (value) {},
                                     Icons.person,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 //A modifier avec la requère SQL adapté
                                 const SizedBox(
@@ -86,16 +80,17 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     descriptionController,
                                     'Description',
-                                        (value) {},
+                                    (value) {},
                                     Icons.text_fields,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.multiline),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 AppTextField(
-                                    textEditingController: typeContratController,
+                                    textEditingController:
+                                        typeContratController,
                                     isCitySelected: true,
                                     cities: [
                                       SelectedListItem(false, 'CDD'),
@@ -112,10 +107,10 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     remunerationController,
                                     'Rémunération',
-                                        (value) {},
+                                    (value) {},
                                     Icons.text_fields,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -123,37 +118,35 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     assocController,
                                     'Association',
-                                        (value) {},
+                                    (value) {},
                                     Icons.text_fields,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
                                 Text("Rémunération"),
                                 Container(
-                                    child:
-                                    Slider(
-                                      value: remuneration,
-                                      max: 3000,
-                                      divisions: 30,
-                                      label: remuneration.round().toString(),
-                                      onChanged: (double value) {
-                                        setState(() {
-                                          remuneration = value;
-                                        });
-                                      },
-                                      activeColor: Colors.black,
-                                    )
-                                ),
+                                    child: Slider(
+                                  value: remuneration,
+                                  max: 3000,
+                                  divisions: 30,
+                                  label: remuneration.round().toString(),
+                                  onChanged: (double value) {
+                                    setState(() {
+                                      remuneration = value;
+                                    });
+                                  },
+                                  activeColor: Colors.black,
+                                )),
                                 TextForm(
                                     competencesController,
                                     "Compétences",
-                                        (value) {},
+                                    (value) {},
                                     Icons.date_range,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -162,10 +155,10 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     niveauEtudesController,
                                     "Niveau d'études",
-                                        (value) {},
+                                    (value) {},
                                     Icons.date_range,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -174,18 +167,18 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     experienceController,
                                     "Expérience",
-                                        (value) {},
+                                    (value) {},
                                     Icons.date_range,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
                                 ),
-                                Text ("Experience requise pour l'emploi (Bac +)"),
+                                Text(
+                                    "Experience requise pour l'emploi (Bac +)"),
                                 Container(
-                                  child:
-                                  RangeSlider(
+                                  child: RangeSlider(
                                     values: experience,
                                     max: 15,
                                     divisions: 15,
@@ -209,23 +202,40 @@ class _EditJobState extends State<EditJob> {
                                     textEditingController: secteurController,
                                     isCitySelected: true,
                                     cities: [
-                                      SelectedListItem(false, 'Agroalimentaire'),
-                                      SelectedListItem(false, 'Bois / Papier / Carton / Imprimerie'),
-                                      SelectedListItem(false, 'Chimie / Parachimie'),
-                                      SelectedListItem(false, 'Édition / Communication / Multimédia'),
-                                      SelectedListItem(false, 'Études et conseils'),
-                                      SelectedListItem(false, 'Machines et équipements / Automobile'),
-                                      SelectedListItem(false, 'Plastique / Caoutchouc'),
-                                      SelectedListItem(false, 'Textile / Habillement / Chaussure'),
-                                      SelectedListItem(false, 'Banque / Assurance'),
-                                      SelectedListItem(false, 'BTP / Matériaux de construction'),
-                                      SelectedListItem(false, 'Commerce / Négoce / Distribution'),
-                                      SelectedListItem(false, 'Électronique / Électricité'),
-                                      SelectedListItem(false, 'Industrie pharmaceutique'),
-                                      SelectedListItem(false, 'Informatique / Télécoms'),
-                                      SelectedListItem(false, 'Métallurgie / Travail du métal'),
-                                      SelectedListItem(false, 'Services aux entreprises'),
-                                      SelectedListItem(false, 'Transports / Logistique'),
+                                      SelectedListItem(
+                                          false, 'Agroalimentaire'),
+                                      SelectedListItem(false,
+                                          'Bois / Papier / Carton / Imprimerie'),
+                                      SelectedListItem(
+                                          false, 'Chimie / Parachimie'),
+                                      SelectedListItem(false,
+                                          'Édition / Communication / Multimédia'),
+                                      SelectedListItem(
+                                          false, 'Études et conseils'),
+                                      SelectedListItem(false,
+                                          'Machines et équipements / Automobile'),
+                                      SelectedListItem(
+                                          false, 'Plastique / Caoutchouc'),
+                                      SelectedListItem(false,
+                                          'Textile / Habillement / Chaussure'),
+                                      SelectedListItem(
+                                          false, 'Banque / Assurance'),
+                                      SelectedListItem(false,
+                                          'BTP / Matériaux de construction'),
+                                      SelectedListItem(false,
+                                          'Commerce / Négoce / Distribution'),
+                                      SelectedListItem(
+                                          false, 'Électronique / Électricité'),
+                                      SelectedListItem(
+                                          false, 'Industrie pharmaceutique'),
+                                      SelectedListItem(
+                                          false, 'Informatique / Télécoms'),
+                                      SelectedListItem(false,
+                                          'Métallurgie / Travail du métal'),
+                                      SelectedListItem(
+                                          false, 'Services aux entreprises'),
+                                      SelectedListItem(
+                                          false, 'Transports / Logistique'),
                                     ],
                                     text: 'Secteur'),
                                 const SizedBox(
@@ -235,10 +245,10 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     adresseController,
                                     "Adresse de l'événement",
-                                        (value) {},
+                                    (value) {},
                                     Icons.location_on_sharp,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -247,10 +257,10 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     cpController,
                                     "Code postal",
-                                        (value) {},
+                                    (value) {},
                                     Icons.location_on_sharp,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 70,
@@ -259,40 +269,39 @@ class _EditJobState extends State<EditJob> {
                                 TextForm(
                                     villeController,
                                     "Ville",
-                                        (value) {},
+                                    (value) {},
                                     Icons.location_on_sharp,
                                     false,
-                                        () {},
+                                    () {},
                                     TextInputType.text),
                                 const SizedBox(
                                   height: 30,
                                 ),
 
-
-
-
                                 Text('Date de début et date de fin'),
 
                                 Container(
-                                  child:  Row(
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       ElevatedButton(
                                         onPressed: () {
                                           _selectDateDebut(context);
                                         },
-                                        child: Text("${date.day}/${date.month}/${date.year}"),
-                                        style:
-                                        ElevatedButton.styleFrom(primary: Colors.green),
+                                        child: Text(
+                                            "${date.day}/${date.month}/${date.year}"),
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.green),
                                       ),
-                                      const SizedBox( width: 10),
+                                      const SizedBox(width: 10),
                                       ElevatedButton(
                                         onPressed: () {
                                           _selectDateFin(context);
                                         },
-                                        child: Text("${dateFin.day}/${dateFin.month}/${dateFin .year}"),
-                                        style:
-                                        ElevatedButton.styleFrom(primary: Colors.green),
+                                        child: Text(
+                                            "${dateFin.day}/${dateFin.month}/${dateFin.year}"),
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.green),
                                       ),
                                     ],
                                   ),
@@ -341,7 +350,8 @@ class _EditJobState extends State<EditJob> {
                                       "typeContrat": typeContratController.text,
                                       "assoc": assocController.text,
                                       "competences": competencesController.text,
-                                      "niveauEtudes": niveauEtudesController.text,
+                                      "niveauEtudes":
+                                          niveauEtudesController.text,
                                       "secteur": secteurController.text,
                                       "adresse": adresseController.text,
                                       "cp": cpController.text,
@@ -351,22 +361,22 @@ class _EditJobState extends State<EditJob> {
                                       "remuneration": remuneration,
                                       "experience": experience,
                                     }).then((value) => {
-                                      if (value == true)
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification réussie !',
-                                              Colors.green)
-                                        }
-                                      else
-                                        {
-                                          showSnackBar(
-                                              context,
-                                              'Modification'
+                                          if (value == true)
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification réussie !',
+                                                  Colors.green)
+                                            }
+                                          else
+                                            {
+                                              showSnackBar(
+                                                  context,
+                                                  'Modification'
                                                   ' impossible pour le moment.',
-                                              Colors.red)
-                                        }
-                                    });
+                                                  Colors.red)
+                                            }
+                                        });
                                   }
                                 }, Colors.black),
                                 const SizedBox(
@@ -374,10 +384,8 @@ class _EditJobState extends State<EditJob> {
                                 )
                               ],
                             )))))),
-        bottomNavigationBar: const AppBarWidget());
+        bottomNavigationBar: const AppBarWidget(2));
   }
-
-
 
   _selectDateDebut(BuildContext) async {
     final DateTime? selected = await showDatePicker(
@@ -401,12 +409,5 @@ class _EditJobState extends State<EditJob> {
       setState(() {
         dateFin = selected;
       });
-
-
   }
 }
-
-
-
-
-

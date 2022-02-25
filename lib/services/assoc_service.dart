@@ -2,8 +2,21 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_app/utils/utils.dart';
 
 class AssocService {
-  static Future<dynamic> createAssoc(name, siret, president, tresorier, secretaire,
-      nbMembre, description, mail, siteWeb, pdp, adresse, cp, ville, image) async {
+  static Future<dynamic> createAssoc(
+      name,
+      siret,
+      president,
+      tresorier,
+      secretaire,
+      nbMembre,
+      description,
+      mail,
+      siteWeb,
+      pdp,
+      adresse,
+      cp,
+      ville,
+      image) async {
     try {
       final response =
           await http.post(Uri.parse('$uriApi/postAssoc.php'), body: {
@@ -35,7 +48,7 @@ class AssocService {
   static Future<dynamic> updateAssoc(id, body) async {
     try {
       final response =
-      await http.put(Uri.parse('$uri/putAssoc.php?id=$id'), body: body);
+          await http.put(Uri.parse('$uriApi/putAssoc.php?id=$id'), body: body);
 
       if (response.statusCode != 200) {
         return false;

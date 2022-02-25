@@ -123,7 +123,7 @@ class _PublishArticleState extends State<PublishArticle> {
                   ],
                 ),
               ))),
-      bottomNavigationBar: const AppBarWidget(),
+      bottomNavigationBar: const AppBarWidget(0),
     );
   }
 }

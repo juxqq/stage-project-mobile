@@ -1,48 +1,55 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
-class AppBarWidget extends StatefulWidget {
-  const AppBarWidget({Key? key}) : super(key: key);
+class AppBarWidget extends StatelessWidget {
+  final int indexSelected;
+  const AppBarWidget(this.indexSelected, {Key? key}) : super(key: key);
 
-  @override
-  _AppBarWidgetState createState() => _AppBarWidgetState();
-}
-
-class _AppBarWidgetState extends State<AppBarWidget> {
-  PageController _pageController = PageController();
-  int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
-    return BottomNavyBar(
-      iconSize: 25,
-      selectedIndex: _selectedIndex,
-      onItemSelected: (index) {
-        setState(() => _selectedIndex = index);
-        _pageController.jumpToPage(index);
-      },
-      items: [
-        BottomNavyBarItem(
-          icon: const Icon(Icons.home_outlined),
-          title: const Text('Accueil'),
-          activeColor: Colors.cyan,
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed, // plus de 3 éléments
+      currentIndex: indexSelected,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Articles',
         ),
-        BottomNavyBarItem(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            title: const Text('Emplois'),
-            activeColor: Colors.cyan),
-        BottomNavyBarItem(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            title: const Text('Articles'),
-            activeColor: Colors.cyan),
-        BottomNavyBarItem(
-            icon: Icon(Icons.access_time),
-            title: Text('Evenements'),
-            activeColor: Colors.cyan),
-        BottomNavyBarItem(
-            icon: Icon(Icons.app_settings_alt_rounded),
-            title: Text('Paramètres'),
-            activeColor: Colors.cyan),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.add_shopping_cart_outlined),
+          label: 'Evenement',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart_outlined),
+          label: 'Emploie',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart_outlined),
+          label: 'Association',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Parametres',
+        ),
       ],
+      onTap: (index) {
+        String page = '/';
+        switch (index) {
+          case 0:
+            page = '/articles';
+            break;
+          case 1:
+            page = '/events';
+            break;
+          case 2:
+            page = '/jobs';
+            break;
+          case 4:
+            page = '/settings';
+            break;
+        }
+        Navigator.pushNamed(context, page);
+      },
     );
   }
 }

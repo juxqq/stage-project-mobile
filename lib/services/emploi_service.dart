@@ -5,17 +5,33 @@ import 'package:mobile_app/models/job.dart';
 import 'package:mobile_app/utils/utils.dart';
 
 class EmploiService {
-  static Future<dynamic> createJob(intitule, description, typeContrat, remuneration, assoc, date, dateFin, datePublication, dateUpdate, competences, niveauEtudes, experience, secteur, adresse, cp, ville) async {
+  static Future<dynamic> createJob(
+      intitule,
+      description,
+      typeContrat,
+      remuneration,
+      assoc,
+      date,
+      dateFin,
+      datePublication,
+      dateUpdate,
+      competences,
+      niveauEtudes,
+      experience,
+      secteur,
+      adresse,
+      cp,
+      ville) async {
     try {
       final response = await http.post(Uri.parse('$uriApi/postJob.php'), body: {
         "intitule": "$intitule",
         "description": "$description",
         "typeContrat": "$typeContrat",
-        "remuneration":"$remuneration",
-        "assoc":"$assoc",
+        "remuneration": "$remuneration",
+        "assoc": "$assoc",
         "date": "$date",
         "dateFin": "$dateFin",
-        "datePublication" : "$datePublication",
+        "datePublication": "$datePublication",
         "dateUpdate": "$dateUpdate",
         "competences": "$competences",
         "niveauEtudes": "$niveauEtudes",
@@ -38,7 +54,7 @@ class EmploiService {
   static Future<dynamic> updateJob(id, body) async {
     try {
       final response =
-      await http.put(Uri.parse('$uri/putJob.php?id=$id'), body: body);
+          await http.put(Uri.parse('$uriApi/putJob.php?id=$id'), body: body);
 
       if (response.statusCode != 200) {
         return false;
@@ -53,9 +69,8 @@ class EmploiService {
     var jobs = [];
 
     try {
-      final response =
-      await http.get(Uri.parse('$uriApi/getJob.php?intitule=$intitule&ville=$ville&typeContrat=$typeContrat&remuneration=$remuneration'));
-
+      final response = await http.get(Uri.parse(
+          '$uriApi/getJob.php?intitule=$intitule&ville=$ville&typeContrat=$typeContrat&remuneration=$remuneration'));
 
       if (response.statusCode == 200) {
         var json = jsonDecode(utf8.decode(response.bodyBytes));
