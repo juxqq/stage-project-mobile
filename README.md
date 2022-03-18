@@ -1,5 +1,5 @@
 # stage-project-
-Repos stage de B2 - EPSI - Application mobile
+Repos stage de B2 - EPSI - Application mobile;
 Dans le but de valider ma deuxième année à l’EPSI, j’ai effectué mon deuxième stage dans
 l’entreprise de Monsieur ROULET Dorian. Pour la deuxième fois à l’EPSI, Monsieur ROULET a
 décidé de prendre trois stagiaires dans le but d’effectuer une mission dans le secteur de
